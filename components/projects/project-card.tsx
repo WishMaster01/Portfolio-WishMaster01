@@ -35,7 +35,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
         <Link
-          href={`/projects#${project.slug}`}
+          href={`/projects/${project.slug}`}
           className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-accent"
         >
           View case study
