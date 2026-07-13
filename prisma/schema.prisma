@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id         String           @id @default(cuid())
+  slug       String           @unique
+  title      String
+  category   String
+  year       String
+  status     String           @default("Case study")
+  role       String
+  timeline   String
+  summary    String           @db.Text
+  problem    String           @db.Text
+  solution   String           @db.Text
+  impact     String           @db.Text
+  stack      String[]
+  highlights String[]
+  featured   Boolean          @default(false)
+  sortOrder  Int              @default(0)
+  metrics    ProjectMetric[]
+  sections   ProjectSection[]
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  publishedAt DateTime?
+
+  @@index([featured, sortOrder])
+  @@index([category])
+}
+
+model ProjectMetric {
+  id        String  @id @default(cuid())
+  label     String
+  value     String
+  sortOrder Int     @default(0)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  @@index([projectId, sortOrder])
+}
+
+model ProjectSection {
+  id        String  @id @default(cuid())
+  title     String
+  body      String  @db.Text
+  sortOrder Int     @default(0)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  @@index([projectId, sortOrder])
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String    @db.Text
+  content     String?   @db.Text
+  date        DateTime
+  readingTime String
+  category    String
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, date])
+  @@index([category])
+}
+
+model ResumeProfile {
+  id        String   @id @default("primary")
+  name      String
+  title     String
+  location  String
+  email     String
+  summary   String   @db.Text
+  strengths String[]
+  education Json
+  resumeFile String?
+  updatedAt DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id          String                  @id @default(cuid())
+  name        String
+  email       String
+  company     String?
+  subject     String?
+  message     String                  @db.Text
+  source      String                  @default("portfolio")
+  status      ContactSubmissionStatus @default(NEW)
+  metadata    Json?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  @@index([email])
+  @@index([status, createdAt])
+}
+
+model NewsletterSubscription {
+  id        String                     @id @default(cuid())
+  email     String                     @unique
+  name      String?
+  source    String                     @default("portfolio")
+  status    NewsletterSubscriptionStatus @default(PENDING)
+  consent   Boolean                    @default(true)
+  createdAt DateTime                   @default(now())
+  updatedAt DateTime                   @updatedAt
+
+  @@index([status])
+}
+
+model AdminAuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+enum ContactSubmissionStatus {
+  NEW
+  REVIEWED
+  RESPONDED
+  ARCHIVED
+}
+
+enum NewsletterSubscriptionStatus {
+  PENDING
+  ACTIVE
+  UNSUBSCRIBED
+}
