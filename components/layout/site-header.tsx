@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { CommandPalette } from "@/components/command/command-palette";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { navigation } from "@/data/navigation";
@@ -28,7 +29,7 @@ export function SiteHeader() {
         </Link>
 
         <nav
-          className="hidden items-center gap-1 md:flex"
+          className="hidden items-center gap-1 xl:flex"
           aria-label="Primary navigation"
         >
           {navigation.main.map((item) => {
@@ -53,14 +54,16 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
+          <CommandPalette />
           <ThemeToggle />
           <Link href="/contact" className={buttonVariants({ size: "sm" })}>
             Contact
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          <CommandPalette compact />
           <ThemeToggle />
           <button
             type="button"
@@ -82,7 +85,7 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="border-t border-border bg-background px-6 py-4 md:hidden"
+          className="border-t border-border bg-background px-6 py-4 lg:hidden"
         >
           <div className="grid gap-2">
             {navigation.main.map((item) => {

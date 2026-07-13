@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { siteConfig } from "@/data/site";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -39,6 +40,30 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.summary,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url: `${siteConfig.url}/projects/${project.slug}`,
+      title: `${project.title} | ${siteConfig.name}`,
+      description: project.summary,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: `/projects/${project.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} case study`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | ${siteConfig.name}`,
+      description: project.summary,
+      images: [`/projects/${project.slug}/opengraph-image`],
+    },
   };
 }
 
@@ -52,6 +77,23 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: project.title,
+            description: project.summary,
+            url: `${siteConfig.url}/projects/${project.slug}`,
+            creator: {
+              "@type": "Person",
+              name: siteConfig.creator,
+            },
+            keywords: project.stack,
+          }),
+        }}
+      />
       <Section className="pb-10">
         <Container className="space-y-10">
           <div className="max-w-4xl space-y-6">
