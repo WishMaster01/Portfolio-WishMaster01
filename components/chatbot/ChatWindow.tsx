@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { ChatButton } from "@/components/chatbot/ChatButton";
 import { ChatMessage } from "@/components/chatbot/ChatMessage";
 import { SuggestedQuestions } from "@/components/chatbot/SuggestedQuestions";
@@ -15,12 +16,18 @@ const initialMessage: ChatMessageType = {
 };
 
 export function ChatWindow() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([initialMessage]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [provider, setProvider] = useState<ChatResponse["provider"]>("fallback");
+  const isProjectDetailPage = /^\/projects\/[^/]+$/.test(pathname);
+
+  if (isProjectDetailPage) {
+    return null;
+  }
 
   async function submitQuestion(question: string) {
     const userMessage = question.trim();

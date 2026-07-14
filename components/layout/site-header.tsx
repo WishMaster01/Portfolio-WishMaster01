@@ -13,6 +13,11 @@ import { cn } from "@/lib/utils";
 export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const isProjectDetailPage = /^\/projects\/[^/]+$/.test(pathname);
+
+  if (isProjectDetailPage) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">

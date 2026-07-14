@@ -16,10 +16,20 @@ model Project {
   role       String
   timeline   String
   summary    String           @db.Text
+  description String           @db.Text
   problem    String           @db.Text
   solution   String           @db.Text
   impact     String           @db.Text
   stack      String[]
+  technologies String[]
+  features   Json
+  architecture Json
+  screenshots Json
+  challenges Json
+  futureScope String[]
+  githubUrl  String
+  liveUrl    String
+  milestones Json
   highlights String[]
   featured   Boolean          @default(false)
   sortOrder  Int              @default(0)

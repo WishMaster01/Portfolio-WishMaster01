@@ -1,8 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigation } from "@/data/navigation";
 import { siteConfig } from "@/data/site";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  const isProjectDetailPage = /^\/projects\/[^/]+$/.test(pathname);
+
+  if (isProjectDetailPage) {
+    return null;
+  }
+
   return (
     <footer className="border-t border-border bg-surface/60">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-10 sm:px-8 lg:px-10">
