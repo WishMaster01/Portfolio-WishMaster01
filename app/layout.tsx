@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ChatWindow } from "@/components/chatbot/ChatWindow";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
@@ -93,6 +94,7 @@ export default function RootLayout({
               {children}
             </main>
             <SiteFooter />
+            <ChatWindow />
           </div>
         </ThemeProvider>
       </body>
