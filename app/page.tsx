@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons/arrow-right";
 import { Reveal } from "@/components/motion/reveal";
 import { ProjectCard } from "@/components/projects/project-card";
+import { ThemeBadge } from "@/components/theme/theme-badge";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,7 +20,10 @@ export default function Home() {
       <Section className="overflow-hidden pb-10 pt-16 sm:pt-24">
         <Container className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <Reveal className="space-y-8">
-            <Badge>{profile.eyebrow}</Badge>
+            <div className="flex flex-wrap items-center gap-3">
+              <ThemeBadge />
+              <Badge>{profile.eyebrow}</Badge>
+            </div>
             <div className="space-y-6">
               <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
                 {profile.headline}
@@ -43,9 +47,9 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <Card className="relative overflow-hidden">
+            <Card className="theme-accent-glow relative overflow-hidden">
               <CardContent className="space-y-8 p-6 sm:p-8">
-                <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.24),transparent_65%)]" />
+                <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,color-mix(in_oklab,var(--accent)_28%,transparent),transparent_65%)]" />
                 <div className="relative space-y-3">
                   <p className="font-mono text-sm text-accent">
                     portfolio.focus

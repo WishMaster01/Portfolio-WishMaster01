@@ -16,7 +16,7 @@ const baseClasses =
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-foreground text-background shadow-sm shadow-foreground/10 hover:bg-foreground/90",
+    "bg-accent text-accent-foreground shadow-sm shadow-accent/20 hover:bg-accent/90",
   secondary:
     "border border-border bg-surface text-foreground hover:bg-surface-elevated",
   ghost: "text-foreground hover:bg-surface",

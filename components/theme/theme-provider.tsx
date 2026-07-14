@@ -9,11 +9,11 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-
-type Theme = "light" | "dark" | "system";
+import { getThemeOption, isTheme, type Theme, type ThemeName } from "./themes";
 
 type ThemeContextValue = {
   theme: Theme;
+  resolvedTheme: ThemeName;
   setTheme: (theme: Theme) => void;
 };
 
@@ -29,10 +29,19 @@ function getSystemTheme() {
     : "light";
 }
 
+function resolveTheme(theme: Theme): ThemeName {
+  return theme === "system" ? getSystemTheme() : theme;
+}
+
 function applyTheme(theme: Theme) {
-  const resolvedTheme = theme === "system" ? getSystemTheme() : theme;
-  document.documentElement.classList.toggle("dark", resolvedTheme === "dark");
+  const resolvedTheme = resolveTheme(theme);
+  const themeOption = getThemeOption(resolvedTheme);
+
+  document.documentElement.classList.toggle("dark", themeOption.dark);
   document.documentElement.dataset.theme = resolvedTheme;
+  document.documentElement.style.colorScheme = themeOption.dark
+    ? "dark"
+    : "light";
 }
 
 function subscribe(listener: () => void) {
@@ -67,11 +76,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    const storedTheme = window.localStorage.getItem(storageKey) as Theme | null;
-    const nextTheme =
-      storedTheme === "light" || storedTheme === "dark" || storedTheme === "system"
-        ? storedTheme
-        : "system";
+    const storedTheme = window.localStorage.getItem(storageKey);
+    const nextTheme = isTheme(storedTheme) ? storedTheme : "system";
 
     setThemeValue(nextTheme, false);
   }, []);
@@ -92,7 +98,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setThemeValue(nextTheme, true);
   }, []);
 
-  const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+  const resolvedTheme =
+    typeof window === "undefined"
+      ? "light"
+      : resolveTheme(theme);
+
+  const value = useMemo(
+    () => ({ theme, resolvedTheme, setTheme }),
+    [theme, resolvedTheme, setTheme],
+  );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

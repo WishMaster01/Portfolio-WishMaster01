@@ -5,7 +5,7 @@ export function Card({ className, ...props }: ComponentPropsWithoutRef<"div">) {
   return (
     <div
       className={cn(
-        "rounded-3xl border border-border bg-surface shadow-sm shadow-slate-950/5",
+        "rounded-3xl border border-border bg-surface/85 shadow-sm shadow-foreground/5 backdrop-blur",
         className,
       )}
       {...props}
