@@ -1,171 +1,289 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/arrow-right";
-import { Reveal } from "@/components/motion/reveal";
-import { ProjectCard } from "@/components/projects/project-card";
-import { ThemeBadge } from "@/components/theme/theme-badge";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { articles } from "@/data/blog";
-import { experienceItems } from "@/data/experience";
-import { featuredProjects } from "@/data/projects";
-import { profile } from "@/data/profile";
-import { skillHighlights } from "@/data/skills";
+import { projects } from "@/data/projects";
+
+const socials = [
+  { label: "GitHub", value: "GH", href: "https://github.com/WishMaster01" },
+  {
+    label: "LinkedIn",
+    value: "in",
+    href: "https://www.linkedin.com/in/wishmaster01",
+  },
+  { label: "Twitter", value: "X", href: "https://x.com/wishmaster01" },
+  {
+    label: "Instagram",
+    value: "IG",
+    href: "https://instagram.com/wishmaster01",
+  },
+  { label: "Email", value: "@", href: "mailto:hello@wishmaster01.com" },
+] as const;
+
+const stats = [
+  {
+    icon: "▣",
+    value: "15+",
+    label: "Projects Completed",
+    color: "text-violet-600",
+    bg: "bg-violet-100",
+  },
+  {
+    icon: "</>",
+    value: "2+",
+    label: "Years of Experience",
+    color: "text-emerald-600",
+    bg: "bg-emerald-100",
+  },
+  {
+    icon: "◈",
+    value: "10+",
+    label: "Certifications",
+    color: "text-blue-600",
+    bg: "bg-blue-100",
+  },
+  {
+    icon: "♚",
+    value: "20+",
+    label: "Technologies",
+    color: "text-orange-500",
+    bg: "bg-orange-100",
+  },
+  {
+    icon: "☆",
+    value: "500+",
+    label: "DSA Problems Solved",
+    color: "text-pink-500",
+    bg: "bg-pink-100",
+  },
+  {
+    icon: "∞",
+    value: "∞",
+    label: "Lines of Code",
+    color: "text-violet-600",
+    bg: "bg-violet-100",
+  },
+] as const;
+
+const categoryLabels: Record<string, string> = {
+  infinityai: "AI SaaS Platform",
+  explorex: "AI Trip Planner",
+  dailyessentials: "Grocery Platform",
+  vyvo: "Chat & Social App",
+  wishcart: "E-commerce Platform",
+};
+
+const projectVisuals: Record<string, string> = {
+  infinityai:
+    "from-[#12002f] via-[#34127a] to-[#050014] before:bg-[radial-gradient(circle_at_70%_35%,rgba(168,85,247,0.95),transparent_22%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.18),transparent)]",
+  explorex:
+    "from-[#c5efff] via-[#3db9ff] to-[#08728f] before:bg-[radial-gradient(circle_at_42%_35%,rgba(255,255,255,0.95),transparent_20%)] after:bg-[linear-gradient(150deg,rgba(34,197,94,0.55),transparent_42%)]",
+  dailyessentials:
+    "from-[#fff7ed] via-[#fbbf77] to-[#9a3412] before:bg-[radial-gradient(circle_at_45%_35%,rgba(255,255,255,0.9),transparent_18%)] after:bg-[linear-gradient(145deg,rgba(120,53,15,0.28),transparent_45%)]",
+  vyvo: "from-[#290052] via-[#a21caf] to-[#2e1065] before:bg-[radial-gradient(circle_at_55%_35%,rgba(244,114,182,0.9),transparent_18%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.16),transparent)]",
+  wishcart:
+    "from-[#061b44] via-[#2563eb] to-[#050816] before:bg-[radial-gradient(circle_at_55%_34%,rgba(147,197,253,0.88),transparent_20%)] after:bg-[linear-gradient(145deg,rgba(255,255,255,0.16),transparent)]",
+};
+
+function DownloadIcon() {
+  return (
+    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="M10 3.75v8.1m0 0 3.15-3.15M10 11.85 6.85 8.7M4.5 14.2v1.15c0 .5.4.9.9.9h9.2c.5 0 .9-.4.9-.9V14.2"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path
+        d="M7.25 5.25h7.5v7.5M14.5 5.5l-9 9"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function Home() {
+  const featured = projects.slice(0, 5);
+
   return (
-    <>
-      <Section className="overflow-hidden pb-10 pt-16 sm:pt-24">
-        <Container className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <Reveal className="space-y-8">
-            <div className="flex flex-wrap items-center gap-3">
-              <ThemeBadge />
-              <Badge>{profile.eyebrow}</Badge>
+    <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
+      <section className="mx-auto w-full max-w-[1680px] px-5 pb-8 pt-16 sm:px-8 lg:px-24 lg:pb-14 lg:pt-20">
+        <div className="grid min-h-[510px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
+          <div className="relative z-10 max-w-[660px]">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-xl bg-accent/10 px-4 py-2 text-base font-semibold text-accent shadow-sm shadow-accent/10">
+              <span aria-hidden="true">Hi,</span>
+              <span>I&apos;m</span>
             </div>
-            <div className="space-y-6">
-              <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
-                {profile.headline}
-              </h1>
-              <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-                {profile.shortBio}
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link className={buttonVariants()} href="/projects">
-                View projects
-                <ArrowRight className="h-4 w-4" />
+
+            <h1 className="text-5xl font-black tracking-[-0.055em] text-foreground sm:text-7xl lg:text-[84px] lg:leading-[0.96]">
+              WishMaster01
+            </h1>
+
+            <p className="mt-5 text-3xl font-extrabold tracking-[-0.035em] text-accent sm:text-4xl lg:text-[42px]">
+              Full-Stack AI &amp; SaaS Developer
+            </p>
+
+            <p className="mt-8 max-w-[650px] text-lg leading-9 text-muted-foreground">
+              I build intelligent, scalable and user-centric web applications
+              and AI-powered solutions that solve real-world problems and create
+              impact.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/projects"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-accent px-7 text-base font-bold text-accent-foreground shadow-xl shadow-accent/25 transition hover:-translate-y-0.5 hover:opacity-90"
+              >
+                View My Work
+                <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
-                className={buttonVariants({ variant: "secondary" })}
                 href="/resume"
+                className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-border bg-surface px-7 text-base font-bold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/35 hover:text-accent"
               >
-                View resume
+                <DownloadIcon />
+                Download Resume
               </Link>
             </div>
-          </Reveal>
 
-          <Reveal delay={0.12}>
-            <Card className="theme-accent-glow relative overflow-hidden">
-              <CardContent className="space-y-8 p-6 sm:p-8">
-                <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,color-mix(in_oklab,var(--accent)_28%,transparent),transparent_65%)]" />
-                <div className="relative space-y-3">
-                  <p className="font-mono text-sm text-accent">
-                    portfolio.focus
-                  </p>
-                  <h2 className="text-2xl font-semibold">
-                    Product ideas shaped into clear case studies.
-                  </h2>
-                  <p className="text-sm leading-6 text-muted-foreground">
-                    InfinityAI, ExploreX, DailyEssentials, Vyvo, and WishCart
-                    are modeled as reusable project records with dedicated
-                    dynamic pages.
-                  </p>
-                </div>
-                <div className="relative flex flex-wrap gap-2">
-                  {skillHighlights.slice(0, 8).map((skill) => (
-                    <Badge key={skill} variant="secondary">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </Reveal>
-        </Container>
-      </Section>
+            <div className="mt-8 flex flex-wrap gap-4">
+              {socials.map((social) => (
+                <Link
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-surface text-sm font-extrabold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
+                >
+                  {social.value}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-      <Section className="py-12">
-        <Container className="space-y-8">
-          <Reveal className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div className="space-y-3">
-              <Badge variant="secondary">Selected projects</Badge>
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Five portfolio products with detail routes
+          <div className="relative">
+            <div className="hero-art-shell relative mx-auto aspect-[804/507] w-full max-w-[804px] overflow-hidden rounded-[2rem] border border-border/70 bg-surface/70 shadow-2xl backdrop-blur-sm after:mix-blend-overlay">
+              <Image
+                src="/home-page-character.png"
+                alt="WishMaster01 portfolio hero character with floating technology cards"
+                fill
+                priority
+                sizes="(min-width: 1280px) 804px, 94vw"
+                className="hero-art-image object-contain"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-border bg-surface/85 shadow-xl shadow-foreground/6 backdrop-blur">
+          <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-6">
+            {stats.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center justify-center gap-5 px-6 py-6"
+              >
+                <span
+                  className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-xl font-black ${item.bg} ${item.color}`}
+                >
+                  {item.icon}
+                </span>
+                <span>
+                  <span className="block text-2xl font-black tracking-tight text-foreground">
+                    {item.value}
+                  </span>
+                  <span className="block text-sm font-medium text-muted-foreground">
+                    {item.label}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <section className="mt-11">
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h2 className="text-3xl font-black tracking-[-0.035em] text-foreground">
+                Featured Projects
               </h2>
+              <p className="mt-2 text-base text-muted-foreground">
+                A few things I&apos;ve built with passion and precision.
+              </p>
             </div>
             <Link
-              className="inline-flex items-center gap-2 text-sm font-medium text-accent"
               href="/projects"
+              className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:opacity-80"
             >
-              View all <ArrowRight className="h-4 w-4" />
+              View all projects
+              <ArrowRight className="h-4 w-4" />
             </Link>
-          </Reveal>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuredProjects.map((project, index) => (
-              <Reveal key={project.slug} delay={index * 0.06}>
-                <ProjectCard project={project} />
-              </Reveal>
-            ))}
           </div>
-        </Container>
-      </Section>
 
-      <Section className="py-12">
-        <Container className="grid gap-6 lg:grid-cols-[0.8fr_1fr]">
-          <Reveal className="space-y-4">
-            <Badge variant="secondary">Experience</Badge>
-            <h2 className="text-3xl font-semibold tracking-tight">
-              Built around visible engineering judgment.
-            </h2>
-            <p className="text-sm leading-6 text-muted-foreground">
-              The portfolio shows architecture, tradeoffs, and product thinking
-              alongside visual execution.
-            </p>
-          </Reveal>
-          <div className="grid gap-4">
-            {experienceItems.slice(0, 2).map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.06}>
-                <Card>
-                  <CardContent className="space-y-2 p-5">
-                    <p className="text-sm font-medium text-accent">
-                      {item.period}
-                    </p>
-                    <h3 className="font-semibold">{item.title}</h3>
-                    <p className="text-sm leading-6 text-muted-foreground">
-                      {item.summary}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+            {featured.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/projects/${project.slug}`}
+                className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm shadow-foreground/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/12"
+              >
+                <div
+                  className={`relative h-36 overflow-hidden bg-gradient-to-br ${projectVisuals[project.slug] ?? projectVisuals.infinityai} before:absolute before:inset-0 after:absolute after:inset-0`}
+                >
+                  <div className="absolute inset-x-5 top-5 z-10 h-20 rounded-xl border border-white/15 bg-black/20 shadow-2xl backdrop-blur-sm">
+                    <div className="flex gap-1.5 border-b border-white/10 px-3 py-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-red-300" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-yellow-300" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-300" />
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 p-3">
+                      <span className="h-3 rounded bg-white/45" />
+                      <span className="h-3 rounded bg-white/25" />
+                      <span className="h-3 rounded bg-white/35" />
+                      <span className="h-3 rounded bg-white/20" />
+                      <span className="h-3 rounded bg-white/35" />
+                      <span className="h-3 rounded bg-white/25" />
+                    </div>
+                  </div>
+                  <span className="absolute bottom-[-1px] left-4 z-20 rounded-t-lg bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
+                    {categoryLabels[project.slug] ?? project.category}
+                  </span>
+                </div>
 
-      <Section className="pt-12">
-        <Container className="space-y-8">
-          <Reveal className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div className="space-y-3">
-              <Badge variant="secondary">Blog</Badge>
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Engineering notes and portfolio thinking
-              </h2>
-            </div>
-            <Link
-              className="inline-flex items-center gap-2 text-sm font-medium text-accent"
-              href="/blog"
-            >
-              Read posts <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            {articles.map((article, index) => (
-              <Reveal key={article.slug} delay={index * 0.06}>
-                <Card className="h-full">
-                  <CardContent className="space-y-2 p-5">
-                    <p className="text-xs text-muted-foreground">
-                      {article.category} / {article.readingTime}
-                    </p>
-                    <h3 className="font-semibold">{article.title}</h3>
-                  </CardContent>
-                </Card>
-              </Reveal>
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-xl font-black tracking-[-0.025em] text-foreground">
+                      {project.title}
+                    </h3>
+                    <ExternalIcon />
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                    {project.summary}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.stack.slice(0, 4).map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
-        </Container>
-      </Section>
-    </>
+        </section>
+      </section>
+    </div>
   );
 }

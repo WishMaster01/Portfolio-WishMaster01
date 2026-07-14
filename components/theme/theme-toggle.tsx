@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTheme } from "@/components/theme/theme-provider";
 import {
   getThemeOption,
@@ -11,9 +11,26 @@ import {
 } from "@/components/theme/themes";
 import { cn } from "@/lib/utils";
 
+function subscribeToHydration() {
+  return () => undefined;
+}
+
+function getClientHydrationSnapshot() {
+  return true;
+}
+
+function getServerHydrationSnapshot() {
+  return false;
+}
+
 export function ThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const isMounted = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot,
+  );
   const rootRef = useRef<HTMLDivElement>(null);
   const currentTheme = getThemeOption(resolvedTheme);
 
@@ -37,14 +54,13 @@ export function ThemeToggle() {
     <div ref={rootRef} className="relative">
       <button
         type="button"
-        className="inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-surface/85 px-3 text-sm font-semibold text-foreground shadow-sm shadow-foreground/5 backdrop-blur transition hover:border-accent/60"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-lg font-semibold text-slate-950 shadow-sm shadow-slate-950/5 backdrop-blur transition hover:border-violet-300"
         onClick={() => setIsOpen((value) => !value)}
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label={`Open theme menu. Current theme is ${themeLabels[theme]}.`}
       >
-        <span aria-hidden="true">{currentTheme.icon}</span>
-        <span className="hidden sm:inline">{currentTheme.label}</span>
+        <span aria-hidden="true">{isMounted ? currentTheme.icon : "☀️"}</span>
       </button>
 
       {isOpen ? (
@@ -68,8 +84,8 @@ export function ThemeToggle() {
                 Match device preference
               </span>
             </span>
-            <span className="text-base" aria-hidden="true">
-              🖥️
+            <span className="text-xs font-bold uppercase" aria-hidden="true">
+              Auto
             </span>
           </button>
 

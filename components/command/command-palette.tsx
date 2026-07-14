@@ -137,13 +137,14 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
         type="button"
         className={cn(
           "inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-surface px-3 text-sm font-medium text-muted-foreground transition hover:text-foreground",
-          compact && "w-10 justify-center px-0",
+          compact &&
+            "h-12 w-14 justify-center border-slate-200 bg-white px-0 font-bold text-slate-700",
         )}
         onClick={openPalette}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
       >
-        <span aria-hidden="true">⌘</span>
+        <span aria-hidden="true">{compact ? "⌘K" : "⌘"}</span>
         <span className={cn(compact && "sr-only")}>Search</span>
         {!compact ? (
           <kbd className="rounded-md border border-border px-1.5 py-0.5 text-[10px] text-muted-foreground">

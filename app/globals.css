@@ -17,6 +17,9 @@
   --ambient-one: #7c3aed;
   --ambient-two: #38bdf8;
   --ambient-three: #f0abfc;
+  --hero-art-filter: none;
+  --hero-art-glow: 0 30px 70px rgba(79, 70, 229, 0.16);
+  --hero-art-tint: rgba(124, 58, 237, 0.12);
   --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
   --font-system-sans: Inter, ui-sans-serif, system-ui, -apple-system,
@@ -54,6 +57,9 @@
   --ambient-one: #7c3aed;
   --ambient-two: #0ea5e9;
   --ambient-three: #312e81;
+  --hero-art-filter: saturate(1.04) contrast(1.04) brightness(0.86);
+  --hero-art-glow: 0 30px 90px rgba(168, 85, 247, 0.28);
+  --hero-art-tint: rgba(168, 85, 247, 0.2);
   --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
@@ -73,6 +79,9 @@
   --ambient-one: #7c3aed;
   --ambient-two: #60a5fa;
   --ambient-three: #f9a8d4;
+  --hero-art-filter: none;
+  --hero-art-glow: 0 30px 70px rgba(109, 74, 255, 0.16);
+  --hero-art-tint: rgba(124, 58, 237, 0.12);
   --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
@@ -92,6 +101,9 @@
   --ambient-one: #7c3aed;
   --ambient-two: #2563eb;
   --ambient-three: #111827;
+  --hero-art-filter: saturate(1.08) contrast(1.05) brightness(0.82);
+  --hero-art-glow: 0 32px 95px rgba(168, 85, 247, 0.34);
+  --hero-art-tint: rgba(168, 85, 247, 0.22);
   --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
@@ -111,6 +123,9 @@
   --ambient-one: #ff2fcf;
   --ambient-two: #00e5ff;
   --ambient-three: #7c3aed;
+  --hero-art-filter: saturate(1.35) contrast(1.13) brightness(0.76) hue-rotate(292deg);
+  --hero-art-glow: 0 0 52px rgba(255, 47, 207, 0.34), 0 28px 95px rgba(34, 211, 238, 0.18);
+  --hero-art-tint: rgba(255, 47, 207, 0.18);
   --theme-texture:
     linear-gradient(color-mix(in oklab, var(--accent) 22%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in oklab, var(--accent) 18%, transparent) 1px, transparent 1px);
@@ -132,6 +147,9 @@
   --ambient-one: #8b5cf6;
   --ambient-two: #fb7185;
   --ambient-three: #f9a8d4;
+  --hero-art-filter: saturate(1.1) contrast(1.02) brightness(1.02);
+  --hero-art-glow: 0 30px 85px rgba(236, 72, 153, 0.2);
+  --hero-art-tint: rgba(236, 72, 153, 0.12);
   --theme-texture:
     linear-gradient(135deg, color-mix(in oklab, #f0abfc 35%, transparent), transparent 38%),
     linear-gradient(315deg, color-mix(in oklab, #fed7aa 45%, transparent), transparent 35%);
@@ -153,6 +171,9 @@
   --ambient-one: #f59e0b;
   --ambient-two: #10b981;
   --ambient-three: #064e3b;
+  --hero-art-filter: sepia(0.24) saturate(1.05) contrast(1.05) brightness(0.82);
+  --hero-art-glow: 0 30px 90px rgba(246, 198, 91, 0.25);
+  --hero-art-tint: rgba(246, 198, 91, 0.16);
   --theme-texture:
     radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent) 10%, transparent) 0 1px, transparent 1px);
   --theme-texture-size: 24px 24px, auto, auto, auto;
@@ -173,6 +194,9 @@
   --ambient-one: #06b6d4;
   --ambient-two: #2563eb;
   --ambient-three: #0c4a6e;
+  --hero-art-filter: saturate(1.14) contrast(1.06) brightness(0.82) hue-rotate(176deg);
+  --hero-art-glow: 0 32px 95px rgba(34, 211, 238, 0.28);
+  --hero-art-tint: rgba(34, 211, 238, 0.15);
   --theme-texture:
     radial-gradient(circle at 75% 18%, color-mix(in oklab, var(--accent) 24%, transparent) 0 2px, transparent 3px),
     radial-gradient(circle at 82% 38%, color-mix(in oklab, var(--accent) 18%, transparent) 0 1px, transparent 2px);
@@ -194,6 +218,9 @@
   --ambient-one: #22c55e;
   --ambient-two: #84cc16;
   --ambient-three: #14532d;
+  --hero-art-filter: sepia(0.28) saturate(1.18) contrast(1.06) brightness(0.78) hue-rotate(54deg);
+  --hero-art-glow: 0 34px 95px rgba(110, 231, 95, 0.24);
+  --hero-art-tint: rgba(110, 231, 95, 0.14);
   --theme-texture:
     radial-gradient(ellipse at 12% 20%, color-mix(in oklab, #22c55e 18%, transparent), transparent 34%),
     radial-gradient(ellipse at 88% 15%, color-mix(in oklab, #84cc16 12%, transparent), transparent 30%);
@@ -215,6 +242,9 @@
   --ambient-one: #fb923c;
   --ambient-two: #f43f5e;
   --ambient-three: #a855f7;
+  --hero-art-filter: sepia(0.22) saturate(1.25) contrast(1.05) brightness(0.84) hue-rotate(325deg);
+  --hero-art-glow: 0 34px 95px rgba(251, 146, 60, 0.28);
+  --hero-art-tint: rgba(251, 146, 60, 0.16);
   --theme-texture:
     linear-gradient(180deg, color-mix(in oklab, #fb923c 24%, transparent), transparent 42%),
     radial-gradient(ellipse at 72% 16%, color-mix(in oklab, #fde68a 18%, transparent), transparent 28%);
@@ -236,6 +266,9 @@
   --ambient-one: #737373;
   --ambient-two: #d4d4d8;
   --ambient-three: #262626;
+  --hero-art-filter: grayscale(1) contrast(1.12) brightness(0.82);
+  --hero-art-glow: 0 32px 85px rgba(245, 245, 245, 0.14);
+  --hero-art-tint: rgba(245, 245, 245, 0.08);
   --theme-texture:
     linear-gradient(135deg, color-mix(in oklab, #ffffff 7%, transparent), transparent 28%);
   --theme-texture-size: auto, auto, auto, auto;
@@ -323,6 +356,22 @@ select {
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--accent) 32%, transparent),
     0 0 32px color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+.hero-art-image {
+  filter: var(--hero-art-filter);
+}
+
+.hero-art-shell {
+  box-shadow: var(--hero-art-glow);
+}
+
+.hero-art-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--hero-art-tint);
 }
 
 @media (prefers-reduced-motion: reduce) {
