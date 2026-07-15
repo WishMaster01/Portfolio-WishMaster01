@@ -374,6 +374,49 @@ select {
   background: var(--hero-art-tint);
 }
 
+.about-character-frame {
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 38%),
+    radial-gradient(circle at 64% 24%, color-mix(in oklab, var(--ambient-two) 10%, transparent), transparent 28%);
+}
+
+.about-character-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--hero-art-tint);
+  mix-blend-mode: overlay;
+}
+
+.about-character-image {
+  filter:
+    drop-shadow(0 30px 55px color-mix(in oklab, var(--accent) 20%, transparent))
+    saturate(1.04)
+    contrast(1.02);
+}
+
+[data-theme="dark"] .about-character-image,
+[data-theme="cyber"] .about-character-image,
+[data-theme="solarized"] .about-character-image,
+[data-theme="ocean"] .about-character-image,
+[data-theme="forest"] .about-character-image,
+[data-theme="sunset"] .about-character-image {
+  filter:
+    drop-shadow(0 30px 65px color-mix(in oklab, var(--accent) 28%, transparent))
+    saturate(1.08)
+    contrast(1.05)
+    brightness(0.94);
+}
+
+[data-theme="monochrome"] .about-character-image {
+  filter:
+    drop-shadow(0 30px 60px rgb(255 255 255 / 0.12))
+    grayscale(1)
+    contrast(1.1)
+    brightness(0.92);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

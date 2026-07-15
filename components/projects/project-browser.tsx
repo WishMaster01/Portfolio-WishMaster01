@@ -1,10 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ProjectCard } from "@/components/projects/project-card";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
@@ -12,122 +10,147 @@ type ProjectBrowserProps = {
   projects: Project[];
 };
 
+const filters = ["All", "AI", "Web Apps", "SaaS", "Mobile", "Tools"] as const;
+
+const categoryLabels: Record<string, string> = {
+  infinityai: "AI SaaS Platform",
+  explorex: "AI Trip Planner",
+  dailyessentials: "Grocery Platform",
+  vyvo: "Chat & Social App",
+  wishcart: "E-commerce Platform",
+};
+
+const projectVisuals: Record<string, string> = {
+  infinityai: "from-[#17002f] via-[#4c1d95] to-[#070014]",
+  explorex: "from-[#b9f4ff] via-[#38bdf8] to-[#03657a]",
+  dailyessentials: "from-[#fff1dc] via-[#f59e42] to-[#9a3412]",
+  vyvo: "from-[#270044] via-[#a21caf] to-[#3b0764]",
+  wishcart: "from-[#041737] via-[#2563eb] to-[#05102a]",
+};
+
+function projectMatchesFilter(project: Project, filter: string) {
+  if (filter === "All") {
+    return true;
+  }
+
+  const haystack = [
+    project.title,
+    project.category,
+    project.summary,
+    project.stack.join(" "),
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  if (filter === "Web Apps") {
+    return /next|react|web|commerce|dashboard|marketplace/.test(haystack);
+  }
+
+  return haystack.includes(filter.toLowerCase());
+}
+
 export function ProjectBrowser({ projects }: ProjectBrowserProps) {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
+  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
 
-  const categories = useMemo(
-    () => ["All", ...Array.from(new Set(projects.map((project) => project.category)))],
-    [projects],
+  const filteredProjects = useMemo(
+    () => projects.filter((project) => projectMatchesFilter(project, filter)),
+    [filter, projects],
   );
-
-  const filteredProjects = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-
-    return projects.filter((project) => {
-      const matchesCategory =
-        category === "All" || project.category === category;
-      const matchesQuery =
-        !normalizedQuery ||
-        [
-          project.title,
-          project.category,
-          project.summary,
-          project.role,
-          project.stack.join(" "),
-          project.highlights.join(" "),
-        ]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalizedQuery);
-
-      return matchesCategory && matchesQuery;
-    });
-  }, [category, projects, query]);
 
   return (
     <div className="space-y-8">
-      <Card>
-        <CardContent className="space-y-5 p-4 sm:p-6">
-          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <label className="sr-only" htmlFor="project-search">
-                Search projects
-              </label>
-              <input
-                id="project-search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by project, stack, category, or highlight..."
-                className="h-12 w-full rounded-2xl border border-border bg-background px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
-              />
-            </div>
-            <Badge variant="secondary">
-              {filteredProjects.length} of {projects.length} shown
-            </Badge>
-          </div>
-          <div
-            className="flex gap-2 overflow-x-auto pb-1"
-            aria-label="Project category filters"
+      <div className="flex flex-wrap gap-3">
+        {filters.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className={cn(
+              "rounded-full border px-5 py-2 text-sm font-bold transition",
+              item === filter
+                ? "border-accent bg-accent text-accent-foreground shadow-lg shadow-accent/20"
+                : "border-border bg-surface text-muted-foreground hover:border-accent/40 hover:text-accent",
+            )}
+            onClick={() => setFilter(item)}
           >
-            {categories.map((item) => {
-              const isActive = item === category;
+            {item}
+          </button>
+        ))}
+      </div>
 
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  className={cn(
-                    "whitespace-nowrap rounded-full border border-border px-4 py-2 text-sm font-medium transition",
-                    isActive
-                      ? "bg-foreground text-background"
-                      : "bg-surface text-muted-foreground hover:text-foreground",
-                  )}
-                  aria-pressed={isActive}
-                  onClick={() => setCategory(item)}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
-
-      <AnimatePresence mode="popLayout">
-        {filteredProjects.length ? (
-          <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, y: 14, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.22 }}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="empty"
-            initial={{ opacity: 0, y: 12 }}
+      <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {filteredProjects.map((project) => (
+          <motion.article
+            key={project.slug}
+            layout
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12 }}
+            className="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm shadow-foreground/5"
           >
-            <Card>
-              <CardContent className="p-8 text-center">
-                <h2 className="text-xl font-semibold">No projects found</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Clear the search or choose another category.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Link href={`/projects/${project.slug}`} className="block">
+              <div
+                className={cn(
+                  "relative h-56 overflow-hidden bg-gradient-to-br",
+                  projectVisuals[project.slug] ?? projectVisuals.infinityai,
+                )}
+              >
+                <div className="absolute inset-x-8 top-8 h-32 rounded-2xl border border-white/25 bg-black/20 shadow-2xl backdrop-blur-sm">
+                  <div className="flex gap-2 border-b border-white/15 px-4 py-3">
+                    <span className="h-2 w-2 rounded-full bg-red-300" />
+                    <span className="h-2 w-2 rounded-full bg-yellow-300" />
+                    <span className="h-2 w-2 rounded-full bg-green-300" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 p-4">
+                    {Array.from({ length: 9 }).map((_, index) => (
+                      <span
+                        key={index}
+                        className="h-4 rounded bg-white/25"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            <div className="p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-black">{project.title}</h2>
+                  <span className="mt-1 inline-flex rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
+                    {categoryLabels[project.slug] ?? project.category}
+                  </span>
+                </div>
+              </div>
+              <p className="mt-4 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                {project.summary}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.stack.slice(0, 4).map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-5 flex gap-3">
+                <Link
+                  href={project.liveUrl}
+                  className="rounded-full border border-border px-4 py-2 text-xs font-bold hover:border-accent/50 hover:text-accent"
+                >
+                  Live Demo
+                </Link>
+                <Link
+                  href={project.githubUrl}
+                  className="rounded-full border border-border px-4 py-2 text-xs font-bold hover:border-accent/50 hover:text-accent"
+                >
+                  GitHub
+                </Link>
+              </div>
+            </div>
+          </motion.article>
+        ))}
+      </motion.div>
     </div>
   );
 }

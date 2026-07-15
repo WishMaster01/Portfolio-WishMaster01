@@ -54,37 +54,39 @@ export function ThemeToggle() {
     <div ref={rootRef} className="relative">
       <button
         type="button"
-        className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-lg font-semibold text-slate-950 shadow-sm shadow-slate-950/5 backdrop-blur transition hover:border-violet-300"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface text-lg font-semibold text-foreground shadow-sm shadow-foreground/5 backdrop-blur transition hover:border-accent/60"
         onClick={() => setIsOpen((value) => !value)}
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label={`Open theme menu. Current theme is ${themeLabels[theme]}.`}
       >
-        <span aria-hidden="true">{isMounted ? currentTheme.icon : "☀️"}</span>
+        <span aria-hidden="true">{isMounted ? currentTheme.icon : "T"}</span>
       </button>
 
       {isOpen ? (
         <div
           role="menu"
           aria-label="Portfolio themes"
-          className="absolute right-0 top-12 z-50 w-72 overflow-hidden rounded-3xl border border-border bg-surface/95 p-2 shadow-2xl shadow-foreground/10 backdrop-blur-xl"
+          className="absolute right-0 top-12 z-50 w-72 overflow-hidden rounded-3xl border border-border bg-surface/95 p-2 text-foreground shadow-2xl shadow-foreground/10 backdrop-blur-xl"
         >
           <button
             type="button"
             role="menuitem"
             className={cn(
-              "mb-2 flex w-full items-center justify-between rounded-2xl border border-border px-3 py-2 text-left text-sm transition hover:border-accent/60 hover:bg-surface-elevated",
+              "mb-2 flex w-full items-center justify-between rounded-2xl border border-border px-3 py-2 text-left text-sm text-foreground transition hover:border-accent/60 hover:bg-surface-elevated",
               theme === "system" && "border-accent/70 bg-accent/10",
             )}
             onClick={() => selectTheme("system")}
           >
             <span>
-              <span className="block font-semibold">System</span>
+              <span className="block font-semibold text-foreground">
+                System
+              </span>
               <span className="text-xs text-muted-foreground">
                 Match device preference
               </span>
             </span>
-            <span className="text-xs font-bold uppercase" aria-hidden="true">
+            <span className="text-xs font-bold uppercase text-foreground/80">
               Auto
             </span>
           </button>
@@ -97,7 +99,7 @@ export function ThemeToggle() {
                 role="menuitemradio"
                 aria-checked={theme === option.id}
                 className={cn(
-                  "group rounded-2xl border border-border bg-background/70 p-3 text-left transition hover:border-accent/60 hover:bg-surface-elevated",
+                  "group rounded-2xl border border-border bg-background/70 p-3 text-left text-foreground transition hover:border-accent/60 hover:bg-surface-elevated",
                   theme === option.id && "border-accent/80 bg-accent/10",
                 )}
                 onClick={() => selectTheme(option.id)}
@@ -110,7 +112,7 @@ export function ThemeToggle() {
                 }
               >
                 <span className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wide">
+                  <span className="text-xs font-bold uppercase tracking-wide text-foreground">
                     {option.label}
                   </span>
                   <span aria-hidden="true">{option.icon}</span>

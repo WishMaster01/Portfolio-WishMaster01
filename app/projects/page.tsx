@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/layout/page-header";
 import { ProjectBrowser } from "@/components/projects/project-browser";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -13,17 +12,20 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <>
-      <PageHeader
-        eyebrow="Projects"
-        title="Five project case studies with scalable detail pages."
-        description="Each project is driven by a typed data record, so the listing and dynamic detail pages stay consistent while the content grows."
-      />
-      <Section className="pt-10">
-        <Container>
+    <div className="bg-background text-foreground">
+      <Section className="py-16">
+        <Container className="max-w-[1380px]">
+          <div className="mb-7">
+            <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+              My Projects
+            </h1>
+            <p className="mt-3 text-base text-muted-foreground">
+              Things I&apos;ve built with passion
+            </p>
+          </div>
           <ProjectBrowser projects={projects} />
         </Container>
       </Section>
-    </>
+    </div>
   );
 }
