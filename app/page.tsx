@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/arrow-right";
+import { Reveal } from "@/components/motion/reveal";
 import { projects } from "@/data/projects";
 
 const socials = [
@@ -119,7 +120,7 @@ export default function Home() {
     <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
       <section className="mx-auto w-full max-w-[1680px] px-5 pb-8 pt-16 sm:px-8 lg:px-24 lg:pb-14 lg:pt-20">
         <div className="grid min-h-[510px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="relative z-10 max-w-[660px]">
+          <Reveal className="relative z-10 max-w-[660px]">
             <div className="mb-8 inline-flex items-center gap-2 rounded-xl bg-accent/10 px-4 py-2 text-base font-semibold text-accent shadow-sm shadow-accent/10">
               <span aria-hidden="true">Hi,</span>
               <span>I&apos;m</span>
@@ -168,9 +169,9 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative">
+          <Reveal delay={0.08} className="relative">
             <div className="hero-art-shell relative mx-auto aspect-[804/507] w-full max-w-[804px] overflow-hidden rounded-[2rem] border border-border/70 bg-surface/70 shadow-2xl backdrop-blur-sm after:mix-blend-overlay">
               <Image
                 src="/home-page-character.png"
@@ -181,10 +182,10 @@ export default function Home() {
                 className="hero-art-image object-contain"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-border bg-surface/85 shadow-xl shadow-foreground/6 backdrop-blur">
+        <Reveal className="mt-10 rounded-2xl border border-border bg-surface/85 shadow-xl shadow-foreground/6 backdrop-blur">
           <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-6">
             {stats.map((item) => (
               <div
@@ -207,10 +208,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         <section className="mt-11">
-          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <Reveal className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 className="text-3xl font-black tracking-[-0.035em] text-foreground">
                 Featured Projects
@@ -226,12 +227,12 @@ export default function Home() {
               View all projects
               <ArrowRight className="h-4 w-4" />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
-            {featured.map((project) => (
+            {featured.map((project, index) => (
+              <Reveal key={project.slug} delay={index * 0.04}>
               <Link
-                key={project.slug}
                 href={`/projects/${project.slug}`}
                 className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm shadow-foreground/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/12"
               >
@@ -280,6 +281,7 @@ export default function Home() {
                   </div>
                 </div>
               </Link>
+              </Reveal>
             ))}
           </div>
         </section>

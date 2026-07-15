@@ -14,6 +14,9 @@ function getBlogDelegate(prisma: Record<string, unknown> | null) {
 function mapBlogPost(row: unknown): Article {
   const post = row as Record<string, unknown>;
   const date = post.date;
+  const fallback =
+    articles.find((article) => article.slug === String(post.slug)) ??
+    articles[0];
 
   return {
     slug: String(post.slug),
@@ -22,6 +25,12 @@ function mapBlogPost(row: unknown): Article {
     date: date instanceof Date ? date.toISOString().slice(0, 10) : String(date),
     readingTime: String(post.readingTime),
     category: String(post.category),
+    image: String(post.image ?? fallback.image),
+    author: String(post.author ?? fallback.author),
+    tags: Array.isArray(post.tags) ? post.tags.map(String) : fallback.tags,
+    coverAlt: String(post.coverAlt ?? fallback.coverAlt),
+    summary: String(post.summary ?? post.excerpt ?? fallback.summary),
+    content: fallback.content,
   };
 }
 

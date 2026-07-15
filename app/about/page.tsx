@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
@@ -54,7 +55,7 @@ export default function AboutPage() {
     <div className="bg-background text-foreground">
       <section className="mx-auto w-full max-w-[1680px] px-5 py-16 sm:px-8 lg:px-14">
         <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+          <Reveal>
             <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               About Me
             </h1>
@@ -82,9 +83,9 @@ export default function AboutPage() {
                 ))}
               </CardContent>
             </Card>
-          </div>
+          </Reveal>
 
-          <div className="relative min-h-[420px]">
+          <Reveal delay={0.08} className="relative min-h-[420px]">
             <div className="absolute left-1/2 top-1/2 h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10" />
             <div className="absolute right-[12%] top-[14%] h-32 w-24 bg-[radial-gradient(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
             <div className="about-character-frame relative z-10 mx-auto flex h-[420px] w-full max-w-[540px] items-end justify-center overflow-hidden rounded-[2rem]">
@@ -97,14 +98,15 @@ export default function AboutPage() {
                 className="about-character-image h-[400px] w-auto object-contain"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
 
         <section className="mt-16">
           <h2 className="text-center text-lg font-black">What Drives Me</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {drivers.map((item) => (
-              <Card key={item.title} className="rounded-2xl">
+            {drivers.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.05}>
+              <Card className="rounded-2xl">
                 <CardContent className="p-6">
                   <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent">
                     {item.icon}
@@ -115,6 +117,7 @@ export default function AboutPage() {
                   </p>
                 </CardContent>
               </Card>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -123,7 +126,7 @@ export default function AboutPage() {
           <h2 className="text-center text-lg font-black">My Journey</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-4">
             {journey.map((item, index) => (
-              <div key={item.year} className="relative">
+              <Reveal key={item.year} delay={index * 0.05} className="relative">
                 {index < journey.length - 1 ? (
                   <span className="absolute left-6 right-[-1.5rem] top-8 hidden h-px bg-accent/35 md:block" />
                 ) : null}
@@ -132,7 +135,7 @@ export default function AboutPage() {
                 <p className="mt-4 text-sm leading-6 text-muted-foreground">
                   {item.text}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>

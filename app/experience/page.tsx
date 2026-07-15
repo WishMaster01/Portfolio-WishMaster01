@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -22,20 +23,24 @@ export default function ExperiencePage() {
     <div className="bg-background text-foreground">
       <Section className="py-16">
         <Container className="max-w-[1380px]">
-          <div className="mb-8">
+          <Reveal className="mb-8">
             <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               My Experience
             </h1>
             <p className="mt-3 text-base text-muted-foreground">
               My professional journey so far
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
             <div className="relative space-y-6">
               <span className="absolute left-5 top-8 hidden h-[calc(100%-4rem)] w-px bg-accent/30 md:block" />
-              {experienceItems.map((item) => (
-                <div key={`${item.company}-${item.title}`} className="relative">
+              {experienceItems.map((item, index) => (
+                <Reveal
+                  key={`${item.company}-${item.title}`}
+                  delay={(index % 3) * 0.05}
+                  className="relative"
+                >
                   <span className="absolute left-3 top-8 hidden h-4 w-4 rounded-full border-4 border-background bg-accent md:block" />
                   <Card className="rounded-2xl md:ml-12">
                     <CardContent className="p-6">
@@ -60,7 +65,7 @@ export default function ExperiencePage() {
                       </ul>
                     </CardContent>
                   </Card>
-                </div>
+                </Reveal>
               ))}
             </div>
 

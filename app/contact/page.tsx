@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact/contact-form";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -16,75 +17,27 @@ const socials = ["GitHub", "LinkedIn", "Twitter", "Instagram", "Email"];
 export default function ContactPage() {
   return (
     <div className="bg-background text-foreground">
-      <Section className="py-16">
+      <Section className="py-12 sm:py-16">
         <Container className="max-w-[1180px]">
-          <div className="mb-8">
+          <Reveal className="mb-8">
             <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               Contact Me
             </h1>
             <p className="mt-3 text-base text-muted-foreground">
               Let&apos;s build something amazing together!
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid gap-7 lg:grid-cols-[1fr_420px]">
-            <Card className="rounded-2xl">
-              <CardContent className="p-6">
-                <form className="grid gap-5" aria-label="Contact form">
-                  <div className="grid gap-2">
-                    <label className="text-sm font-black" htmlFor="name">
-                      Your Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      placeholder="Enter your name"
-                      className="h-12 rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <label className="text-sm font-black" htmlFor="email">
-                      Email Address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      className="h-12 rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <label className="text-sm font-black" htmlFor="subject">
-                      Subject
-                    </label>
-                    <input
-                      id="subject"
-                      name="subject"
-                      placeholder="What is this about?"
-                      className="h-12 rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <label className="text-sm font-black" htmlFor="message">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={8}
-                      placeholder="Write your message..."
-                      className="resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
-                    />
-                  </div>
-                  <Button type="button" className="w-fit rounded-xl px-8">
-                    Send Message →
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            <Reveal>
+              <Card className="rounded-2xl">
+                <CardContent className="p-6">
+                  <ContactForm />
+                </CardContent>
+              </Card>
+            </Reveal>
 
-            <aside className="space-y-6">
+            <Reveal delay={0.08} className="space-y-6">
               <Card className="rounded-2xl">
                 <CardContent className="p-6">
                   <h2 className="font-black">Get In Touch</h2>
@@ -103,8 +56,10 @@ export default function ContactPage() {
                     {socials.map((item) => (
                       <Link
                         key={item}
-                        href={item === "Email" ? `mailto:${siteConfig.email}` : "#"}
-                        className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-xs font-black hover:border-accent/50 hover:text-accent"
+                        href={
+                          item === "Email" ? `mailto:${siteConfig.email}` : "#"
+                        }
+                        className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-xs font-black transition hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
                         aria-label={item}
                       >
                         {item.slice(0, 2)}
@@ -117,11 +72,11 @@ export default function ContactPage() {
               <Card className="rounded-2xl bg-accent/10">
                 <CardContent className="p-6">
                   <h2 className="font-black text-accent">
-                    Let&apos;s collaborate and create impact together!
+                    Let&apos;s collaborate and create impact together.
                   </h2>
                 </CardContent>
               </Card>
-            </aside>
+            </Reveal>
           </div>
         </Container>
       </Section>

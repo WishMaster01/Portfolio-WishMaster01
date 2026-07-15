@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ChatWindow } from "@/components/chatbot/ChatWindow";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { RouteTransition } from "@/components/motion/route-transition";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { siteConfig } from "@/data/site";
@@ -91,7 +92,7 @@ export default function RootLayout({
           <div className="flex min-h-dvh flex-col">
             <SiteHeader />
             <main id="main-content" className="flex-1">
-              {children}
+              <RouteTransition>{children}</RouteTransition>
             </main>
             <SiteFooter />
             <ChatWindow />

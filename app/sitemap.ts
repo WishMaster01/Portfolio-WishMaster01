@@ -10,6 +10,7 @@ const staticRoutes = [
   "/experience",
   "/resume",
   "/blog",
+  "/blog/create",
   "/contact",
   "/projects",
   "/services",
@@ -32,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     ...articles.map((article) => ({
-      url: `${siteConfig.url}/blog#${article.slug}`,
+      url: `${siteConfig.url}/blog/${article.slug}`,
       lastModified: new Date(article.date),
       changeFrequency: "yearly" as const,
       priority: 0.5,

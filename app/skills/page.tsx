@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -55,38 +56,40 @@ export default function SkillsPage() {
     <div className="bg-background text-foreground">
       <Section className="py-16">
         <Container className="max-w-[1380px]">
-          <div className="mb-8">
+          <Reveal className="mb-8">
             <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               My Skills
             </h1>
             <p className="mt-3 text-base text-muted-foreground">
               Technologies and tools I work with
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
             <div className="space-y-5">
-              {skillSections.map((section) => (
-                <Card key={section.title} className="rounded-2xl">
-                  <CardContent className="p-5">
-                    <h2 className="text-sm font-black">{section.title}</h2>
-                    <div className="mt-5 grid grid-cols-3 gap-4 sm:grid-cols-6">
-                      {section.items.map((item) => (
-                        <div
-                          key={item}
-                          className="grid justify-items-center gap-2 text-center"
-                        >
-                          <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent">
-                            {item.slice(0, 2)}
-                          </span>
-                          <span className="text-xs font-semibold text-muted-foreground">
-                            {item}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+              {skillSections.map((section, index) => (
+                <Reveal key={section.title} delay={(index % 3) * 0.05}>
+                  <Card className="rounded-2xl">
+                    <CardContent className="p-5">
+                      <h2 className="text-sm font-black">{section.title}</h2>
+                      <div className="mt-5 grid grid-cols-3 gap-4 sm:grid-cols-6">
+                        {section.items.map((item) => (
+                          <div
+                            key={item}
+                            className="grid justify-items-center gap-2 text-center"
+                          >
+                            <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent">
+                              {item.slice(0, 2)}
+                            </span>
+                            <span className="text-xs font-semibold text-muted-foreground">
+                              {item}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Reveal>
               ))}
             </div>
 
