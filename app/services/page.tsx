@@ -15,20 +15,20 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <Section>
-      <Container className="space-y-10">
+      <Container className="space-y-8 sm:space-y-10">
         <Reveal className="max-w-3xl space-y-5">
           <Badge>Services</Badge>
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
             Practical execution across product, interface, and system
             foundations.
           </h1>
-          <p className="text-lg leading-8 text-muted-foreground">
+          <p className="text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             The service model is designed for focused delivery: clear scope,
             measurable output, and maintainable implementation.
           </p>
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {services.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.06}>
               <Card className="h-full">

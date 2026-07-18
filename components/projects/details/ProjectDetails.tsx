@@ -57,7 +57,7 @@ function ProjectRightRail({ project }: { project: Project }) {
   return (
     <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
       <Card className="rounded-[2rem] bg-surface/95">
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <h2 className="font-black text-foreground">Quick Links</h2>
           <div className="mt-5 grid gap-3">
             {quickLinks.map((link) => (
@@ -77,15 +77,15 @@ function ProjectRightRail({ project }: { project: Project }) {
       </Card>
 
       <Card className="overflow-hidden rounded-[2rem] bg-accent text-accent-foreground shadow-xl shadow-accent/20">
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <p className="text-xs font-black uppercase tracking-[0.22em] opacity-80">
             Project Metrics
           </p>
-          <div className="mt-5 grid gap-3">
+          <div className="mt-5 grid grid-cols-3 gap-2 xl:grid-cols-1 xl:gap-3">
             {project.metrics.map((metric) => (
-              <div key={metric.label} className="rounded-2xl bg-background/15 p-4">
-                <p className="text-2xl font-black">{metric.value}</p>
-                <p className="mt-1 text-sm opacity-90">{metric.label}</p>
+              <div key={metric.label} className="rounded-2xl bg-background/15 p-3 sm:p-4">
+                <p className="text-xl font-black sm:text-2xl">{metric.value}</p>
+                <p className="mt-1 text-xs opacity-90 sm:text-sm">{metric.label}</p>
               </div>
             ))}
           </div>
@@ -144,7 +144,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
 
           <ProjectHero project={project} />
 
-          <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_410px]">
+          <div className="mt-6 grid gap-6 xl:mt-8 xl:grid-cols-[minmax(0,1fr)_410px] xl:gap-8">
             <main className="min-w-0 space-y-6">
               <ProjectTabs />
 

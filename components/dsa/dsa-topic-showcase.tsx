@@ -70,12 +70,12 @@ export function DsaTopicShowcase() {
         <CardContent className="relative p-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_28%),radial-gradient(circle_at_88%_10%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
 
-          <div className="relative grid gap-8 p-5 sm:p-7 lg:grid-cols-[1fr_360px] lg:p-8">
+          <div className="relative grid gap-5 p-4 sm:gap-8 sm:p-7 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_360px] lg:p-8">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
                 DSA Algorithm Dashboard
               </p>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-[-0.04em] text-foreground sm:text-4xl">
+              <h2 className="mt-3 max-w-3xl text-2xl font-black tracking-[-0.04em] text-foreground sm:text-4xl">
                 Learn the topic, identify the pattern, then implement the
                 solution.
               </h2>
@@ -85,7 +85,7 @@ export function DsaTopicShowcase() {
                 walkthrough, pitfalls, and Java implementation.
               </p>
 
-              <div className="mt-6 grid gap-3 md:grid-cols-3">
+              <div className="mt-5 grid gap-3 sm:grid-cols-3 sm:mt-6">
                 {dsaLearningPath.map((item, index) => (
                   <motion.div
                     key={item.title}
@@ -116,7 +116,7 @@ export function DsaTopicShowcase() {
               </div>
             </div>
 
-            <aside className="rounded-3xl border border-border bg-background/80 p-5 shadow-sm">
+            <aside className="rounded-3xl border border-border bg-background/80 p-4 shadow-sm sm:p-5">
               <label
                 htmlFor="dsa-topic"
                 className="text-xs font-black uppercase tracking-[0.22em] text-accent"
@@ -136,7 +136,7 @@ export function DsaTopicShowcase() {
                 ))}
               </select>
 
-              <div className="mt-5 grid gap-3">
+              <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-1 md:mt-5">
                 <div className="rounded-2xl border border-border bg-surface/80 p-4">
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
                     Category
@@ -159,10 +159,10 @@ export function DsaTopicShowcase() {
         </CardContent>
       </Card>
 
-      <div className="grid gap-4 lg:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
         {algorithmGroups.map((group) => (
           <Card key={group.label} className="rounded-3xl bg-surface/90">
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <h3 className="font-black text-foreground">{group.label}</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => {
@@ -190,7 +190,7 @@ export function DsaTopicShowcase() {
         ))}
       </div>
 
-      <div id={topicSlug(selectedTopic.title)} className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
+      <div id={topicSlug(selectedTopic.title)} className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-6">
         <motion.section
           key={selectedTopic.title}
           initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -205,7 +205,7 @@ export function DsaTopicShowcase() {
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-accent">
                     Selected DSA Topic
                   </p>
-                  <h2 className="mt-2 text-4xl font-black tracking-[-0.04em] text-foreground">
+                  <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] text-foreground sm:text-4xl">
                     {selectedTopic.title}
                   </h2>
                 </div>
@@ -214,7 +214,7 @@ export function DsaTopicShowcase() {
                 </span>
               </div>
 
-              <p className="mt-5 text-base leading-8 text-muted-foreground">
+              <p className="mt-4 text-sm leading-7 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">
                 {selectedTopic.description}
               </p>
 
@@ -244,11 +244,11 @@ export function DsaTopicShowcase() {
               <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
                 Detailed Example
               </p>
-              <h3 className="mt-2 text-2xl font-black text-foreground">
+              <h3 className="mt-2 text-xl font-black text-foreground sm:text-2xl">
                 {selectedTopic.example.problem}
               </h3>
 
-              <div className="mt-5 grid gap-4 md:grid-cols-2">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 sm:gap-4">
                 <ExampleBox label="Input" value={selectedTopic.example.input} />
                 <ExampleBox label="Output" value={selectedTopic.example.output} />
               </div>
@@ -264,7 +264,7 @@ export function DsaTopicShowcase() {
               <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
                 Java Reference Implementation
               </p>
-              <pre className="mt-4 max-h-[520px] overflow-x-auto rounded-2xl border border-border bg-background p-5 text-xs leading-6 text-muted-foreground shadow-inner">
+              <pre className="mt-4 max-h-[520px] overflow-x-auto rounded-2xl border border-border bg-background p-4 text-[11px] leading-6 text-muted-foreground shadow-inner sm:p-5 sm:text-xs">
                 <code>{selectedTopic.code}</code>
               </pre>
             </CardContent>

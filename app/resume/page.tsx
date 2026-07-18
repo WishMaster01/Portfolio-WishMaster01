@@ -25,11 +25,11 @@ export default function ResumePage() {
         description={resume.summary}
       />
       <Section className="pt-10">
-        <Container className="grid gap-8 lg:grid-cols-[0.35fr_1fr]">
+        <Container className="grid gap-6 md:grid-cols-[280px_1fr] lg:grid-cols-[0.35fr_1fr] lg:gap-8">
           <Reveal>
-            <aside className="space-y-6">
+            <aside className="space-y-4 md:sticky md:top-28 md:self-start lg:space-y-6">
               <Card>
-                <CardContent className="space-y-3 p-6">
+                <CardContent className="space-y-3 p-4 sm:p-6">
                   <p className="text-sm text-muted-foreground">Location</p>
                   <p className="font-medium">{resume.location}</p>
                   <p className="text-sm text-muted-foreground">Email</p>
@@ -41,7 +41,7 @@ export default function ResumePage() {
                   </a>
                 </CardContent>
               </Card>
-              <Link href="/contact" className={buttonVariants()}>
+              <Link href="/contact" className={buttonVariants({ className: "w-full" })}>
                 Contact for PDF
               </Link>
             </aside>
@@ -50,7 +50,7 @@ export default function ResumePage() {
           <div className="space-y-6">
             <Reveal>
               <Card>
-                <CardContent className="space-y-4 p-6">
+                <CardContent className="space-y-4 p-4 sm:p-6">
                   <h2 className="text-xl font-semibold">Core strengths</h2>
                   <div className="flex flex-wrap gap-2">
                     {resume.strengths.map((strength) => (
@@ -65,7 +65,7 @@ export default function ResumePage() {
 
             <Reveal delay={0.06}>
               <Card>
-                <CardContent className="space-y-4 p-6">
+                <CardContent className="space-y-4 p-4 sm:p-6">
                   <h2 className="text-xl font-semibold">Technical focus</h2>
                   <div className="flex flex-wrap gap-2">
                     {skillHighlights.map((skill) => (
@@ -80,7 +80,7 @@ export default function ResumePage() {
 
             <Reveal delay={0.12}>
               <Card>
-                <CardContent className="space-y-5 p-6">
+                <CardContent className="space-y-5 p-4 sm:p-6">
                   <h2 className="text-xl font-semibold">Experience</h2>
                   {experienceItems.map((item) => (
                     <div

@@ -15,7 +15,7 @@ export function ExperienceDashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {experienceMetrics.map((metric, index) => (
           <motion.div
             key={metric.label}
@@ -24,12 +24,12 @@ export function ExperienceDashboard() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ delay: index * 0.05, duration: 0.35 }}
           >
-            <Card className="rounded-3xl bg-surface/95">
-              <CardContent className="p-5">
-                <p className="text-3xl font-black text-accent">
+            <Card className="rounded-2xl bg-surface/95 sm:rounded-3xl">
+              <CardContent className="p-3 sm:p-5">
+                <p className="text-2xl font-black text-accent sm:text-3xl">
                   {metric.value}
                 </p>
-                <p className="mt-2 text-sm font-bold leading-6 text-muted-foreground">
+                <p className="mt-1 text-xs font-bold leading-5 text-muted-foreground sm:mt-2 sm:text-sm sm:leading-6">
                   {metric.label}
                 </p>
               </CardContent>
@@ -53,34 +53,34 @@ export function ExperienceDashboard() {
             >
               <span className="absolute left-[17px] top-8 hidden h-4 w-4 rounded-full border-4 border-background bg-accent shadow-lg shadow-accent/30 md:block" />
               <Card className="overflow-hidden rounded-[2rem] bg-surface/95 md:ml-14">
-                <CardContent className="p-5 sm:p-7">
-                  <div className="flex flex-col justify-between gap-4 lg:flex-row">
+                <CardContent className="p-4 sm:p-7">
+                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:gap-4">
                     <div>
                       <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
                         {item.company}
                       </p>
-                      <h2 className="mt-2 text-2xl font-black tracking-[-0.03em] text-foreground">
+                      <h2 className="mt-2 text-xl font-black tracking-[-0.03em] text-foreground sm:text-2xl">
                         {item.title}
                       </h2>
                       <p className="mt-2 text-sm font-semibold text-muted-foreground">
                         {item.location}
                       </p>
                     </div>
-                    <span className="h-fit rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-accent">
+                    <span className="h-fit w-fit rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.12em] text-accent sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.16em]">
                       {item.period}
                     </span>
                   </div>
 
-                  <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                  <p className="mt-4 text-sm leading-6 text-muted-foreground sm:mt-5 sm:leading-7">
                     {item.summary}
                   </p>
 
                   {item.impact ? (
-                    <div className="mt-5 rounded-2xl border border-border bg-background/70 p-4">
+                    <div className="mt-4 rounded-2xl border border-border bg-background/70 p-3 sm:mt-5 sm:p-4">
                       <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">
                         Impact
                       </p>
-                      <p className="mt-2 text-sm leading-7 text-foreground">
+                      <p className="mt-2 text-sm leading-6 text-foreground sm:leading-7">
                         {item.impact}
                       </p>
                     </div>
@@ -99,11 +99,11 @@ export function ExperienceDashboard() {
                     </div>
                   ) : null}
 
-                  <div className="mt-6 grid gap-3">
+                  <div className="mt-5 grid gap-2 sm:mt-6 sm:gap-3">
                     {item.achievements.map((achievement) => (
                       <div
                         key={achievement}
-                        className="flex gap-3 rounded-2xl border border-border bg-background/60 p-4 text-sm leading-7 text-muted-foreground"
+                        className="flex gap-3 rounded-2xl border border-border bg-background/60 p-3 text-sm leading-6 text-muted-foreground sm:p-4 sm:leading-7"
                       >
                         <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
                         <span>{achievement}</span>
@@ -118,7 +118,7 @@ export function ExperienceDashboard() {
 
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
           <Card className="rounded-[2rem] bg-surface/95">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black text-foreground">Experience Highlights</h2>
               <ul className="mt-5 space-y-4 text-sm text-muted-foreground">
                 {experienceHighlights.map((item) => (
@@ -132,7 +132,7 @@ export function ExperienceDashboard() {
           </Card>
 
           <Card className="overflow-hidden rounded-[2rem] bg-accent text-accent-foreground shadow-xl shadow-accent/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black">Working principles</h2>
               <div className="mt-5 space-y-4">
                 {workingPrinciples.map((item, index) => (
@@ -151,7 +151,7 @@ export function ExperienceDashboard() {
           </Card>
 
           <Card className="rounded-[2rem] bg-surface/95">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black text-foreground">Education</h2>
               <div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">
                 <div>

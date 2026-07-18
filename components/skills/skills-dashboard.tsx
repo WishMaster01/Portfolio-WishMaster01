@@ -16,7 +16,7 @@ export function SkillsDashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {skillMetrics.map((metric, index) => (
           <motion.div
             key={metric.label}
@@ -25,16 +25,16 @@ export function SkillsDashboard() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ delay: index * 0.05, duration: 0.35 }}
           >
-            <Card className="h-full overflow-hidden rounded-3xl bg-surface/95">
-              <CardContent className="relative p-5">
-                <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-accent/10" />
-                <p className="relative text-3xl font-black text-accent">
+            <Card className="h-full overflow-hidden rounded-2xl bg-surface/95 sm:rounded-3xl">
+              <CardContent className="relative p-3 sm:p-5">
+                <div className="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-accent/10 sm:h-24 sm:w-24" />
+                <p className="relative text-2xl font-black text-accent sm:text-3xl">
                   {metric.value}
                 </p>
-                <p className="relative mt-1 font-black text-foreground">
+                <p className="relative mt-1 text-sm font-black text-foreground sm:text-base">
                   {metric.label}
                 </p>
-                <p className="relative mt-3 text-sm leading-6 text-muted-foreground">
+                <p className="relative mt-3 hidden text-sm leading-6 text-muted-foreground sm:block">
                   {metric.detail}
                 </p>
               </CardContent>
@@ -54,11 +54,11 @@ export function SkillsDashboard() {
               transition={{ delay: (index % 3) * 0.05, duration: 0.36 }}
             >
               <Card className="group overflow-hidden rounded-[2rem] bg-surface/95 transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10">
-                <CardContent className="p-5 sm:p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="grid gap-5 lg:grid-cols-[1fr_190px]">
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
-                        <h2 className="text-xl font-black tracking-[-0.02em] text-foreground">
+                        <h2 className="text-lg font-black tracking-[-0.02em] text-foreground sm:text-xl">
                           {group.title}
                         </h2>
                         {group.level ? (
@@ -67,11 +67,11 @@ export function SkillsDashboard() {
                           </span>
                         ) : null}
                       </div>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground sm:leading-7">
                         {group.description}
                       </p>
                       {group.focus ? (
-                        <p className="mt-3 rounded-2xl border border-border bg-background/70 px-4 py-3 text-sm font-semibold text-foreground">
+                        <p className="mt-3 rounded-2xl border border-border bg-background/70 px-3 py-2.5 text-xs font-semibold text-foreground sm:px-4 sm:py-3 sm:text-sm">
                           Focus:{" "}
                           <span className="font-medium text-muted-foreground">
                             {group.focus}
@@ -118,7 +118,7 @@ export function SkillsDashboard() {
 
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
           <Card className="rounded-[2rem] bg-surface/95">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black text-foreground">Skills Overview</h2>
               <div className="mt-5 space-y-4">
                 {skillOverview.map((item, index) => (
@@ -151,7 +151,7 @@ export function SkillsDashboard() {
           </Card>
 
           <Card className="overflow-hidden rounded-[2rem] bg-accent text-accent-foreground shadow-xl shadow-accent/20">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black">Core strengths</h2>
               <div className="mt-5 space-y-4">
                 {skillStrengths.map((item) => (
@@ -167,7 +167,7 @@ export function SkillsDashboard() {
           </Card>
 
           <Card className="rounded-[2rem] bg-surface/95">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <h2 className="font-black text-foreground">Currently sharpening</h2>
               <ul className="mt-5 space-y-3">
                 {learningRoadmap.map((item) => (
@@ -189,7 +189,7 @@ export function SkillsDashboard() {
               <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
                 Practical toolkit
               </p>
-              <h2 className="mt-2 text-2xl font-black text-foreground">
+              <h2 className="mt-2 text-xl font-black text-foreground sm:text-2xl">
                 Skills I apply across portfolio projects
               </h2>
             </div>
@@ -198,7 +198,7 @@ export function SkillsDashboard() {
             {skillHighlights.map((skill) => (
               <span
                 key={skill}
-                className="rounded-full bg-accent/10 px-4 py-2 text-sm font-bold text-accent"
+                className="rounded-full bg-accent/10 px-3 py-1.5 text-xs font-bold text-accent sm:px-4 sm:py-2 sm:text-sm"
               >
                 {skill}
               </span>

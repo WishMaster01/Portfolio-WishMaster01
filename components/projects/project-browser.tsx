@@ -76,8 +76,8 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
-        <div className="rounded-[2rem] border border-border bg-surface/95 p-5 shadow-sm shadow-foreground/5 sm:p-6">
+      <div className="grid gap-4 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_360px] lg:gap-5">
+        <div className="rounded-[2rem] border border-border bg-surface/95 p-4 shadow-sm shadow-foreground/5 sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.24em] text-accent">
@@ -117,7 +117,7 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-accent/20 bg-accent text-accent-foreground p-5 shadow-xl shadow-accent/20 sm:p-6">
+        <div className="rounded-[2rem] border border-accent/20 bg-accent p-4 text-accent-foreground shadow-xl shadow-accent/20 sm:p-6">
           <p className="text-xs font-black uppercase tracking-[0.22em] opacity-80">
             Portfolio Scope
           </p>
@@ -138,7 +138,7 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
         </div>
       </div>
 
-      <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <motion.div layout className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
         {filteredProjects.map((project, index) => (
           <motion.article
             key={project.slug}
@@ -151,12 +151,12 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
             <Link href={`/projects/${project.slug}`} className="block">
               <div
                 className={cn(
-                  "relative h-60 overflow-hidden bg-gradient-to-br",
+                  "relative h-44 overflow-hidden bg-gradient-to-br sm:h-60",
                   projectVisuals[project.slug] ?? projectVisuals.infinityai,
                 )}
               >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_26%_20%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_72%,rgba(255,255,255,0.18),transparent_30%)]" />
-                <div className="absolute left-6 right-6 top-8 rounded-3xl border border-white/25 bg-black/25 p-4 shadow-2xl backdrop-blur-md">
+                <div className="absolute left-4 right-4 top-6 rounded-2xl border border-white/25 bg-black/25 p-3 shadow-2xl backdrop-blur-md sm:left-6 sm:right-6 sm:top-8 sm:rounded-3xl sm:p-4">
                   <div className="flex gap-2 border-b border-white/15 pb-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
                     <span className="h-2.5 w-2.5 rounded-full bg-yellow-300" />
@@ -212,7 +212,7 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
                 {project.metrics.slice(0, 3).map((metric) => (
                   <div
                     key={metric.label}
-                    className="rounded-2xl border border-border bg-background/70 p-3"
+                    className="rounded-2xl border border-border bg-background/70 p-2.5 sm:p-3"
                   >
                     <p className="font-black text-foreground">{metric.value}</p>
                     <p className="mt-1 text-[11px] leading-4 text-muted-foreground">

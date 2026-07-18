@@ -118,52 +118,53 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
-      <section className="mx-auto w-full max-w-[1680px] px-5 pb-8 pt-16 sm:px-8 lg:px-24 lg:pb-14 lg:pt-20">
-        <div className="grid min-h-[510px] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
-          <Reveal className="relative z-10 max-w-[660px]">
-            <div className="mb-8 inline-flex items-center gap-2 rounded-xl bg-accent/10 px-4 py-2 text-base font-semibold text-accent shadow-sm shadow-accent/10">
+      <section className="mx-auto w-full max-w-[1680px] px-4 pb-8 pt-10 sm:px-8 sm:pt-14 lg:px-24 lg:pb-14 lg:pt-20">
+        <div className="grid min-h-[360px] grid-cols-[minmax(0,1fr)_minmax(96px,32vw)] items-center gap-4 sm:min-h-[450px] sm:grid-cols-[minmax(0,1fr)_minmax(220px,42vw)] sm:gap-8 lg:min-h-[510px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
+          <Reveal className="relative z-10 min-w-0 max-w-[660px]">
+            <div className="mb-4 inline-flex items-center gap-1.5 rounded-xl bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent shadow-sm shadow-accent/10 sm:mb-8 sm:gap-2 sm:px-4 sm:py-2 sm:text-base">
               <span aria-hidden="true">Hi,</span>
               <span>I&apos;m</span>
             </div>
 
-            <h1 className="text-5xl font-black tracking-[-0.055em] text-foreground sm:text-7xl lg:text-[84px] lg:leading-[0.96]">
+            <h1 className="text-[clamp(2rem,8.8vw,4.5rem)] font-black leading-[0.98] tracking-[-0.055em] text-foreground lg:text-[84px] lg:leading-[0.96]">
               WishMaster01
             </h1>
 
-            <p className="mt-5 text-3xl font-extrabold tracking-[-0.035em] text-accent sm:text-4xl lg:text-[42px]">
+            <p className="mt-3 text-[clamp(1rem,4.2vw,2.25rem)] font-extrabold leading-tight tracking-[-0.035em] text-accent sm:mt-5 lg:text-[42px]">
               Full-Stack AI &amp; SaaS Developer
             </p>
 
-            <p className="mt-8 max-w-[650px] text-lg leading-9 text-muted-foreground">
+            <p className="mt-4 max-w-[650px] text-sm leading-6 text-muted-foreground sm:mt-8 sm:text-lg sm:leading-9">
               I build intelligent, scalable and user-centric web applications
               and AI-powered solutions that solve real-world problems and create
               impact.
             </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-5 flex flex-col gap-3 min-[430px]:flex-row sm:mt-8 sm:gap-4">
               <Link
                 href="/projects"
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-accent px-7 text-base font-bold text-accent-foreground shadow-xl shadow-accent/25 transition hover:-translate-y-0.5 hover:opacity-90"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-accent px-4 text-sm font-bold text-accent-foreground shadow-xl shadow-accent/25 transition hover:-translate-y-0.5 hover:opacity-90 sm:h-14 sm:px-7 sm:text-base"
               >
                 View My Work
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
               <Link
                 href="/resume"
-                className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-border bg-surface px-7 text-base font-bold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/35 hover:text-accent"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-sm font-bold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/35 hover:text-accent sm:h-14 sm:gap-3 sm:px-7 sm:text-base"
               >
                 <DownloadIcon />
-                Download Resume
+                <span className="hidden min-[430px]:inline">Download Resume</span>
+                <span className="min-[430px]:hidden">Resume</span>
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-4">
               {socials.map((social) => (
                 <Link
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-surface text-sm font-extrabold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
+                  className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-surface text-xs font-extrabold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent sm:h-12 sm:w-12 sm:text-sm"
                 >
                   {social.value}
                 </Link>
@@ -171,22 +172,22 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="relative">
-            <div className="hero-art-shell relative mx-auto aspect-[804/507] w-full max-w-[804px] overflow-hidden rounded-[2rem] border border-border/70 bg-surface/70 shadow-2xl backdrop-blur-sm after:mix-blend-overlay">
+          <Reveal delay={0.08} className="relative min-w-0">
+            <div className="hero-art-shell relative ml-auto aspect-[804/507] w-full max-w-[150px] overflow-hidden rounded-2xl border border-border/70 bg-surface/70 shadow-2xl backdrop-blur-sm after:mix-blend-overlay sm:max-w-[430px] sm:rounded-[2rem] lg:mx-auto lg:max-w-[804px]">
               <Image
                 src="/home-page-character.png"
                 alt="WishMaster01 portfolio hero character with floating technology cards"
                 fill
                 priority
-                sizes="(min-width: 1280px) 804px, 94vw"
+                sizes="(min-width: 1280px) 804px, (min-width: 640px) 42vw, 32vw"
                 className="hero-art-image object-contain"
               />
             </div>
           </Reveal>
         </div>
 
-        <Reveal className="mt-10 rounded-2xl border border-border bg-surface/85 shadow-xl shadow-foreground/6 backdrop-blur">
-          <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-6">
+        <Reveal className="mt-8 rounded-2xl border border-border bg-surface/85 shadow-xl shadow-foreground/6 backdrop-blur sm:mt-10">
+          <div className="grid grid-cols-2 divide-x divide-y divide-border sm:grid-cols-2 lg:grid-cols-6 lg:divide-y-0">
             {stats.map((item) => (
               <div
                 key={item.label}

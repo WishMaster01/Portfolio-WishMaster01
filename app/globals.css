@@ -274,6 +274,32 @@
   --theme-texture-size: auto, auto, auto, auto;
 }
 
+[data-theme="futuristic"] {
+  color-scheme: dark;
+  --background: #020617;
+  --background-alt: #07111f;
+  --foreground: #e6fbff;
+  --surface: #07111fcc;
+  --surface-elevated: #0b1b2f;
+  --muted: #8ac7d8;
+  --border: #164e63;
+  --accent: #00f5ff;
+  --accent-foreground: #020617;
+  --ring: #67e8f9;
+  --ambient-one: #00f5ff;
+  --ambient-two: #7c3aed;
+  --ambient-three: #0ea5e9;
+  --hero-art-filter: saturate(1.2) contrast(1.08) brightness(0.82) hue-rotate(190deg);
+  --hero-art-glow: 0 0 42px rgba(0, 245, 255, 0.24), 0 34px 105px rgba(124, 58, 237, 0.24);
+  --hero-art-tint: rgba(0, 245, 255, 0.13);
+  --theme-texture:
+    linear-gradient(color-mix(in oklab, var(--accent) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 18% 20%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 24%),
+    radial-gradient(circle at 80% 18%, color-mix(in oklab, #7c3aed 18%, transparent), transparent 28%);
+  --theme-texture-size: 46px 46px, 46px 46px, auto, auto, auto;
+}
+
 * {
   border-color: var(--border);
 }
@@ -349,7 +375,71 @@ select {
   background: var(--swatch-accent);
 }
 
+.github-signal-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--accent) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--accent) 10%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 32%),
+    radial-gradient(circle at 84% 16%, color-mix(in oklab, var(--ambient-two) 14%, transparent), transparent 30%);
+  background-size: 34px 34px, 34px 34px, auto, auto;
+}
+
+.github-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in oklab, var(--accent) 14%, transparent),
+    transparent
+  );
+  animation: github-scanline 4.5s ease-in-out infinite;
+}
+
+.github-pulse-orb {
+  animation: github-pulse-orb 5s ease-in-out infinite;
+}
+
+.github-float {
+  animation: github-float 6s ease-in-out infinite;
+}
+
+@keyframes github-scanline {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(520%);
+    opacity: 0;
+  }
+}
+
+@keyframes github-pulse-orb {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes github-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 [data-theme="cyber"] .theme-accent-glow,
+[data-theme="futuristic"] .theme-accent-glow,
 [data-theme="ocean"] .theme-accent-glow,
 [data-theme="forest"] .theme-accent-glow,
 [data-theme="sunset"] .theme-accent-glow {

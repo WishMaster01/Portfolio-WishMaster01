@@ -71,6 +71,14 @@ export const themeOptions = [
     dark: true,
     swatch: ["#050505", "#171717", "#f5f5f5"],
   },
+  {
+    id: "futuristic",
+    label: "Futuristic",
+    badge: "Futuristic Theme",
+    icon: "FX",
+    dark: true,
+    swatch: ["#020617", "#07111f", "#00f5ff"],
+  },
 ] as const;
 
 export type ThemeName = (typeof themeOptions)[number]["id"];
@@ -87,6 +95,7 @@ export const themeLabels: Record<Theme, string> = {
   forest: "Forest",
   sunset: "Sunset",
   monochrome: "Monochrome",
+  futuristic: "Futuristic",
 };
 
 const themeIds = new Set<string>(themeOptions.map((theme) => theme.id));

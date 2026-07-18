@@ -10,13 +10,15 @@ type PageHeaderProps = {
 
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <Section className="pb-10">
+    <Section className="pb-8 sm:pb-10">
       <Container className="max-w-4xl space-y-5">
         <Badge>{eyebrow}</Badge>
-        <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
           {title}
         </h1>
-        <p className="text-lg leading-8 text-muted-foreground">{description}</p>
+        <p className="text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+          {description}
+        </p>
       </Container>
     </Section>
   );

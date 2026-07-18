@@ -16,7 +16,7 @@ export function AboutDashboard() {
 
   return (
     <div className="space-y-10">
-      <div className="grid items-center gap-8 xl:grid-cols-[1fr_520px]">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(100px,34vw)] items-center gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(220px,40vw)] sm:gap-8 xl:grid-cols-[1fr_520px]">
         <div className="space-y-6">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
@@ -26,10 +26,10 @@ export function AboutDashboard() {
             <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
               About WishMaster01
             </p>
-            <h1 className="mt-3 text-4xl font-black tracking-[-0.05em] text-foreground sm:text-6xl">
+            <h1 className="mt-3 text-[clamp(1.9rem,8vw,4rem)] font-black leading-tight tracking-[-0.05em] text-foreground sm:text-6xl">
               Building practical AI, SaaS, and full-stack product experiences.
             </h1>
-            <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
+            <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">
               I&apos;m WishMaster01, a {profile.role}. I build structured,
               scalable, and user-centered web applications with a strong focus
               on product clarity, maintainable architecture, and production
@@ -37,7 +37,7 @@ export function AboutDashboard() {
             </p>
           </motion.div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4">
             {aboutStats.map((item, index) => (
               <motion.div
                 key={item.label}
@@ -46,16 +46,16 @@ export function AboutDashboard() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ delay: index * 0.05, duration: 0.35 }}
               >
-                <Card className="h-full overflow-hidden rounded-3xl bg-surface/95">
-                  <CardContent className="relative p-5">
-                    <div className="absolute right-0 top-0 h-20 w-20 rounded-bl-full bg-accent/10" />
-                    <p className="relative text-3xl font-black text-accent">
+                <Card className="h-full overflow-hidden rounded-2xl bg-surface/95 sm:rounded-3xl">
+                  <CardContent className="relative p-3 sm:p-5">
+                    <div className="absolute right-0 top-0 h-14 w-14 rounded-bl-full bg-accent/10 sm:h-20 sm:w-20" />
+                    <p className="relative text-xl font-black text-accent sm:text-3xl">
                       {item.value}
                     </p>
-                    <p className="relative mt-1 font-black text-foreground">
+                    <p className="relative mt-1 text-xs font-black text-foreground sm:text-base">
                       {item.label}
                     </p>
-                    <p className="relative mt-3 text-sm leading-6 text-muted-foreground">
+                    <p className="relative mt-2 hidden text-sm leading-6 text-muted-foreground sm:mt-3 sm:block">
                       {item.detail}
                     </p>
                   </CardContent>
@@ -69,22 +69,24 @@ export function AboutDashboard() {
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative min-h-[460px]"
+          className="relative min-h-[220px] sm:min-h-[380px] xl:min-h-[460px]"
         >
-          <div className="absolute inset-6 rounded-[3rem] bg-accent/10 blur-3xl" />
-          <div className="absolute right-6 top-8 h-32 w-24 bg-[radial-gradient(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px]" />
-          <div className="about-character-frame relative z-10 mx-auto flex h-[460px] w-full max-w-[520px] items-end justify-center overflow-hidden rounded-[2.25rem] border border-border bg-surface/80 shadow-xl shadow-foreground/5">
+          <div className="absolute inset-3 rounded-[2rem] bg-accent/10 blur-2xl sm:inset-6 sm:rounded-[3rem] sm:blur-3xl" />
+          <div className="absolute right-2 top-5 h-20 w-16 bg-[radial-gradient(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px] sm:right-6 sm:top-8 sm:h-32 sm:w-24" />
+          <div className="about-character-frame relative z-10 ml-auto flex h-[220px] w-full max-w-[150px] items-end justify-center overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-xl shadow-foreground/5 sm:mx-auto sm:h-[380px] sm:max-w-[430px] sm:rounded-[2.25rem] xl:h-[460px] xl:max-w-[520px]">
             <Image
               src="/about-page-character-cutout.png"
               alt="WishMaster01 about page character"
               width={540}
               height={520}
               priority
-              className="about-character-image h-[430px] w-auto object-contain"
+              className="about-character-image h-[205px] w-auto object-contain sm:h-[350px] xl:h-[430px]"
             />
           </div>
-          <div className="absolute bottom-7 left-1/2 z-20 w-[min(86%,360px)] -translate-x-1/2 rounded-2xl border border-border bg-surface/90 p-4 text-center shadow-xl shadow-foreground/10 backdrop-blur">
-            <p className="font-black text-foreground">Available for opportunities</p>
+          <div className="absolute bottom-3 left-1/2 z-20 hidden w-[min(86%,360px)] -translate-x-1/2 rounded-2xl border border-border bg-surface/90 p-4 text-center shadow-xl shadow-foreground/10 backdrop-blur sm:block xl:bottom-7">
+            <p className="font-black text-foreground">
+              Available for opportunities
+            </p>
             <p className="mt-1 text-sm text-muted-foreground">
               Full-stack, AI, SaaS, and product UI work.
             </p>

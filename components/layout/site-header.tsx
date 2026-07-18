@@ -20,21 +20,23 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 text-slate-950 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 w-full max-w-[1680px] items-center justify-between px-5 sm:px-8 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface/85 text-foreground backdrop-blur-xl">
+      <div className="mx-auto flex h-20 w-full max-w-[1680px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-4 font-black tracking-tight"
+          className="flex min-w-0 items-center gap-3 font-black tracking-tight sm:gap-4"
           onClick={() => setIsOpen(false)}
         >
-          <span className="grid h-12 w-12 place-items-center text-5xl font-black leading-none text-violet-600">
+          <span className="grid h-12 w-12 place-items-center text-5xl font-black leading-none text-accent">
             W
           </span>
-          <span className="hidden text-2xl sm:inline">{siteConfig.name}</span>
+          <span className="hidden truncate text-xl md:inline xl:text-2xl">
+            {siteConfig.name}
+          </span>
         </Link>
 
         <nav
-          className="hidden items-center gap-8 xl:flex"
+          className="hidden items-center gap-5 2xl:flex"
           aria-label="Primary navigation"
         >
           {navigation.main.map((item) => {
@@ -49,9 +51,9 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "relative py-7 text-base font-semibold text-slate-950 transition hover:text-violet-600",
+                  "relative py-7 text-sm font-semibold text-foreground transition hover:text-accent 2xl:text-base",
                   isActive &&
-                    "text-violet-600 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:bg-violet-600",
+                    "text-accent after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:bg-accent",
                 )}
               >
                 {item.label}
@@ -60,7 +62,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-4 2xl:flex">
           <CommandPalette compact />
           <ThemeToggle />
           <Link
@@ -68,7 +70,7 @@ export function SiteHeader() {
             className={buttonVariants({
               size: "md",
               className:
-                "h-12 rounded-xl bg-violet-600 px-6 text-white shadow-xl shadow-violet-500/25 hover:bg-violet-700",
+                "h-12 rounded-xl px-6 shadow-xl shadow-accent/25",
             })}
           >
             Get In Touch
@@ -76,14 +78,14 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 2xl:hidden">
           <CommandPalette compact />
           <ThemeToggle />
           <button
             type="button"
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-950"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground"
             onClick={() => setIsOpen((value) => !value)}
           >
             <span className="sr-only">Toggle navigation</span>
@@ -99,9 +101,9 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="border-t border-slate-200 bg-white px-6 py-4 lg:hidden"
+          className="border-t border-border bg-surface px-6 py-4 2xl:hidden"
         >
-          <div className="grid gap-2">
+          <div className="grid max-h-[calc(100dvh-6rem)] gap-2 overflow-y-auto">
             {navigation.main.map((item) => {
               const isActive =
                 item.href === "/"
@@ -114,8 +116,8 @@ export function SiteHeader() {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground",
-                    isActive && "bg-violet-50 text-violet-600",
+                    "rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-accent/10 hover:text-accent",
+                    isActive && "bg-accent/10 text-accent",
                   )}
                   onClick={() => setIsOpen(false)}
                 >

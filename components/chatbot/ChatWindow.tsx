@@ -106,7 +106,7 @@ export function ChatWindow() {
             role="dialog"
             aria-modal="false"
             aria-label="AI portfolio chatbot"
-            className="fixed inset-x-4 bottom-24 z-[70] ml-auto flex max-h-[min(42rem,75dvh)] max-w-lg flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-2xl shadow-slate-950/25 sm:right-5 sm:left-auto sm:w-[28rem]"
+            className="fixed inset-x-3 bottom-20 z-[70] ml-auto flex max-h-[min(42rem,78dvh)] max-w-lg flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-2xl shadow-slate-950/25 sm:bottom-24 sm:left-auto sm:right-5 sm:w-[28rem]"
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}

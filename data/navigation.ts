@@ -6,6 +6,7 @@ export const navigation = {
     { href: "/skills", label: "Skills" },
     { href: "/experience", label: "Experience" },
     { href: "/dsa-showcase", label: "DSA Showcase" },
+    { href: "/github", label: "GitHub" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ],

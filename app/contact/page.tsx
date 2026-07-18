@@ -20,18 +20,18 @@ export default function ContactPage() {
       <Section className="py-12 sm:py-16">
         <Container className="max-w-[1180px]">
           <Reveal className="mb-8">
-            <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+            <h1 className="text-3xl font-black tracking-[-0.04em] sm:text-5xl">
               Contact Me
             </h1>
-            <p className="mt-3 text-base text-muted-foreground">
+            <p className="mt-3 text-sm text-muted-foreground sm:text-base">
               Let&apos;s build something amazing together!
             </p>
           </Reveal>
 
-          <div className="grid gap-7 lg:grid-cols-[1fr_420px]">
+          <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_320px] lg:gap-7 xl:grid-cols-[1fr_420px]">
             <Reveal>
               <Card className="rounded-2xl">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <ContactForm />
                 </CardContent>
               </Card>
@@ -39,7 +39,7 @@ export default function ContactPage() {
 
             <Reveal delay={0.08} className="space-y-6">
               <Card className="rounded-2xl">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <h2 className="font-black">Get In Touch</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
                     I&apos;m always open to discussing new projects, creative
@@ -70,7 +70,7 @@ export default function ContactPage() {
               </Card>
 
               <Card className="rounded-2xl bg-accent/10">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <h2 className="font-black text-accent">
                     Let&apos;s collaborate and create impact together.
                   </h2>
