@@ -1,7 +1,17 @@
-type PrismaClientConstructor = new () => Record<string, unknown>;
+type PrismaClientConstructor = new (
+  options?: Record<string, unknown>,
+) => Record<string, unknown>;
 
 type PrismaModule = {
   PrismaClient: PrismaClientConstructor;
+};
+
+type PrismaPgConstructor = new (
+  config: Record<string, unknown>,
+) => Record<string, unknown>;
+
+type PrismaPgModule = {
+  PrismaPg: PrismaPgConstructor;
 };
 
 declare global {
@@ -17,6 +27,15 @@ async function importPrismaClient() {
   return dynamicImport("@prisma/client");
 }
 
+async function importPrismaPg() {
+  const dynamicImport = new Function(
+    "specifier",
+    "return import(specifier)",
+  ) as (specifier: string) => Promise<PrismaPgModule>;
+
+  return dynamicImport("@prisma/adapter-pg");
+}
+
 export async function getPrisma() {
   if (!process.env.DATABASE_URL) {
     return null;
@@ -28,7 +47,12 @@ export async function getPrisma() {
 
   try {
     const { PrismaClient } = await importPrismaClient();
-    globalThis.__wishmasterPrisma = new PrismaClient();
+    const { PrismaPg } = await importPrismaPg();
+    const adapter = new PrismaPg({
+      connectionString: process.env.DATABASE_URL,
+    });
+
+    globalThis.__wishmasterPrisma = new PrismaClient({ adapter });
     return globalThis.__wishmasterPrisma;
   } catch {
     return null;

@@ -1,6 +1,15 @@
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error("DATABASE_URL is required to run prisma/seed.mjs");
+}
+
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 const projects = [
   {
@@ -171,41 +180,195 @@ const blogPosts = [
     title: "Portfolio architecture that can scale past a single page",
     excerpt:
       "How route boundaries, typed content, and reusable UI keep a portfolio maintainable as it grows into a product surface.",
+    summary:
+      "A scalable portfolio needs clean routes, typed data, reusable sections, API boundaries, and admin-ready content models.",
+    content: [
+      {
+        heading: "Why structure matters",
+        body: [
+          "A portfolio becomes easier to maintain when pages, data, validation, UI primitives, and server operations have clear ownership.",
+        ],
+      },
+    ],
+    coverImage: "/blog/nextjs-architecture.png",
+    image: "/blog/nextjs-architecture.png",
+    coverAlt: "Generated web architecture cover image",
     date: new Date("2026-07-12"),
+    publishedAt: new Date("2026-07-12"),
     readingTime: "5 min read",
     category: "Architecture",
+    tags: ["Architecture", "Next.js", "Portfolio"],
+    author: "WishMaster01",
+    views: 210,
   },
   {
     slug: "case-studies-with-technical-depth",
     title: "Writing case studies with enough technical depth",
     excerpt:
       "A practical structure for explaining product context, engineering tradeoffs, implementation decisions, and measurable outcomes.",
+    summary:
+      "Strong project writing explains the problem, technical choices, tradeoffs, architecture, constraints, and outcomes.",
+    content: [
+      {
+        heading: "What recruiters look for",
+        body: [
+          "A strong case study shows how the project was reasoned about, not just which technologies were used.",
+        ],
+      },
+    ],
+    coverImage: "/blog/how-i-built-infinityai.png",
+    image: "/blog/how-i-built-infinityai.png",
+    coverAlt: "Generated AI SaaS dashboard cover image",
     date: new Date("2026-07-10"),
+    publishedAt: new Date("2026-07-10"),
     readingTime: "4 min read",
     category: "Portfolio",
+    tags: ["Case Study", "Projects", "Writing"],
+    author: "WishMaster01",
+    views: 180,
   },
   {
     slug: "motion-without-interface-noise",
     title: "Motion without interface noise",
     excerpt:
       "Using animation to clarify hierarchy and progression while respecting performance and reduced-motion preferences.",
+    summary:
+      "Motion should improve orientation and hierarchy without slowing down the interface or distracting from the content.",
+    content: [
+      {
+        heading: "Animation strategy",
+        body: [
+          "Use small reveal, hover, and route transition effects to make the interface feel polished without creating visual noise.",
+        ],
+      },
+    ],
+    coverImage: "/blog/deploying-nextjs-apps.png",
+    image: "/blog/deploying-nextjs-apps.png",
+    coverAlt: "Generated deployment and interface pipeline cover image",
     date: new Date("2026-07-08"),
+    publishedAt: new Date("2026-07-08"),
     readingTime: "3 min read",
     category: "Interface",
+    tags: ["Animation", "Framer Motion", "UX"],
+    author: "WishMaster01",
+    views: 160,
   },
 ];
 
+function projectDefaults(project) {
+  const title = project.title;
+  const stack = project.stack ?? ["Next.js", "TypeScript", "Tailwind CSS"];
+
+  return {
+    ...project,
+    description:
+      project.description ??
+      `${title} is a portfolio case study focused on product direction, interface quality, and scalable full-stack architecture.`,
+    technologies: project.technologies ?? stack,
+    features:
+      project.features ?? [
+        {
+          title: "Responsive product interface",
+          description:
+            "A polished multi-section experience designed for desktop, tablet, and mobile usage.",
+        },
+        {
+          title: "Typed content structure",
+          description:
+            "Project data is structured for static rendering now and database-backed admin workflows later.",
+        },
+        {
+          title: "Production-ready foundation",
+          description:
+            "The route, metadata, and API structure are prepared for real deployment and iteration.",
+        },
+      ],
+    architecture:
+      project.architecture ?? {
+        summary:
+          "The architecture separates route-level pages, reusable UI components, typed data records, and backend-ready persistence boundaries.",
+        layers: [
+          {
+            title: "Presentation layer",
+            description:
+              "Next.js App Router pages and reusable Tailwind components render the project experience.",
+          },
+          {
+            title: "Data layer",
+            description:
+              "Typed static data maps cleanly to Prisma models for future admin-managed content.",
+          },
+          {
+            title: "API layer",
+            description:
+              "Route handlers provide a backend-ready structure for project, blog, contact, and admin operations.",
+          },
+        ],
+      },
+    screenshots:
+      project.screenshots ?? [
+        {
+          title: `${title} overview`,
+          description: "Generated product overview preview for the case study.",
+          image: "/window.svg",
+        },
+      ],
+    challenges:
+      project.challenges ?? [
+        {
+          title: "Clear product storytelling",
+          description:
+            "The project needed to communicate value quickly while still showing technical depth.",
+          resolution:
+            "The page structure separates problem, solution, features, architecture, timeline, and future scope.",
+        },
+      ],
+    futureScope:
+      project.futureScope ?? [
+        "Connect project records to a protected admin dashboard.",
+        "Add analytics for project views and recruiter engagement.",
+        "Expand case studies with real screenshots and implementation metrics.",
+      ],
+    githubUrl:
+      project.githubUrl ?? `https://github.com/WishMaster01/${project.slug}`,
+    liveUrl: project.liveUrl ?? `https://wishmaster01.com/projects/${project.slug}`,
+    milestones:
+      project.milestones ?? [
+        {
+          label: "Planning",
+          date: "Phase 1",
+          description:
+            "Defined the project scope, user flow, and presentation goals.",
+        },
+        {
+          label: "Implementation",
+          date: "Phase 2",
+          description:
+            "Built the route structure, content model, and responsive UI sections.",
+        },
+        {
+          label: "Polish",
+          date: "Phase 3",
+          description:
+            "Added animations, metadata, accessibility, and production validation.",
+        },
+      ],
+  };
+}
+
 async function main() {
   for (const [index, project] of projects.entries()) {
+    const projectData = projectDefaults(project);
+
     await prisma.project.upsert({
       where: { slug: project.slug },
       update: {
-        ...project,
+        ...projectData,
         featured: index < 3,
         sortOrder: index,
         metrics: {
           deleteMany: {},
-          create: project.metrics.map((metric, metricIndex) => ({
+          create: projectData.metrics.map((metric, metricIndex) => ({
             ...metric,
             sortOrder: metricIndex,
           })),
@@ -219,11 +382,11 @@ async function main() {
         },
       },
       create: {
-        ...project,
+        ...projectData,
         featured: index < 3,
         sortOrder: index,
         metrics: {
-          create: project.metrics.map((metric, metricIndex) => ({
+          create: projectData.metrics.map((metric, metricIndex) => ({
             ...metric,
             sortOrder: metricIndex,
           })),

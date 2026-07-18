@@ -70,16 +70,25 @@ model BlogPost {
   slug        String    @unique
   title       String
   excerpt     String    @db.Text
-  content     String?   @db.Text
-  date        DateTime
+  summary     String    @db.Text
+  content     Json
+  coverImage  String
+  image       String?
+  coverAlt    String
   readingTime String
   category    String
+  tags        String[]
+  author      String    @default("WishMaster01")
   published   Boolean   @default(true)
+  publishedAt DateTime?
+  date        DateTime
+  views       Int       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@index([published, date])
   @@index([category])
+  @@index([views])
 }
 
 model ResumeProfile {
