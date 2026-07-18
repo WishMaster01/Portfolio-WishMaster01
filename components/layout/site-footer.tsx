@@ -14,7 +14,7 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t border-border bg-surface/60">
+    <footer className="print-hide border-t border-border bg-surface/60">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-10 sm:px-8 lg:px-10">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-start">
           <div className="max-w-md space-y-3">

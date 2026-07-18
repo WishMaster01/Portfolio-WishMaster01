@@ -517,3 +517,51 @@ select {
     transition-duration: 0.01ms !important;
   }
 }
+
+.print-resume {
+  display: none !important;
+}
+
+.resume-print-heading {
+  border-bottom: 1px solid #111827;
+  padding-bottom: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  body {
+    background-image: none !important;
+  }
+
+  .screen-resume,
+  .skip-link,
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-resume {
+    display: block !important;
+  }
+
+  .print-resume,
+  .print-resume * {
+    box-shadow: none !important;
+    color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

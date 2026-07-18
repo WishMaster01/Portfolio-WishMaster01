@@ -1,110 +1,78 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHeader } from "@/components/layout/page-header";
+import { AchievementsSection } from "@/components/resume/AchievementsSection";
+import { CertificationSection } from "@/components/resume/CertificationSection";
+import { ContactDetailsSection } from "@/components/resume/ContactDetailsSection";
+import { EducationSection } from "@/components/resume/EducationSection";
+import { ExperienceSection } from "@/components/resume/ExperienceSection";
+import { ProjectSection } from "@/components/resume/ProjectSection";
+import { PrintResumeDocument } from "@/components/resume/PrintResumeDocument";
+import { ResumeHeader } from "@/components/resume/ResumeHeader";
+import { SkillsSection } from "@/components/resume/SkillsSection";
 import { Reveal } from "@/components/motion/reveal";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { experienceItems } from "@/data/experience";
 import { resume } from "@/data/resume";
-import { skillHighlights } from "@/data/skills";
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: "Resume summary, strengths, experience, and contact details.",
+  description:
+    "Resume for WishMaster01 covering profile, education, skills, projects, experience, achievements, certifications, and contact details.",
 };
 
 export default function ResumePage() {
   return (
-    <>
-      <PageHeader
-        eyebrow="Resume"
-        title={`${resume.name} — ${resume.title}`}
-        description={resume.summary}
-      />
-      <Section className="pt-10">
-        <Container className="grid gap-6 md:grid-cols-[280px_1fr] lg:grid-cols-[0.35fr_1fr] lg:gap-8">
+    <div className="bg-background text-foreground">
+      <PrintResumeDocument />
+      <Section className="screen-resume py-12 sm:py-16">
+        <Container className="max-w-[1240px]">
           <Reveal>
-            <aside className="space-y-4 md:sticky md:top-28 md:self-start lg:space-y-6">
-              <Card>
-                <CardContent className="space-y-3 p-4 sm:p-6">
-                  <p className="text-sm text-muted-foreground">Location</p>
-                  <p className="font-medium">{resume.location}</p>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <a
-                    className="font-medium text-accent"
-                    href={`mailto:${resume.email}`}
-                  >
-                    {resume.email}
-                  </a>
-                </CardContent>
-              </Card>
-              <Link href="/contact" className={buttonVariants({ className: "w-full" })}>
-                Contact for PDF
-              </Link>
-            </aside>
+            <ResumeHeader />
           </Reveal>
 
-          <div className="space-y-6">
-            <Reveal>
-              <Card>
-                <CardContent className="space-y-4 p-4 sm:p-6">
-                  <h2 className="text-xl font-semibold">Core strengths</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {resume.strengths.map((strength) => (
-                      <Badge key={strength} variant="secondary">
-                        {strength}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </Reveal>
+          <div className="mt-8 grid gap-6 xl:grid-cols-2">
+            <main className="space-y-6">
+              <Reveal delay={0.04}>
+                <section className="rounded-3xl border border-border bg-surface p-5 sm:p-6">
+                  <h2 className="text-xl font-black">Profile</h2>
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
+                    {resume.summary}
+                  </p>
+                </section>
+              </Reveal>
 
-            <Reveal delay={0.06}>
-              <Card>
-                <CardContent className="space-y-4 p-4 sm:p-6">
-                  <h2 className="text-xl font-semibold">Technical focus</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {skillHighlights.map((skill) => (
-                      <Badge key={skill} variant="secondary">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </Reveal>
+              <Reveal delay={0.08}>
+                <ExperienceSection />
+              </Reveal>
 
-            <Reveal delay={0.12}>
-              <Card>
-                <CardContent className="space-y-5 p-4 sm:p-6">
-                  <h2 className="text-xl font-semibold">Experience</h2>
-                  {experienceItems.map((item) => (
-                    <div
-                      key={`${item.company}-${item.title}`}
-                      className="border-t border-border pt-5 first:border-t-0 first:pt-0"
-                    >
-                      <p className="text-sm font-medium text-accent">
-                        {item.period}
-                      </p>
-                      <h3 className="mt-1 font-semibold">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {item.company}
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                        {item.summary}
-                      </p>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </Reveal>
+              <Reveal delay={0.12}>
+                <SkillsSection />
+              </Reveal>
+
+              <Reveal delay={0.16}>
+                <AchievementsSection />
+              </Reveal>
+            </main>
+
+            <aside className="space-y-6 xl:self-start">
+              <Reveal delay={0.06}>
+                <ProjectSection />
+              </Reveal>
+
+              <Reveal delay={0.1}>
+                <EducationSection />
+              </Reveal>
+
+              <Reveal delay={0.14}>
+                <CertificationSection />
+              </Reveal>
+
+              <Reveal delay={0.18}>
+                <ContactDetailsSection />
+              </Reveal>
+            </aside>
           </div>
         </Container>
       </Section>
-    </>
+    </div>
   );
 }
