@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WishMaster01 Portfolio
 
-## Getting Started
+Next.js, TypeScript, Tailwind, Prisma, PostgreSQL, AI chatbot, GitHub dashboard,
+blog system, project case studies, and interactive DSA showcase.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+Copy `.env.example` to `.env` and fill the values you need.
 
-To learn more about Next.js, take a look at the following resources:
+Required for Prisma/PostgreSQL:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+DATABASE_URL=""
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Optional admin API:
 
-## Deploy on Vercel
+```env
+ADMIN_API_KEY=""
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Optional Judge0 interactive DSA execution:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+JUDGE0_API_URL=""
+JUDGE0_API_HOST=""
+JUDGE0_API_KEY=""
+```
+
+### Judge0 setup
+
+The portfolio does not run Java code on your server. DSA topic pages send code
+to Judge0 through the server route:
+
+```txt
+POST /api/dsa/submit
+```
+
+Frontend flow:
+
+```txt
+DSA topic page -> /api/dsa/submit -> Judge0 /submissions -> result shown in UI
+```
+
+RapidAPI configuration example:
+
+```env
+JUDGE0_API_URL="https://judge0-ce.p.rapidapi.com"
+JUDGE0_API_HOST="judge0-ce.p.rapidapi.com"
+JUDGE0_API_KEY="your-rapidapi-key"
+```
+
+Self-hosted/direct Judge0 configuration example:
+
+```env
+JUDGE0_API_URL="https://your-judge0-instance.example.com"
+JUDGE0_API_KEY="your-auth-token-if-required"
+```
+
+Java uses Judge0 language ID `62`.
+
+## Prisma
+
+Generate Prisma client:
+
+```bash
+npx prisma generate
+```
+
+Run migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Seed database:
+
+```bash
+npm run db:seed
+```
+
+## Validation
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```

@@ -146,6 +146,75 @@ model AdminAuditLog {
   @@index([createdAt])
 }
 
+model AlgorithmCategory {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  title       String
+  description String           @db.Text
+  sortOrder   Int              @default(0)
+  topics      AlgorithmTopic[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([sortOrder])
+}
+
+model AlgorithmTopic {
+  id                String              @id @default(cuid())
+  slug              String              @unique
+  title             String
+  explanation       String              @db.Text
+  visualExplanation String              @db.Text
+  difficulty        String
+  patterns          String[]
+  recognition       String[]
+  approach          String[]
+  pitfalls          String[]
+  timeComplexity    String
+  spaceComplexity   String
+  useCases          String[]
+  published         Boolean             @default(true)
+  sortOrder         Int                 @default(0)
+  category          AlgorithmCategory?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId        String?
+  codeExamples      CodeExample[]
+  problems          PracticeProblem[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([published, sortOrder])
+  @@index([difficulty])
+  @@index([categoryId])
+}
+
+model CodeExample {
+  id        String         @id @default(cuid())
+  language  String         @default("Java")
+  code      String         @db.Text
+  isPrimary Boolean        @default(true)
+  topic     AlgorithmTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId   String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([topicId, isPrimary])
+}
+
+model PracticeProblem {
+  id         String         @id @default(cuid())
+  title      String
+  difficulty String
+  pattern    String
+  url        String?
+  topic      AlgorithmTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId    String
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  @@index([topicId])
+  @@index([difficulty])
+}
+
 enum ContactSubmissionStatus {
   NEW
   REVIEWED

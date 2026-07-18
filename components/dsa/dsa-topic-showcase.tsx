@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const algorithmGroups = [
   {
     label: "Linear thinking",
-    items: ["Arrays", "Linked List", "Stack", "Queue"],
+    items: ["Arrays", "Linked Lists", "Stacks", "Queues"],
   },
   {
     label: "Relationship modeling",
@@ -17,7 +17,7 @@ const algorithmGroups = [
   },
   {
     label: "Optimization",
-    items: ["Searching", "Sorting", "Dynamic Programming", "Greedy"],
+    items: ["Searching", "Sorting", "Dynamic Programming", "Greedy Algorithms"],
   },
   {
     label: "Exhaustive search",

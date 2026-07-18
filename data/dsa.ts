@@ -72,7 +72,7 @@ export const dsaTopics = [
 }`,
   },
   {
-    title: "Linked List",
+    title: "Linked Lists",
     category: "Pointer-Based Structure",
     difficulty: "Foundation",
     description:
@@ -126,7 +126,7 @@ Node reverse(Node head) {
 }`,
   },
   {
-    title: "Stack",
+    title: "Stacks",
     category: "Linear Data Structure",
     difficulty: "Foundation",
     description:
@@ -174,7 +174,7 @@ Node reverse(Node head) {
 }`,
   },
   {
-    title: "Queue",
+    title: "Queues",
     category: "Linear Data Structure",
     difficulty: "Foundation",
     description:
@@ -477,7 +477,7 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
 }`,
   },
   {
-    title: "Greedy",
+    title: "Greedy Algorithms",
     category: "Optimization Technique",
     difficulty: "Intermediate",
     description:
@@ -614,3 +614,84 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
 }`,
   },
 ] as const;
+
+export function dsaTopicSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+export const dsaTopicAliases: Record<string, string> = {
+  "linked-list": "linked-lists",
+  stack: "stacks",
+  queue: "queues",
+  greedy: "greedy-algorithms",
+};
+
+function splitComplexity(complexity: string) {
+  const lower = complexity.toLowerCase();
+  const space =
+    lower.includes("space") || lower.includes("adjacency list")
+      ? complexity
+      : "Auxiliary space depends on the chosen implementation and input representation.";
+
+  return {
+    timeComplexity: complexity,
+    spaceComplexity: space,
+  };
+}
+
+export const algorithmTopics: AlgorithmTopic[] = dsaTopics.map((topic) => {
+  const { timeComplexity, spaceComplexity } = splitComplexity(topic.complexity);
+
+  return {
+    title: topic.title,
+    slug: dsaTopicSlug(topic.title),
+    category: topic.category,
+    difficulty: topic.difficulty,
+    explanation: topic.description,
+    visualExplanation: `${topic.title} problems are usually recognized through ${topic.patterns
+      .slice(0, 3)
+      .join(", ")}. Start by modeling the input, then trace how state changes after each operation.`,
+    javaCode: topic.code,
+    timeComplexity,
+    spaceComplexity,
+    useCases: topic.useCase
+      .replace(/^Used in /i, "")
+      .split(",")
+      .map((item) => item.replace(/\.$/, "").trim())
+      .filter(Boolean),
+    relatedProblems: [...topic.practice],
+    patterns: [...topic.patterns],
+    recognition: [...topic.recognition],
+    approach: [...topic.approach],
+    example: topic.example,
+    pitfalls: [...topic.pitfalls],
+  };
+});
+
+export const dsaPracticeProblems: PracticeProblem[] = algorithmTopics.flatMap(
+  (topic) =>
+    topic.relatedProblems.map((problem, index) => ({
+      title: problem,
+      topicSlug: topic.slug,
+      difficulty: index === 0 ? "Easy" : index === 1 ? "Medium" : "Hard",
+      pattern: topic.patterns[index % topic.patterns.length] ?? topic.title,
+    })),
+);
+
+export function getAlgorithmTopicBySlug(slug: string) {
+  const normalizedSlug = dsaTopicAliases[slug] ?? slug;
+
+  return (
+    algorithmTopics.find((topic) => topic.slug === normalizedSlug) ??
+    algorithmTopics.find(
+      (topic) =>
+        topic.title.toLowerCase() === normalizedSlug.replaceAll("-", " "),
+    ) ??
+    null
+  );
+}
+import type { AlgorithmTopic, PracticeProblem } from "@/types/dsa";

@@ -1,5 +1,5 @@
 import { articles } from "@/data/blog";
-import { dsaTopics } from "@/data/dsa";
+import { algorithmTopics } from "@/data/dsa";
 import { navigation } from "@/data/navigation";
 import { projects } from "@/data/projects";
 import { skillGroups, skillHighlights } from "@/data/skills";
@@ -46,12 +46,17 @@ export const commands: CommandRecord[] = [
     ],
     href: `/blog/${article.slug}`,
   })),
-  ...dsaTopics.map((topic) => ({
-    id: `dsa-${topic.title.toLowerCase().replaceAll(" ", "-")}`,
+  ...algorithmTopics.map((topic) => ({
+    id: `dsa-${topic.slug}`,
     title: topic.title,
     group: "DSA" as const,
-    keywords: [topic.title, topic.description, topic.patterns.join(" "), "dsa algorithms"],
-    href: `/dsa-showcase#${topic.title.toLowerCase().replaceAll(" ", "-")}`,
+    keywords: [
+      topic.title,
+      topic.explanation,
+      topic.patterns.join(" "),
+      "dsa algorithms java complexity",
+    ],
+    href: `/dsa-showcase/${topic.slug}`,
   })),
   ...skillHighlights.map((skill) => ({
     id: `skill-${skill.toLowerCase().replaceAll(" ", "-")}`,
