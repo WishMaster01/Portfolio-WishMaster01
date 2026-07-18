@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { CommandPalette } from "@/components/command/command-palette";
+import { CommandPalette } from "@/components/command-palette/CommandPalette";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { navigation } from "@/data/navigation";

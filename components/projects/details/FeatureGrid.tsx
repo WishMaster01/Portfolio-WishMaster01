@@ -4,32 +4,38 @@ import type { Project } from "@/types/project";
 
 type FeatureGridProps = {
   features: Project["features"];
-  compact?: boolean;
 };
 
-export function FeatureGrid({ features, compact = false }: FeatureGridProps) {
+export function FeatureGrid({ features }: FeatureGridProps) {
   return (
     <Reveal>
-      <Card className="rounded-2xl border-slate-200 bg-white shadow-sm">
-        <CardContent className="space-y-5 p-6">
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-100 text-violet-700">
-              ✦
-            </span>
-            <h2 className="text-xl font-bold text-slate-950">Key Features</h2>
+      <Card className="rounded-[2rem] bg-surface/95">
+        <CardContent className="space-y-6 p-6">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+              Features
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-foreground">
+              Key product capabilities
+            </h2>
           </div>
-          <div className={compact ? "grid gap-x-10 gap-y-3 md:grid-cols-2" : "grid gap-4 md:grid-cols-3"}>
-          {features.map((feature) => (
-            <div key={feature.title} className="flex gap-2 text-sm text-slate-700">
-              <span className="mt-1 text-violet-600">⊙</span>
-              <div>
-                <h3 className="font-medium text-slate-950">{feature.title}</h3>
-                <p className="mt-1 leading-6 text-slate-600">
+          <div className="grid gap-4 md:grid-cols-3">
+            {features.map((feature, index) => (
+              <div
+                key={feature.title}
+                className="group rounded-2xl border border-border bg-background/70 p-5 transition hover:-translate-y-1 hover:border-accent/40 hover:bg-accent/10"
+              >
+                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-accent text-sm font-black text-accent-foreground">
+                  {index + 1}
+                </span>
+                <h3 className="mt-4 font-black text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">
                   {feature.description}
                 </p>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         </CardContent>
       </Card>

@@ -10,44 +10,44 @@ type ProjectTimelineProps = {
 export function ProjectTimeline({ milestones, compact = false }: ProjectTimelineProps) {
   return (
     <Reveal>
-      <Card className="rounded-2xl border-slate-200 bg-white shadow-sm">
+      <Card className="rounded-[2rem] bg-surface/95">
         <CardContent className="space-y-5 p-6">
           <div>
-            <h2 className={compact ? "text-lg font-bold text-slate-950" : "text-2xl font-semibold"}>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
+              Timeline
+            </p>
+            <h2 className={compact ? "mt-2 text-xl font-black text-foreground" : "mt-2 text-2xl font-black text-foreground"}>
               Project Timeline
             </h2>
           </div>
-          <ol className={compact ? "space-y-5" : "grid gap-4 md:grid-cols-3"}>
-            {milestones.map((milestone) => (
+          <ol className={compact ? "space-y-4" : "grid gap-4 md:grid-cols-3"}>
+            {milestones.map((milestone, index) => (
               <li
                 key={milestone.label}
                 className={
                   compact
-                    ? "relative flex gap-4 pl-1"
-                    : "rounded-2xl border border-border bg-background p-5"
+                    ? "relative rounded-2xl border border-border bg-background/70 p-4"
+                    : "rounded-2xl border border-border bg-background/70 p-5"
                 }
               >
-                {compact ? (
-                  <>
-                    <span className="mt-1.5 h-3 w-3 rounded-full bg-violet-600 shadow-[0_0_0_5px_rgba(124,58,237,0.12)]" />
-                    <div className="flex flex-1 justify-between gap-4 text-sm">
-                      <span className="font-medium text-slate-800">
-                        {milestone.label}
-                      </span>
-                      <span className="text-slate-500">{milestone.date}</span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-sm font-medium text-accent">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-xs font-black text-accent-foreground">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold text-accent">
                       {milestone.date}
                     </p>
-                    <h3 className="mt-2 font-semibold">{milestone.label}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      {milestone.description}
-                    </p>
-                  </>
-                )}
+                    <h3 className="font-black text-foreground">
+                      {milestone.label}
+                    </h3>
+                  </div>
+                </div>
+                {!compact ? (
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    {milestone.description}
+                  </p>
+                ) : null}
               </li>
             ))}
           </ol>

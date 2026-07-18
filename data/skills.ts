@@ -1,31 +1,72 @@
 import type { SkillGroup } from "@/types/skill";
 
+export const skillMetrics = [
+  { value: "20+", label: "Technologies", detail: "Frontend, backend, AI, database, and tooling" },
+  { value: "10+", label: "Full-stack builds", detail: "Portfolio, SaaS, commerce, travel, chat, and dashboards" },
+  { value: "500+", label: "DSA problems", detail: "Pattern recognition, Java implementations, and optimization" },
+  { value: "AI", label: "Product focus", detail: "Chatbots, RAG-ready flows, automations, and SaaS UX" },
+] as const;
+
 export const skillGroups: SkillGroup[] = [
   {
-    title: "Frontend",
+    title: "Frontend Engineering",
     description:
-      "Building responsive, accessible, component-driven interfaces with strong route and state boundaries.",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "Building fast, responsive, accessible interfaces with strong component boundaries and polished interaction states.",
+    focus: "Product UI, routing, responsive systems, accessibility",
+    level: 90,
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "HTML5", "CSS3"],
   },
   {
-    title: "Backend-ready architecture",
+    title: "Backend & API Design",
     description:
-      "Structuring applications so APIs, authentication, persistence, and validation can be added without rewrites.",
-    skills: ["Route Handlers", "Node.js", "Prisma", "PostgreSQL", "Zod"],
+      "Designing typed API boundaries, validation layers, database-ready services, and clean server-side workflows.",
+    focus: "Route Handlers, validation, data access, service structure",
+    level: 84,
+    skills: ["Node.js", "Express.js", "Next.js APIs", "Zod", "REST APIs", "Socket.io"],
   },
   {
-    title: "Product execution",
+    title: "Database & Data Modeling",
     description:
-      "Turning product ideas into clear experiences with strong information architecture and practical implementation phases.",
-    skills: ["UX Structure", "Case Studies", "SEO", "Accessibility", "Performance"],
+      "Structuring relational data, Prisma models, seed data, and persistence-ready app architecture.",
+    focus: "Schemas, relations, migrations, seed workflows",
+    level: 82,
+    skills: ["PostgreSQL", "Prisma", "Neon", "MongoDB", "SQL", "Data Modeling"],
   },
   {
-    title: "Quality",
+    title: "AI Product Engineering",
     description:
-      "Keeping implementation safe through type checks, linting, deterministic builds, and reviewable code boundaries.",
-    skills: ["ESLint", "TypeScript Strict Mode", "Build Validation", "Git", "CI-ready Workflow"],
+      "Creating AI-powered user experiences with structured context, provider fallback, prompt design, and chatbot flows.",
+    focus: "Portfolio AI assistant, Gemini/OpenRouter fallback, JSON context",
+    level: 80,
+    skills: ["AI APIs", "Gemini", "OpenRouter", "Prompting", "RAG-ready Context", "Chat UX"],
+  },
+  {
+    title: "Product & UX Execution",
+    description:
+      "Turning ideas into clear user journeys with information architecture, visual hierarchy, and practical implementation phases.",
+    focus: "Case studies, design systems, conversion-focused layouts",
+    level: 86,
+    skills: ["UX Structure", "Design Systems", "Case Studies", "SEO", "Accessibility", "Responsive Layouts"],
+  },
+  {
+    title: "Engineering Quality",
+    description:
+      "Keeping implementation reliable through type checks, linting, build validation, reusable patterns, and maintainable code boundaries.",
+    focus: "Type safety, lint discipline, production build readiness",
+    level: 88,
+    skills: ["ESLint", "TypeScript Strict Mode", "Build Validation", "Git", "Docker", "CI-ready Workflow"],
   },
 ];
+
+export const skillOverview = [
+  { label: "JavaScript", value: 90 },
+  { label: "TypeScript", value: 88 },
+  { label: "React.js", value: 90 },
+  { label: "Next.js", value: 88 },
+  { label: "Node.js", value: 84 },
+  { label: "PostgreSQL / Prisma", value: 84 },
+  { label: "AI Integration", value: 80 },
+] as const;
 
 export const skillHighlights = [
   "App Router",
@@ -36,4 +77,34 @@ export const skillHighlights = [
   "Dashboard UX",
   "AI Interfaces",
   "Responsive Layouts",
+] as const;
+
+export const skillStrengths = [
+  {
+    title: "Full-stack execution",
+    description:
+      "Can move from UI to APIs to database schema while keeping the product experience coherent.",
+  },
+  {
+    title: "AI-ready architecture",
+    description:
+      "Understands structured context, fallback providers, validation, and safe chatbot response flows.",
+  },
+  {
+    title: "Production polish",
+    description:
+      "Focuses on responsiveness, SEO metadata, loading/error states, accessibility, and build validation.",
+  },
+  {
+    title: "Problem-solving depth",
+    description:
+      "Uses DSA patterns to reason about complexity, correctness, and edge cases before implementation.",
+  },
+] as const;
+
+export const learningRoadmap = [
+  "Advanced PostgreSQL performance and indexing",
+  "Vector search with pgvector for semantic retrieval",
+  "Cloud deployment pipelines and observability",
+  "System design for SaaS dashboards and AI products",
 ] as const;

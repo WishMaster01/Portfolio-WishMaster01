@@ -5,62 +5,52 @@ import type { Project } from "@/types/project";
 
 type ScreenshotGalleryProps = {
   screenshots: Project["screenshots"];
-  compact?: boolean;
 };
 
 export function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
   return (
     <Reveal>
-      <Card className="rounded-2xl border-slate-200 bg-white shadow-sm">
-        <CardContent className="space-y-5 p-6">
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-100 text-violet-700">
-              ▤
-            </span>
-            <h2 className="text-xl font-bold text-slate-950">Screenshots</h2>
+      <Card className="rounded-[2rem] bg-surface/95">
+        <CardContent className="space-y-6 p-6">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+              Screenshots
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-foreground">
+              Interface surfaces
+            </h2>
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-          {screenshots.map((screenshot) => (
-            <div
-              key={screenshot.title}
-              className="min-w-[240px] overflow-hidden rounded-xl border border-slate-200 bg-violet-50"
-            >
-              <div className="grid aspect-video place-items-center p-6">
-                <Image
-                  src={screenshot.image}
-                  alt={`${screenshot.title} screenshot`}
-                  width={96}
-                  height={96}
-                  className="h-16 w-16 opacity-70"
-                />
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {screenshots.map((screenshot, index) => (
+              <div
+                key={screenshot.title}
+                className="group overflow-hidden rounded-2xl border border-border bg-background/70 transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10"
+              >
+                <div className="grid aspect-video place-items-center bg-[radial-gradient(circle_at_50%_30%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_42%),linear-gradient(135deg,var(--surface-elevated),var(--background))] p-8">
+                  <div className="rounded-2xl border border-border bg-surface/80 p-5 shadow-lg transition group-hover:scale-105">
+                    <Image
+                      src={screenshot.image}
+                      alt={`${screenshot.title} screenshot`}
+                      width={80}
+                      height={80}
+                      className="h-14 w-14 opacity-70"
+                    />
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">
+                    Surface {index + 1}
+                  </p>
+                  <h3 className="mt-2 font-black text-foreground">
+                    {screenshot.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                    {screenshot.description}
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1 bg-white p-3">
-                <h3 className="font-semibold">{screenshot.title}</h3>
-                <p className="text-xs leading-5 text-slate-500">
-                  {screenshot.description}
-                </p>
-              </div>
-            </div>
-          ))}
-          </div>
-          <div className="flex items-center justify-between">
-            <button className="grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-slate-500" type="button">
-              ←
-            </button>
-            <div className="flex gap-2">
-              {screenshots.map((screenshot, index) => (
-                <span
-                  key={screenshot.title}
-                  className={[
-                    "h-1.5 rounded-full",
-                    index === 0 ? "w-5 bg-violet-600" : "w-2 bg-slate-300",
-                  ].join(" ")}
-                />
-              ))}
-            </div>
-            <button className="grid h-9 w-9 place-items-center rounded-full bg-violet-600 text-white" type="button">
-              →
-            </button>
+            ))}
           </div>
         </CardContent>
       </Card>

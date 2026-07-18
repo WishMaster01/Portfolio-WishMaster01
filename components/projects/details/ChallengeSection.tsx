@@ -4,27 +4,37 @@ import type { Project } from "@/types/project";
 
 type ChallengeSectionProps = {
   challenges: Project["challenges"];
-  compact?: boolean;
 };
 
 export function ChallengeSection({ challenges }: ChallengeSectionProps) {
   return (
     <Reveal>
-      <Card className="h-full rounded-2xl border-slate-200 bg-white shadow-sm">
+      <Card className="h-full rounded-[2rem] bg-surface/95">
         <CardContent className="space-y-5 p-6">
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-100 text-violet-700">
-              ◇
-            </span>
-            <h2 className="text-xl font-bold text-slate-950">Challenges Faced</h2>
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+              Challenges
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-foreground">
+              Problems handled during planning
+            </h2>
           </div>
-          <ul className="space-y-2 text-sm text-slate-700">
+          <div className="space-y-4">
             {challenges.map((challenge) => (
-              <li key={challenge.title} className="list-inside list-disc">
-                {challenge.title}
-              </li>
+              <div
+                key={challenge.title}
+                className="rounded-2xl border border-border bg-background/70 p-4"
+              >
+                <h3 className="font-black text-foreground">{challenge.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {challenge.description}
+                </p>
+                <p className="mt-3 rounded-xl bg-accent/10 px-3 py-2 text-sm leading-6 text-accent">
+                  Resolution: {challenge.resolution}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </CardContent>
       </Card>
     </Reveal>

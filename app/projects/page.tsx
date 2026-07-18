@@ -14,14 +14,19 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <div className="bg-background text-foreground">
-      <Section className="py-16">
+      <Section className="py-12 sm:py-16">
         <Container className="max-w-[1380px]">
           <Reveal className="mb-7">
-            <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
+              Case Study Library
+            </p>
+            <h1 className="mt-3 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               My Projects
             </h1>
-            <p className="mt-3 text-base text-muted-foreground">
-              Things I&apos;ve built with passion
+            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">
+              Structured product case studies covering AI, travel, commerce,
+              dashboards, marketplace architecture, backend boundaries, and
+              production-ready UI systems.
             </p>
           </Reveal>
           <ProjectBrowser projects={projects} />

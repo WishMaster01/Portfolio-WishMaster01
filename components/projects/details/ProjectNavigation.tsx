@@ -14,21 +14,25 @@ export function ProjectNavigation({ currentSlug }: ProjectNavigationProps) {
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <Card>
-      <CardContent className="flex flex-col justify-between gap-4 p-6 sm:flex-row sm:items-center">
+    <Card className="rounded-[2rem] bg-surface/95">
+      <CardContent className="flex flex-col justify-between gap-5 p-6 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm text-muted-foreground">Continue exploring</p>
-          <h2 className="mt-1 text-xl font-semibold">More project details</h2>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+            Continue exploring
+          </p>
+          <h2 className="mt-2 text-2xl font-black text-foreground">
+            More project case studies
+          </h2>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
             href={`/projects/${previousProject.slug}`}
             className={buttonVariants({ variant: "secondary" })}
           >
-            Previous: {previousProject.title}
+            ← {previousProject.title}
           </Link>
           <Link href={`/projects/${nextProject.slug}`} className={buttonVariants()}>
-            Next: {nextProject.title}
+            {nextProject.title} →
           </Link>
         </div>
       </CardContent>

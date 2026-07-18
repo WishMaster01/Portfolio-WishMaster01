@@ -1,114 +1,34 @@
 import type { Metadata } from "next";
+import { ExperienceDashboard } from "@/components/experience/experience-dashboard";
 import { Reveal } from "@/components/motion/reveal";
-import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { experienceItems } from "@/data/experience";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "Professional journey and experience highlights for WishMaster01.",
+  description:
+    "Professional journey, project impact, working principles, and education for WishMaster01.",
 };
-
-const highlights = [
-  "2+ Years of hands-on experience",
-  "10+ Complete full-stack projects",
-  "AI integration in multiple applications",
-  "Strong problem-solving and DSA skills",
-  "Working with startups and individual clients",
-] as const;
 
 export default function ExperiencePage() {
   return (
     <div className="bg-background text-foreground">
-      <Section className="py-16">
+      <Section className="py-12 sm:py-16">
         <Container className="max-w-[1380px]">
           <Reveal className="mb-8">
-            <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-5xl">
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
+              Professional Journey
+            </p>
+            <h1 className="mt-3 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
               My Experience
             </h1>
-            <p className="mt-3 text-base text-muted-foreground">
-              My professional journey so far
+            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">
+              A stronger view of my hands-on project work, full-stack product
+              experience, AI/SaaS direction, engineering process, and education.
             </p>
           </Reveal>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
-            <div className="relative space-y-6">
-              <span className="absolute left-5 top-8 hidden h-[calc(100%-4rem)] w-px bg-accent/30 md:block" />
-              {experienceItems.map((item, index) => (
-                <Reveal
-                  key={`${item.company}-${item.title}`}
-                  delay={(index % 3) * 0.05}
-                  className="relative"
-                >
-                  <span className="absolute left-3 top-8 hidden h-4 w-4 rounded-full border-4 border-background bg-accent md:block" />
-                  <Card className="rounded-2xl md:ml-12">
-                    <CardContent className="p-6">
-                      <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <div>
-                          <h2 className="text-xl font-black">{item.title}</h2>
-                          <p className="mt-1 text-sm font-semibold text-muted-foreground">
-                            {item.company}
-                          </p>
-                        </div>
-                        <p className="text-sm font-bold text-accent">
-                          {item.period}
-                        </p>
-                      </div>
-                      <p className="mt-5 text-sm leading-7 text-muted-foreground">
-                        {item.summary}
-                      </p>
-                      <ul className="mt-5 space-y-2 text-sm leading-6 text-muted-foreground">
-                        {item.achievements.map((achievement) => (
-                          <li key={achievement}>• {achievement}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </Reveal>
-              ))}
-            </div>
-
-            <aside className="space-y-6">
-              <Card className="rounded-2xl">
-                <CardContent className="p-6">
-                  <h2 className="font-black">Experience Highlights</h2>
-                  <ul className="mt-5 space-y-4 text-sm text-muted-foreground">
-                    {highlights.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-accent" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="rounded-2xl">
-                <CardContent className="p-6">
-                  <h2 className="font-black">Education</h2>
-                  <div className="mt-5 space-y-5 text-sm text-muted-foreground">
-                    <div>
-                      <p className="font-black text-foreground">
-                        B.Tech in Computer Science & Engineering
-                      </p>
-                      <p>2022 - 2026</p>
-                      <p>Lovely Professional University, Punjab</p>
-                    </div>
-                    <div>
-                      <p className="font-black text-foreground">
-                        Relevant Coursework
-                      </p>
-                      <p>
-                        Data Structures & Algorithms, DBMS, OOPs, Operating
-                        Systems, Computer Networks, Software Engineering
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </aside>
-          </div>
+          <ExperienceDashboard />
         </Container>
       </Section>
     </div>

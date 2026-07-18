@@ -3,27 +3,34 @@ import { Card, CardContent } from "@/components/ui/card";
 
 type FutureScopeProps = {
   items: string[];
-  compact?: boolean;
 };
 
 export function FutureScope({ items }: FutureScopeProps) {
   return (
-    <Reveal>
-      <Card className="h-full rounded-2xl border-slate-200 bg-white shadow-sm">
+    <Reveal delay={0.05}>
+      <Card className="h-full rounded-[2rem] bg-surface/95">
         <CardContent className="space-y-5 p-6">
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-100 text-violet-700">
-              ◴
-            </span>
-            <h2 className="text-xl font-bold text-slate-950">Future Scope</h2>
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+              Future Scope
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-foreground">
+              What I would build next
+            </h2>
           </div>
-          <ul className="space-y-2 text-sm text-slate-700">
-            {items.map((item) => (
-              <li key={item} className="list-inside list-disc">
-                {item}
-              </li>
+          <div className="grid gap-3">
+            {items.map((item, index) => (
+              <div
+                key={item}
+                className="flex gap-3 rounded-2xl border border-border bg-background/70 p-4 text-sm leading-6 text-muted-foreground"
+              >
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent text-xs font-black text-accent-foreground">
+                  {index + 1}
+                </span>
+                <span>{item}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </CardContent>
       </Card>
     </Reveal>
