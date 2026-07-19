@@ -36,6 +36,25 @@ async function importPrismaPg() {
   return dynamicImport("@prisma/adapter-pg");
 }
 
+function normalizePostgresConnectionString(connectionString: string) {
+  try {
+    const url = new URL(connectionString);
+    const sslMode = url.searchParams.get("sslmode");
+
+    if (
+      sslMode &&
+      ["prefer", "require", "verify-ca"].includes(sslMode.toLowerCase()) &&
+      !url.searchParams.has("uselibpqcompat")
+    ) {
+      url.searchParams.set("sslmode", "verify-full");
+    }
+
+    return url.toString();
+  } catch {
+    return connectionString;
+  }
+}
+
 export async function getPrisma() {
   if (!process.env.DATABASE_URL) {
     return null;
@@ -49,7 +68,9 @@ export async function getPrisma() {
     const { PrismaClient } = await importPrismaClient();
     const { PrismaPg } = await importPrismaPg();
     const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: normalizePostgresConnectionString(
+        process.env.DATABASE_URL,
+      ),
     });
 
     globalThis.__wishmasterPrisma = new PrismaClient({ adapter });

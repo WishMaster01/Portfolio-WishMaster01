@@ -22,21 +22,27 @@ function escapeHtml(value: string) {
 
 export async function sendContactNotification(input: ContactNotification) {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_NOTIFICATION_TO?.split(",")
+  const adminCopyRecipients = process.env.CONTACT_NOTIFICATION_TO?.split(",")
     .map((email) => email.trim())
     .filter(Boolean);
   const from =
-    process.env.CONTACT_NOTIFICATION_FROM ?? "Portfolio <onboarding@resend.dev>";
+    process.env.CONTACT_NOTIFICATION_FROM ??
+    "WishMaster01 <hello@wishmaster01.com>";
+  const replyTo = process.env.CONTACT_REPLY_TO ?? "hello@wishmaster01.com";
 
-  if (!apiKey || !to?.length) {
+  if (!apiKey) {
     return {
       skipped: true,
-      reason: "RESEND_API_KEY or CONTACT_NOTIFICATION_TO is not configured.",
+      reason: "RESEND_API_KEY is not configured.",
     };
   }
 
   const plainText = [
-    "New portfolio contact message",
+    `Hi ${input.name},`,
+    "",
+    "Thanks for contacting WishMaster01. I received your message and will get back to you as soon as possible.",
+    "",
+    "Your submitted details:",
     "",
     `Name: ${input.name}`,
     `Email: ${input.email}`,
@@ -57,15 +63,19 @@ export async function sendContactNotification(input: ContactNotification) {
       },
       body: JSON.stringify({
         from,
-        to,
-        reply_to: input.email,
-        subject: `Portfolio contact: ${input.subject}`,
+        to: input.email,
+        ...(adminCopyRecipients?.length
+          ? { bcc: adminCopyRecipients }
+          : {}),
+        reply_to: replyTo,
+        subject: `Thanks for contacting WishMaster01: ${input.subject}`,
         text: plainText,
         html: `
           <div style="font-family:Inter,Arial,sans-serif;line-height:1.6;color:#111827">
             <div style="max-width:640px;margin:0 auto;padding:24px;border-radius:24px;background:#ffffff;border:1px solid #e5e7eb">
               <p style="margin:0 0 8px;color:#6d4aff;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px">WishMaster01 Portfolio</p>
-              <h2 style="margin:0 0 16px;font-size:24px">New portfolio contact message</h2>
+              <h2 style="margin:0 0 12px;font-size:24px">Thanks for reaching out, ${escapeHtml(input.name)}.</h2>
+              <p style="margin:0 0 18px;color:#4b5563">I received your message and will get back to you as soon as possible.</p>
               <p><strong>Name:</strong> ${escapeHtml(input.name)}</p>
               <p><strong>Email:</strong> ${escapeHtml(input.email)}</p>
               <p><strong>Subject:</strong> ${escapeHtml(input.subject)}</p>
