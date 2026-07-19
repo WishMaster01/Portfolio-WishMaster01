@@ -28,7 +28,7 @@ export const newsletterSubscriptionSchema = z.object({
   email: z.string().trim().email().max(200),
   name: optionalTrimmed,
   source: z.string().trim().max(80).default("portfolio"),
-  consent: z.boolean().refine((value) => value, {
+  consent: z.boolean().default(true).refine((value) => value, {
     message: "Consent is required.",
   }),
 });

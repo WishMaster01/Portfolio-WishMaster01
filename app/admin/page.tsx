@@ -51,6 +51,9 @@ async function getAdminStats() {
   const newsletterSubscription = prisma?.newsletterSubscription as
     | CountDelegate
     | undefined;
+  const newsletterSubscriber = prisma?.newsletterSubscriber as
+    | CountDelegate
+    | undefined;
 
   const [messages, messageCount, newsletterCount] = await Promise.all([
     contactMessage
@@ -60,7 +63,9 @@ async function getAdminStats() {
       })
       .catch(() => []) ?? [],
     contactMessage?.count().catch(() => 0) ?? 0,
-    newsletterSubscription?.count().catch(() => 0) ?? 0,
+    newsletterSubscriber?.count().catch(() => 0) ??
+      newsletterSubscription?.count().catch(() => 0) ??
+      0,
   ]);
 
   return {

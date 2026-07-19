@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/arrow-right";
 import { Reveal } from "@/components/motion/reveal";
+import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { projects } from "@/data/projects";
 
 const socials = [
@@ -286,6 +287,44 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <Reveal delay={0.08}>
+          <section className="relative mt-12 overflow-hidden rounded-[2rem] border border-accent/20 bg-surface/85 p-6 shadow-2xl shadow-accent/10 backdrop-blur sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/4 h-60 w-60 rounded-full bg-[color-mix(in_oklab,var(--ambient-two)_18%,transparent)] blur-3xl" />
+            <div className="relative grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+              <div>
+                <p className="inline-flex rounded-full border border-accent/25 bg-accent/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-accent">
+                  Newsletter
+                </p>
+                <h2 className="mt-5 max-w-3xl text-3xl font-black tracking-[-0.045em] text-foreground sm:text-4xl lg:text-5xl">
+                  Get technical notes from WishMaster01.
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+                  Subscribe for practical updates about Next.js architecture,
+                  AI portfolio systems, DSA patterns, Prisma/PostgreSQL, and
+                  production-grade UI engineering.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["No spam", "Technical only", "AI + SaaS", "DSA patterns"].map(
+                    (item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-black text-muted-foreground"
+                      >
+                        {item}
+                      </span>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-border bg-background/60 p-5 shadow-sm shadow-foreground/5 sm:p-6">
+                <NewsletterForm source="portfolio-home" />
+              </div>
+            </div>
+          </section>
+        </Reveal>
       </section>
     </div>
   );
