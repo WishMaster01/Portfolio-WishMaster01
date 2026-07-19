@@ -8,13 +8,20 @@ const optionalTrimmed = z
   .transform((value) => (value ? value : undefined));
 
 export const contactSubmissionSchema = z.object({
-  name: z.string().trim().min(2).max(120),
+  name: z.string().trim().min(2).max(80),
   email: z.string().trim().email().max(200),
   company: optionalTrimmed,
-  subject: optionalTrimmed,
-  message: z.string().trim().min(20).max(4000),
+  subject: z.string().trim().min(3).max(120),
+  message: z.string().trim().min(10).max(2000),
   source: z.string().trim().max(80).default("portfolio"),
   website: z.string().trim().max(0).optional(),
+});
+
+export const contactSchema = contactSubmissionSchema.pick({
+  name: true,
+  email: true,
+  subject: true,
+  message: true,
 });
 
 export const newsletterSubscriptionSchema = z.object({

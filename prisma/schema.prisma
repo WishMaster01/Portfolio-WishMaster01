@@ -121,6 +121,19 @@ model ContactSubmission {
   @@index([status, createdAt])
 }
 
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([status, createdAt])
+}
+
 model NewsletterSubscription {
   id        String                     @id @default(cuid())
   email     String                     @unique

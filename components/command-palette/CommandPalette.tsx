@@ -102,7 +102,7 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
               shouldFilter
               className="bg-background text-foreground"
             >
-              <CommandSearch />
+              <CommandSearch onClose={() => setIsOpen(false)} />
               <Command.List className="max-h-[min(58dvh,32rem)] overflow-y-auto p-2">
                 <Command.Empty className="px-4 py-10 text-center text-sm text-muted-foreground">
                   No matching command found.
