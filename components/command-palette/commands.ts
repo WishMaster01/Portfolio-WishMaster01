@@ -34,6 +34,18 @@ export const commands: CommandRecord[] = [
     ],
     href: `/projects/${project.slug}`,
   })),
+  ...projects.map((project) => ({
+    id: `${project.slug}-architecture`,
+    title: `${project.title} Architecture`,
+    group: "Projects" as const,
+    keywords: [
+      project.title,
+      project.category,
+      "architecture system design diagram mermaid backend api database",
+      project.stack.join(" "),
+    ],
+    href: `/projects/${project.slug}/architecture`,
+  })),
   ...articles.map((article) => ({
     id: article.slug,
     title: article.title,

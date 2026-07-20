@@ -84,6 +84,12 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 Full Case Study
               </Link>
               <Link
+                href={`/projects/${project.slug}/architecture`}
+                className="rounded-full border border-accent/35 bg-accent/10 px-4 py-2.5 text-xs font-black text-accent transition hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground sm:px-5 sm:py-3 sm:text-sm"
+              >
+                Architecture
+              </Link>
+              <Link
                 href="/contact"
                 className="hidden rounded-full border border-border bg-background px-5 py-3 text-sm font-black text-foreground transition hover:border-accent/40 hover:text-accent sm:inline-flex"
               >
