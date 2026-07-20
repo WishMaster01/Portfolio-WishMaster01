@@ -33,6 +33,7 @@ model Project {
   highlights String[]
   caseStudy  Json?
   featured   Boolean          @default(false)
+  published  Boolean          @default(true)
   sortOrder  Int              @default(0)
   metrics    ProjectMetric[]
   sections   ProjectSection[]
@@ -40,6 +41,7 @@ model Project {
   updatedAt  DateTime         @updatedAt
   publishedAt DateTime?
 
+  @@index([published, featured])
   @@index([featured, sortOrder])
   @@index([category])
 }
@@ -168,6 +170,40 @@ model NewsletterSubscriber {
   updatedAt  DateTime @updatedAt
 
   @@index([subscribed, createdAt])
+}
+
+model RecruiterProfile {
+  id                 String   @id @default(cuid())
+  name               String
+  headline           String
+  summary            String   @db.Text
+  availability       String
+  targetRoles        Json
+  preferredLocations Json
+  workModes          Json
+  topSkills          Json
+  highlights         Json
+  education          Json
+  experienceSummary  Json
+  resumeUrl          String
+  githubUrl          String
+  linkedinUrl        String?
+  email              String
+  published          Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([published])
+}
+
+model RecruiterAnalyticsEvent {
+  id        String   @id @default(cuid())
+  event     String
+  target    String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([event, createdAt])
 }
 
 model AdminAuditLog {

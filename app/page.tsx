@@ -114,6 +114,30 @@ function ExternalIcon() {
   );
 }
 
+function RecruiterToggleIcon() {
+  return (
+    <svg
+      className="h-5 w-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M16 7.25a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM5.5 20.25c.55-3.2 3.2-5.25 6.5-5.25s5.95 2.05 6.5 5.25"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M18.25 9.25h1.5m-.75-.75v1.5M4.25 9.25h1.5m-.75-.75v1.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export default function Home() {
   const featured = projects.slice(0, 5);
 
@@ -158,6 +182,30 @@ export default function Home() {
                 <span className="min-[430px]:hidden">Resume</span>
               </Link>
             </div>
+
+            <Link
+              href="/recruiter"
+              aria-label="Open recruiter mode"
+              className="group mt-5 flex w-full max-w-[560px] items-center justify-between gap-4 rounded-2xl border border-accent/25 bg-surface/80 p-3 text-left shadow-xl shadow-accent/10 backdrop-blur transition hover:-translate-y-0.5 hover:border-accent/55 hover:shadow-accent/20 sm:mt-6 sm:p-4"
+            >
+              <span className="flex min-w-0 items-center gap-3">
+                <span className="relative inline-flex h-11 w-[74px] shrink-0 items-center rounded-full border border-accent/30 bg-accent/10 p-1 transition group-hover:bg-accent/15">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/30 transition group-hover:translate-x-6">
+                    <RecruiterToggleIcon />
+                  </span>
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-black uppercase tracking-[0.18em] text-accent">
+                    Recruiter mode
+                  </span>
+                  <span className="mt-1 block text-xs leading-5 text-muted-foreground sm:text-sm">
+                    One-page profile with top skills, projects, resume, GitHub,
+                    LinkedIn, and contact.
+                  </span>
+                </span>
+              </span>
+              <ArrowRight className="h-5 w-5 shrink-0 text-accent transition group-hover:translate-x-1" />
+            </Link>
 
             <div className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-4">
               {socials.map((social) => (
