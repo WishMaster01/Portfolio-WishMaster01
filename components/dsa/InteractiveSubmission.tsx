@@ -95,7 +95,7 @@ export function InteractiveSubmission({ topic }: InteractiveSubmissionProps) {
       className="overflow-hidden rounded-[2rem] border border-accent/20 bg-surface shadow-2xl shadow-accent/10"
     >
       <div className="relative overflow-hidden border-b border-border p-5 sm:p-6">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%)]" />
+        <div className="absolute inset-0 bg-[radial-linear(circle_at_20%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%)]" />
         <div className="relative flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-accent">
@@ -199,56 +199,55 @@ export function InteractiveSubmission({ topic }: InteractiveSubmissionProps) {
             </div>
 
             <div className="mt-4">
-            {submission.status === "idle" ? (
-              <EmptyResult />
-            ) : null}
-            {submission.status === "running" ? (
-              <RunningResult />
-            ) : null}
-            {submission.status === "error" ? (
-              <p className="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-sm leading-6 text-red-500">
-                {submission.error}
-              </p>
-            ) : null}
-            {submission.status === "success" ? (
-              <div className="space-y-4">
-                <div className="grid gap-3 text-xs sm:grid-cols-2 xl:grid-cols-4">
-                  <Metric
-                    label="Status"
-                    value={submission.result.status.description}
+              {submission.status === "idle" ? <EmptyResult /> : null}
+              {submission.status === "running" ? <RunningResult /> : null}
+              {submission.status === "error" ? (
+                <p className="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-sm leading-6 text-red-500">
+                  {submission.error}
+                </p>
+              ) : null}
+              {submission.status === "success" ? (
+                <div className="space-y-4">
+                  <div className="grid gap-3 text-xs sm:grid-cols-2 xl:grid-cols-4">
+                    <Metric
+                      label="Status"
+                      value={submission.result.status.description}
+                    />
+                    <Metric
+                      label="Time"
+                      value={submission.result.time ?? "n/a"}
+                    />
+                    <Metric
+                      label="Memory"
+                      value={
+                        submission.result.memory
+                          ? `${submission.result.memory} KB`
+                          : "n/a"
+                      }
+                    />
+                    <Metric
+                      label="Token"
+                      value={submission.result.token ?? "n/a"}
+                    />
+                  </div>
+                  <OutputBlock
+                    label="stdout"
+                    value={submission.result.stdout ?? ""}
                   />
-                  <Metric label="Time" value={submission.result.time ?? "n/a"} />
-                  <Metric
-                    label="Memory"
-                    value={
-                      submission.result.memory
-                        ? `${submission.result.memory} KB`
-                        : "n/a"
-                    }
+                  <OutputBlock
+                    label="compile output"
+                    value={submission.result.compileOutput ?? ""}
                   />
-                  <Metric
-                    label="Token"
-                    value={submission.result.token ?? "n/a"}
+                  <OutputBlock
+                    label="stderr"
+                    value={submission.result.stderr ?? ""}
+                  />
+                  <OutputBlock
+                    label="message"
+                    value={submission.result.message ?? ""}
                   />
                 </div>
-                <OutputBlock
-                  label="stdout"
-                  value={submission.result.stdout ?? ""}
-                />
-                <OutputBlock
-                  label="compile output"
-                  value={submission.result.compileOutput ?? ""}
-                />
-                <OutputBlock
-                  label="stderr"
-                  value={submission.result.stderr ?? ""}
-                />
-                <OutputBlock
-                  label="message"
-                  value={submission.result.message ?? ""}
-                />
-              </div>
-            ) : null}
+              ) : null}
             </div>
           </div>
         </div>

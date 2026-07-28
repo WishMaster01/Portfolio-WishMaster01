@@ -27,13 +27,13 @@ export const themeOptions = [
     description: "Neon magenta and cyan for a futuristic hacker feel.",
   },
   {
-    id: "gradient",
-    label: "Gradient",
-    badge: "Gradient Theme",
+    id: "linear",
+    label: "linear",
+    badge: "linear Theme",
     icon: "🌈",
     dark: false,
     swatch: ["#fff7fb", "#ffffff", "#7c3aed"],
-    description: "Soft pastel gradients while preserving dark text contrast.",
+    description: "Soft pastel linears while preserving dark text contrast.",
   },
   {
     id: "solarized",
@@ -100,7 +100,7 @@ export const themeLabels: Record<Theme, string> = {
   light: "Light",
   dark: "Dark",
   cyber: "Cyber",
-  gradient: "Gradient",
+  linear: "linear",
   solarized: "Solarized",
   ocean: "Ocean",
   forest: "Forest",
@@ -115,7 +115,9 @@ export function isTheme(value: string | null | undefined): value is Theme {
   return value === "system" || themeIds.has(value ?? "");
 }
 
-export function isThemeName(value: string | null | undefined): value is ThemeName {
+export function isThemeName(
+  value: string | null | undefined,
+): value is ThemeName {
   return themeIds.has(value ?? "");
 }
 

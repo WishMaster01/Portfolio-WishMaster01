@@ -76,14 +76,14 @@ const categoryLabels: Record<string, string> = {
 
 const projectVisuals: Record<string, string> = {
   infinityai:
-    "from-[#12002f] via-[#34127a] to-[#050014] before:bg-[radial-gradient(circle_at_70%_35%,rgba(168,85,247,0.95),transparent_22%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.18),transparent)]",
+    "from-[#12002f] via-[#34127a] to-[#050014] before:bg-[radial-linear(circle_at_70%_35%,rgba(168,85,247,0.95),transparent_22%)] after:bg-[linear-linear(135deg,rgba(255,255,255,0.18),transparent)]",
   explorex:
-    "from-[#c5efff] via-[#3db9ff] to-[#08728f] before:bg-[radial-gradient(circle_at_42%_35%,rgba(255,255,255,0.95),transparent_20%)] after:bg-[linear-gradient(150deg,rgba(34,197,94,0.55),transparent_42%)]",
+    "from-[#c5efff] via-[#3db9ff] to-[#08728f] before:bg-[radial-linear(circle_at_42%_35%,rgba(255,255,255,0.95),transparent_20%)] after:bg-[linear-linear(150deg,rgba(34,197,94,0.55),transparent_42%)]",
   dailyessentials:
-    "from-[#fff7ed] via-[#fbbf77] to-[#9a3412] before:bg-[radial-gradient(circle_at_45%_35%,rgba(255,255,255,0.9),transparent_18%)] after:bg-[linear-gradient(145deg,rgba(120,53,15,0.28),transparent_45%)]",
-  vyvo: "from-[#290052] via-[#a21caf] to-[#2e1065] before:bg-[radial-gradient(circle_at_55%_35%,rgba(244,114,182,0.9),transparent_18%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.16),transparent)]",
+    "from-[#fff7ed] via-[#fbbf77] to-[#9a3412] before:bg-[radial-linear(circle_at_45%_35%,rgba(255,255,255,0.9),transparent_18%)] after:bg-[linear-linear(145deg,rgba(120,53,15,0.28),transparent_45%)]",
+  vyvo: "from-[#290052] via-[#a21caf] to-[#2e1065] before:bg-[radial-linear(circle_at_55%_35%,rgba(244,114,182,0.9),transparent_18%)] after:bg-[linear-linear(135deg,rgba(255,255,255,0.16),transparent)]",
   wishcart:
-    "from-[#061b44] via-[#2563eb] to-[#050816] before:bg-[radial-gradient(circle_at_55%_34%,rgba(147,197,253,0.88),transparent_20%)] after:bg-[linear-gradient(145deg,rgba(255,255,255,0.16),transparent)]",
+    "from-[#061b44] via-[#2563eb] to-[#050816] before:bg-[radial-linear(circle_at_55%_34%,rgba(147,197,253,0.88),transparent_20%)] after:bg-[linear-linear(145deg,rgba(255,255,255,0.16),transparent)]",
 };
 
 function DownloadIcon() {
@@ -116,12 +116,7 @@ function ExternalIcon() {
 
 function RecruiterToggleIcon() {
   return (
-    <svg
-      className="h-5 w-5"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M16 7.25a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM5.5 20.25c.55-3.2 3.2-5.25 6.5-5.25s5.95 2.05 6.5 5.25"
         stroke="currentColor"
@@ -142,7 +137,7 @@ export default function Home() {
   const featured = projects.slice(0, 5);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
+    <div className="min-h-screen overflow-hidden bg-[radial-linear(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-linear(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
       <section className="mx-auto w-full max-w-[1680px] px-4 pb-8 pt-10 sm:px-8 sm:pt-14 lg:px-24 lg:pb-14 lg:pt-20">
         <div className="grid min-h-[360px] grid-cols-[minmax(0,1fr)_minmax(96px,32vw)] items-center gap-4 sm:min-h-[450px] sm:grid-cols-[minmax(0,1fr)_minmax(220px,42vw)] sm:gap-8 lg:min-h-[510px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           <Reveal className="relative z-10 min-w-0 max-w-[660px]">
@@ -178,7 +173,9 @@ export default function Home() {
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-sm font-bold text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-accent/35 hover:text-accent sm:h-14 sm:gap-3 sm:px-7 sm:text-base"
               >
                 <DownloadIcon />
-                <span className="hidden min-[430px]:inline">Download Resume</span>
+                <span className="hidden min-[430px]:inline">
+                  Download Resume
+                </span>
                 <span className="min-[430px]:hidden">Resume</span>
               </Link>
             </div>
@@ -282,55 +279,55 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
             {featured.map((project, index) => (
               <Reveal key={project.slug} delay={index * 0.04}>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm shadow-foreground/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/12"
-              >
-                <div
-                  className={`relative h-36 overflow-hidden bg-gradient-to-br ${projectVisuals[project.slug] ?? projectVisuals.infinityai} before:absolute before:inset-0 after:absolute after:inset-0`}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm shadow-foreground/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/12"
                 >
-                  <div className="absolute inset-x-5 top-5 z-10 h-20 rounded-xl border border-white/15 bg-black/20 shadow-2xl backdrop-blur-sm">
-                    <div className="flex gap-1.5 border-b border-white/10 px-3 py-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-red-300" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-yellow-300" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-300" />
+                  <div
+                    className={`relative h-36 overflow-hidden bg-linear-to-br ${projectVisuals[project.slug] ?? projectVisuals.infinityai} before:absolute before:inset-0 after:absolute after:inset-0`}
+                  >
+                    <div className="absolute inset-x-5 top-5 z-10 h-20 rounded-xl border border-white/15 bg-black/20 shadow-2xl backdrop-blur-sm">
+                      <div className="flex gap-1.5 border-b border-white/10 px-3 py-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-red-300" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-yellow-300" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-green-300" />
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 p-3">
+                        <span className="h-3 rounded bg-white/45" />
+                        <span className="h-3 rounded bg-white/25" />
+                        <span className="h-3 rounded bg-white/35" />
+                        <span className="h-3 rounded bg-white/20" />
+                        <span className="h-3 rounded bg-white/35" />
+                        <span className="h-3 rounded bg-white/25" />
+                      </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-2 p-3">
-                      <span className="h-3 rounded bg-white/45" />
-                      <span className="h-3 rounded bg-white/25" />
-                      <span className="h-3 rounded bg-white/35" />
-                      <span className="h-3 rounded bg-white/20" />
-                      <span className="h-3 rounded bg-white/35" />
-                      <span className="h-3 rounded bg-white/25" />
-                    </div>
+                    <span className="absolute bottom-[-1px] left-4 z-20 rounded-t-lg bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
+                      {categoryLabels[project.slug] ?? project.category}
+                    </span>
                   </div>
-                  <span className="absolute bottom-[-1px] left-4 z-20 rounded-t-lg bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
-                    {categoryLabels[project.slug] ?? project.category}
-                  </span>
-                </div>
 
-                <div className="p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-xl font-black tracking-[-0.025em] text-foreground">
-                      {project.title}
-                    </h3>
-                    <ExternalIcon />
+                  <div className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-xl font-black tracking-[-0.025em] text-foreground">
+                        {project.title}
+                      </h3>
+                      <ExternalIcon />
+                    </div>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                      {project.summary}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.stack.slice(0, 4).map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
-                    {project.summary}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.stack.slice(0, 4).map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -349,21 +346,24 @@ export default function Home() {
                   Get technical notes from WishMaster01.
                 </h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-                  Subscribe for practical updates about Next.js architecture,
-                  AI portfolio systems, DSA patterns, Prisma/PostgreSQL, and
+                  Subscribe for practical updates about Next.js architecture, AI
+                  portfolio systems, DSA patterns, Prisma/PostgreSQL, and
                   production-grade UI engineering.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {["No spam", "Technical only", "AI + SaaS", "DSA patterns"].map(
-                    (item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-black text-muted-foreground"
-                      >
-                        {item}
-                      </span>
-                    ),
-                  )}
+                  {[
+                    "No spam",
+                    "Technical only",
+                    "AI + SaaS",
+                    "DSA patterns",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-black text-muted-foreground"
+                    >
+                      {item}
+                    </span>
+                  ))}
                 </div>
               </div>
 

@@ -14,7 +14,7 @@ export function GitHubOverview({ data }: GitHubOverviewProps) {
     <Reveal>
       <Card className="theme-accent-glow overflow-hidden rounded-[2.25rem] border-accent/20 bg-surface/95 shadow-xl shadow-foreground/5">
         <CardContent className="relative p-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_30%),radial-gradient(circle_at_84%_20%,color-mix(in_oklab,var(--ambient-two)_16%,transparent),transparent_34%)]" />
+          <div className="absolute inset-0 bg-[radial-linear(circle_at_18%_18%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_30%),radial-linear(circle_at_84%_20%,color-mix(in_oklab,var(--ambient-two)_16%,transparent),transparent_34%)]" />
           <div className="github-signal-grid absolute inset-0 opacity-50" />
           <div className="github-scanline absolute inset-x-0 top-0 h-20" />
           <div className="relative grid grid-cols-[minmax(0,1fr)_minmax(112px,34vw)] gap-4 p-4 sm:gap-8 sm:p-8 lg:grid-cols-[1fr_360px] lg:p-10">

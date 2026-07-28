@@ -26,9 +26,7 @@ export function AnalyticsChart({
         <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
           AnalyticsChart
         </p>
-        <h2 className="mt-2 text-2xl font-black tracking-[-0.04em]">
-          {title}
-        </h2>
+        <h2 className="mt-2 text-2xl font-black tracking-[-0.04em]">{title}</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           {description}
         </p>
@@ -39,7 +37,7 @@ export function AnalyticsChart({
           <div
             className="relative grid h-56 w-56 place-items-center rounded-full border border-border shadow-inner shadow-foreground/10"
             style={{
-              background: `conic-gradient(${items
+              background: `conic-linear(${items
                 .reduce(
                   (segments, item) => {
                     const start = segments.offset;
@@ -66,7 +64,10 @@ export function AnalyticsChart({
 
         <div className="grid gap-3">
           {items.map((item) => (
-            <div key={item.label} className="rounded-2xl border border-border bg-background/60 p-4">
+            <div
+              key={item.label}
+              className="rounded-2xl border border-border bg-background/60 p-4"
+            >
               <div className="flex items-center justify-between gap-4">
                 <span className="text-sm font-black">{item.label}</span>
                 <span className="text-sm font-black text-accent">

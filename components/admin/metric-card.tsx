@@ -27,7 +27,7 @@ export function MetricCard({
     <article className="group relative overflow-hidden rounded-3xl border border-border bg-surface/85 p-5 shadow-sm shadow-foreground/5 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-accent/40">
       <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/10 blur-2xl transition group-hover:bg-accent/20" />
       <div
-        className={`relative grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${toneClasses[tone]} shadow-sm shadow-foreground/5`}
+        className={`relative grid h-12 w-12 place-items-center rounded-2xl bg-linear-to-br ${toneClasses[tone]} shadow-sm shadow-foreground/5`}
       >
         <span className="text-lg font-black">{icon}</span>
       </div>

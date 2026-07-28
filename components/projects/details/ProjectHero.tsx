@@ -90,6 +90,12 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 Architecture
               </Link>
               <Link
+                href={`/projects/${project.slug}/engineering`}
+                className="rounded-full border border-accent/35 bg-accent/10 px-4 py-2.5 text-xs font-black text-accent transition hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground sm:px-5 sm:py-3 sm:text-sm"
+              >
+                Engineering
+              </Link>
+              <Link
                 href="/contact"
                 className="hidden rounded-full border border-border bg-background px-5 py-3 text-sm font-black text-foreground transition hover:border-accent/40 hover:text-accent sm:inline-flex"
               >
@@ -99,11 +105,11 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           </div>
 
           <div
-            className={`relative min-h-[260px] overflow-hidden bg-gradient-to-br sm:min-h-[360px] ${
+            className={`relative min-h-[260px] overflow-hidden bg-linear-to-br sm:min-h-[360px] ${
               projectVisuals[project.slug] ?? projectVisuals.infinityai
             }`}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_24%,rgba(255,255,255,0.26),transparent_30%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.18),transparent_34%)]" />
+            <div className="absolute inset-0 bg-[radial-linear(circle_at_22%_24%,rgba(255,255,255,0.26),transparent_30%),radial-linear(circle_at_80%_70%,rgba(255,255,255,0.18),transparent_34%)]" />
             <div className="absolute inset-x-3 top-8 rounded-2xl border border-white/25 bg-black/25 p-3 shadow-2xl backdrop-blur-md sm:inset-x-8 sm:top-10 sm:rounded-[2rem] sm:p-5">
               <div className="flex gap-1.5 border-b border-white/15 pb-3 sm:gap-2 sm:pb-4">
                 <span className="h-2 w-2 rounded-full bg-red-300 sm:h-3 sm:w-3" />

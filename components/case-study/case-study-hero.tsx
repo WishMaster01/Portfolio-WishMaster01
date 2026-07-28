@@ -49,6 +49,12 @@ export function CaseStudyHero({
             <Button asChild variant="secondary">
               <Link href={githubUrl}>GitHub Repository</Link>
             </Button>
+            <Button asChild variant="secondary">
+              <Link href={`/projects/${slug}/architecture`}>Architecture</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link href={`/projects/${slug}/engineering`}>Engineering</Link>
+            </Button>
           </div>
         </Reveal>
 
@@ -62,7 +68,7 @@ export function CaseStudyHero({
                 sizes="(min-width: 1024px) 640px, 100vw"
                 className="object-contain p-8"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-background/35 via-transparent to-accent/10" />
+              <div className="absolute inset-0 bg-linear-to-tr from-background/35 via-transparent to-accent/10" />
             </div>
           </div>
         </Reveal>

@@ -21,7 +21,7 @@ export function BlogCard({ article }: BlogCardProps) {
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent opacity-80" />
         <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-accent backdrop-blur">
           {article.category}
         </span>

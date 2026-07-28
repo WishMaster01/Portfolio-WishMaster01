@@ -194,6 +194,11 @@ export default async function ArchitecturePage({ params }: PageProps) {
                         Read Case Study
                       </Link>
                     </Button>
+                    <Button asChild variant="secondary">
+                      <Link href={`/projects/${project.slug}/engineering`}>
+                        Engineering Quality
+                      </Link>
+                    </Button>
                   </div>
                 </div>
 
@@ -350,6 +355,11 @@ export default async function ArchitecturePage({ params }: PageProps) {
                   <Button asChild variant="secondary">
                     <Link href={`/projects/${project.slug}/case-study`}>
                       Case Study
+                    </Link>
+                  </Button>
+                  <Button asChild variant="secondary">
+                    <Link href={`/projects/${project.slug}/engineering`}>
+                      Engineering
                     </Link>
                   </Button>
                 </div>

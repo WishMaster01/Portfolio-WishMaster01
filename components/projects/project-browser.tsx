@@ -10,7 +10,14 @@ type ProjectBrowserProps = {
   projects: Project[];
 };
 
-const filters = ["All", "AI", "Web Apps", "SaaS", "Commerce", "Dashboard"] as const;
+const filters = [
+  "All",
+  "AI",
+  "Web Apps",
+  "SaaS",
+  "Commerce",
+  "Dashboard",
+] as const;
 
 const projectVisuals: Record<string, string> = {
   infinityai: "from-[#17002f] via-[#6d28d9] to-[#070014]",
@@ -38,7 +45,9 @@ function projectMatchesFilter(project: Project, filter: string) {
   }
 
   if (filter === "Commerce") {
-    return /commerce|marketplace|cart|checkout|grocery|storefront/.test(haystack);
+    return /commerce|marketplace|cart|checkout|grocery|storefront/.test(
+      haystack,
+    );
   }
 
   if (filter === "Dashboard") {
@@ -70,7 +79,10 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
         .join(" ")
         .toLowerCase();
 
-      return matchesFilter && (!normalizedQuery || haystack.includes(normalizedQuery));
+      return (
+        matchesFilter &&
+        (!normalizedQuery || haystack.includes(normalizedQuery))
+      );
     });
   }, [filter, projects, query]);
 
@@ -138,7 +150,10 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
         </div>
       </div>
 
-      <motion.div layout className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+      <motion.div
+        layout
+        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6"
+      >
         {filteredProjects.map((project, index) => (
           <motion.article
             key={project.slug}
@@ -151,11 +166,11 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
             <Link href={`/projects/${project.slug}`} className="block">
               <div
                 className={cn(
-                  "relative h-44 overflow-hidden bg-gradient-to-br sm:h-60",
+                  "relative h-44 overflow-hidden bg-linear-to-br sm:h-60",
                   projectVisuals[project.slug] ?? projectVisuals.infinityai,
                 )}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_26%_20%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_72%,rgba(255,255,255,0.18),transparent_30%)]" />
+                <div className="absolute inset-0 bg-[radial-linear(circle_at_26%_20%,rgba(255,255,255,0.28),transparent_28%),radial-linear(circle_at_78%_72%,rgba(255,255,255,0.18),transparent_30%)]" />
                 <div className="absolute left-4 right-4 top-6 rounded-2xl border border-white/25 bg-black/25 p-3 shadow-2xl backdrop-blur-md sm:left-6 sm:right-6 sm:top-8 sm:rounded-3xl sm:p-4">
                   <div className="flex gap-2 border-b border-white/15 pb-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
@@ -256,7 +271,9 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
 
       {filteredProjects.length === 0 ? (
         <div className="rounded-[2rem] border border-border bg-surface p-8 text-center">
-          <h2 className="text-xl font-black text-foreground">No projects found</h2>
+          <h2 className="text-xl font-black text-foreground">
+            No projects found
+          </h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Try a different search term or switch the filter back to All.
           </p>

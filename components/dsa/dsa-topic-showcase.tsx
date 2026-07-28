@@ -68,7 +68,7 @@ export function DsaTopicShowcase() {
     <div className="space-y-6">
       <Card className="overflow-hidden rounded-[2rem] border-accent/20 bg-surface/95 shadow-xl shadow-foreground/5">
         <CardContent className="relative p-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_28%),radial-gradient(circle_at_88%_10%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
+          <div className="absolute inset-0 bg-[radial-linear(circle_at_18%_12%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_28%),radial-linear(circle_at_88%_10%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
 
           <div className="relative grid gap-5 p-4 sm:gap-8 sm:p-7 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_360px] lg:p-8">
             <div>
@@ -190,7 +190,10 @@ export function DsaTopicShowcase() {
         ))}
       </div>
 
-      <div id={topicSlug(selectedTopic.title)} className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-6">
+      <div
+        id={topicSlug(selectedTopic.title)}
+        className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_420px] xl:gap-6"
+      >
         <motion.section
           key={selectedTopic.title}
           initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -236,7 +239,11 @@ export function DsaTopicShowcase() {
               title="How to recognize this pattern"
               items={selectedTopic.recognition}
             />
-            <InfoList title="Solving approach" items={selectedTopic.approach} ordered />
+            <InfoList
+              title="Solving approach"
+              items={selectedTopic.approach}
+              ordered
+            />
           </div>
 
           <Card className="rounded-[2rem] bg-surface/95">
@@ -250,7 +257,10 @@ export function DsaTopicShowcase() {
 
               <div className="mt-5 grid gap-3 sm:grid-cols-2 sm:gap-4">
                 <ExampleBox label="Input" value={selectedTopic.example.input} />
-                <ExampleBox label="Output" value={selectedTopic.example.output} />
+                <ExampleBox
+                  label="Output"
+                  value={selectedTopic.example.output}
+                />
               </div>
 
               <p className="mt-5 rounded-2xl border border-border bg-background/70 p-4 text-sm leading-7 text-muted-foreground">
@@ -330,7 +340,10 @@ function InfoList({
         <h3 className="font-black text-foreground">{title}</h3>
         <ListTag className="mt-4 space-y-3">
           {items.map((item, index) => (
-            <li key={item} className="flex gap-3 text-sm leading-7 text-muted-foreground">
+            <li
+              key={item}
+              className="flex gap-3 text-sm leading-7 text-muted-foreground"
+            >
               <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-black text-accent">
                 {ordered ? index + 1 : "•"}
               </span>
