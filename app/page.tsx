@@ -76,18 +76,18 @@ const categoryLabels: Record<string, string> = {
 
 const projectVisuals: Record<string, string> = {
   infinityai:
-    "from-[#12002f] via-[#34127a] to-[#050014] before:bg-[radial-gradient(circle_at_70%_35%,rgba(168,85,247,0.95),transparent_22%)] after:bg-[gradient-gradient(135deg,rgba(255,255,255,0.18),transparent)]",
+    "from-[#12002f] via-[#34127a] to-[#050014] before:bg-[radial-gradient(circle_at_70%_35%,rgba(168,85,247,0.95),transparent_22%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.18),transparent)]",
   explorex:
-    "from-[#c5efff] via-[#3db9ff] to-[#08728f] before:bg-[radial-gradient(circle_at_42%_35%,rgba(255,255,255,0.95),transparent_20%)] after:bg-[gradient-gradient(150deg,rgba(34,197,94,0.55),transparent_42%)]",
+    "from-[#c5efff] via-[#3db9ff] to-[#08728f] before:bg-[radial-gradient(circle_at_42%_35%,rgba(255,255,255,0.95),transparent_20%)] after:bg-[linear-gradient(150deg,rgba(34,197,94,0.55),transparent_42%)]",
   dailyessentials:
-    "from-[#fff7ed] via-[#fbbf77] to-[#9a3412] before:bg-[radial-gradient(circle_at_45%_35%,rgba(255,255,255,0.9),transparent_18%)] after:bg-[gradient-gradient(145deg,rgba(120,53,15,0.28),transparent_45%)]",
-  vyvo: "from-[#290052] via-[#a21caf] to-[#2e1065] before:bg-[radial-gradient(circle_at_55%_35%,rgba(244,114,182,0.9),transparent_18%)] after:bg-[gradient-gradient(135deg,rgba(255,255,255,0.16),transparent)]",
+    "from-[#fff7ed] via-[#fbbf77] to-[#9a3412] before:bg-[radial-gradient(circle_at_45%_35%,rgba(255,255,255,0.9),transparent_18%)] after:bg-[linear-gradient(145deg,rgba(120,53,15,0.28),transparent_45%)]",
+  vyvo: "from-[#290052] via-[#a21caf] to-[#2e1065] before:bg-[radial-gradient(circle_at_55%_35%,rgba(244,114,182,0.9),transparent_18%)] after:bg-[linear-gradient(135deg,rgba(255,255,255,0.16),transparent)]",
   wishcart:
-    "from-[#061b44] via-[#2563eb] to-[#050816] before:bg-[radial-gradient(circle_at_55%_34%,rgba(147,197,253,0.88),transparent_20%)] after:bg-[gradient-gradient(145deg,rgba(255,255,255,0.16),transparent)]",
+    "from-[#061b44] via-[#2563eb] to-[#050816] before:bg-[radial-gradient(circle_at_55%_34%,rgba(147,197,253,0.88),transparent_20%)] after:bg-[linear-gradient(145deg,rgba(255,255,255,0.16),transparent)]",
 };
 
 function DownloadIcon() {
-  return (
+  return (  
     <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path
         d="M10 3.75v8.1m0 0 3.15-3.15M10 11.85 6.85 8.7M4.5 14.2v1.15c0 .5.4.9.9.9h9.2c.5 0 .9-.4.9-.9V14.2"
@@ -137,7 +137,7 @@ export default function Home() {
   const featured = projects.slice(0, 5);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),gradient-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
+    <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
       <section className="mx-auto w-full max-w-[1680px] px-4 pb-8 pt-10 sm:px-8 sm:pt-14 lg:px-24 lg:pb-14 lg:pt-20">
         <div className="grid min-h-[360px] grid-cols-[minmax(0,1fr)_minmax(96px,32vw)] items-center gap-4 sm:min-h-[450px] sm:grid-cols-[minmax(0,1fr)_minmax(220px,42vw)] sm:gap-8 lg:min-h-[510px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           <Reveal className="relative z-10 min-w-0 max-w-[660px]">

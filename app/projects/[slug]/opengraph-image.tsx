@@ -32,30 +32,54 @@ export default async function Image({ params }: ProjectOgImageProps) {
         flexDirection: "column",
         justifyContent: "space-between",
         background:
-          "gradient-gradient(135deg, #020617 0%, #111827 58%, #3730a3 100%)",
+          "linear-gradient(135deg, #020617 0%, #111827 58%, #3730a3 100%)",
         color: "#f8fafc",
         padding: 72,
-        fontFamily: "Arial",
+        fontFamily: "Arial, Helvetica, sans-serif",
       }}
     >
-      <div style={{ fontSize: 28, letterSpacing: 4, color: "#a5b4fc" }}>
+      <div
+        style={{
+          display: "flex",
+          fontSize: 28,
+          letterSpacing: 4,
+          color: "#a5b4fc",
+        }}
+      >
         {project.category.toUpperCase()}
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: 88, fontWeight: 700, lineHeight: 1 }}>
-          {project.title}
-        </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <div
           style={{
+            display: "flex",
+            fontSize: 88,
+            fontWeight: 700,
+            lineHeight: 1,
+          }}
+        >
+          {project.title}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
             marginTop: 28,
             maxWidth: 920,
             fontSize: 30,
+            lineHeight: 1.35,
             color: "#cbd5e1",
           }}
         >
           {project.summary}
         </div>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -65,7 +89,18 @@ export default async function Image({ params }: ProjectOgImageProps) {
         }}
       >
         {project.stack.slice(0, 4).map((item) => (
-          <div key={item}>{item}</div>
+          <div
+            key={item}
+            style={{
+              display: "flex",
+              padding: "8px 14px",
+              border: "1px solid rgba(165, 180, 252, 0.3)",
+              borderRadius: 10,
+              background: "rgba(15, 23, 42, 0.55)",
+            }}
+          >
+            {item}
+          </div>
         ))}
       </div>
     </div>,
