@@ -23,7 +23,7 @@
   --hero-art-filter: none;
   --hero-art-glow: 0 30px 70px rgba(79, 70, 229, 0.16);
   --hero-art-tint: rgba(124, 58, 237, 0.12);
-  --theme-texture: gradient-gradient(transparent, transparent);
+  --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
   --font-system-sans:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -68,7 +68,7 @@
   --hero-art-filter: saturate(1.04) contrast(1.04) brightness(0.86);
   --hero-art-glow: 0 30px 90px rgba(168, 85, 247, 0.28);
   --hero-art-tint: rgba(168, 85, 247, 0.2);
-  --theme-texture: gradient-gradient(transparent, transparent);
+  --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
 
@@ -92,7 +92,7 @@
   --hero-art-filter: none;
   --hero-art-glow: 0 30px 70px rgba(109, 74, 255, 0.16);
   --hero-art-tint: rgba(124, 58, 237, 0.12);
-  --theme-texture: gradient-gradient(transparent, transparent);
+  --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
 
@@ -116,7 +116,7 @@
   --hero-art-filter: saturate(1.08) contrast(1.05) brightness(0.82);
   --hero-art-glow: 0 32px 95px rgba(168, 85, 247, 0.34);
   --hero-art-tint: rgba(168, 85, 247, 0.22);
-  --theme-texture: gradient-gradient(transparent, transparent);
+  --theme-texture: linear-gradient(transparent, transparent);
   --theme-texture-size: auto, auto, auto, auto;
 }
 
@@ -143,11 +143,11 @@
     0 0 52px rgba(255, 47, 207, 0.34), 0 28px 95px rgba(34, 211, 238, 0.18);
   --hero-art-tint: rgba(255, 47, 207, 0.18);
   --theme-texture:
-    gradient-gradient(
+    linear-gradient(
       color-mix(in oklab, var(--accent) 22%, transparent) 1px,
       transparent 1px
     ),
-    gradient-gradient(
+    linear-gradient(
       90deg,
       color-mix(in oklab, var(--accent) 18%, transparent) 1px,
       transparent 1px
@@ -176,12 +176,12 @@
   --hero-art-glow: 0 30px 85px rgba(236, 72, 153, 0.2);
   --hero-art-tint: rgba(236, 72, 153, 0.12);
   --theme-texture:
-    gradient-gradient(
+    linear-gradient(
       135deg,
       color-mix(in oklab, #f0abfc 35%, transparent),
       transparent 38%
     ),
-    gradient-gradient(
+    linear-gradient(
       315deg,
       color-mix(in oklab, #fed7aa 45%, transparent),
       transparent 35%
@@ -309,7 +309,7 @@
   --hero-art-glow: 0 34px 95px rgba(251, 146, 60, 0.28);
   --hero-art-tint: rgba(251, 146, 60, 0.16);
   --theme-texture:
-    gradient-gradient(
+    linear-gradient(
       180deg,
       color-mix(in oklab, #fb923c 24%, transparent),
       transparent 42%
@@ -342,7 +342,7 @@
   --hero-art-filter: grayscale(1) contrast(1.12) brightness(0.82);
   --hero-art-glow: 0 32px 85px rgba(245, 245, 245, 0.14);
   --hero-art-tint: rgba(245, 245, 245, 0.08);
-  --theme-texture: gradient-gradient(
+  --theme-texture: linear-gradient(
     135deg,
     color-mix(in oklab, #ffffff 7%, transparent),
     transparent 28%
@@ -373,11 +373,11 @@
     0 0 42px rgba(0, 245, 255, 0.24), 0 34px 105px rgba(124, 58, 237, 0.24);
   --hero-art-tint: rgba(0, 245, 255, 0.13);
   --theme-texture:
-    gradient-gradient(
+    linear-gradient(
       color-mix(in oklab, var(--accent) 16%, transparent) 1px,
       transparent 1px
     ),
-    gradient-gradient(
+    linear-gradient(
       90deg,
       color-mix(in oklab, var(--accent) 12%, transparent) 1px,
       transparent 1px
@@ -456,7 +456,7 @@ body {
       color-mix(in oklab, var(--ambient-three) 16%, transparent),
       transparent 34rem
     ),
-    gradient-gradient(135deg, var(--background), var(--background-alt));
+    linear-gradient(135deg, var(--background), var(--background-alt));
   background-attachment: fixed;
   background-size: var(--theme-texture-size);
   color: var(--foreground);
@@ -518,11 +518,11 @@ select {
 
 .github-signal-grid {
   background-image:
-    gradient-gradient(
+    linear-gradient(
       color-mix(in oklab, var(--accent) 14%, transparent) 1px,
       transparent 1px
     ),
-    gradient-gradient(
+    linear-gradient(
       90deg,
       color-mix(in oklab, var(--accent) 10%, transparent) 1px,
       transparent 1px
@@ -545,7 +545,7 @@ select {
 }
 
 .github-scanline {
-  background: gradient-gradient(
+  background: linear-gradient(
     180deg,
     transparent,
     color-mix(in oklab, var(--accent) 14%, transparent),
