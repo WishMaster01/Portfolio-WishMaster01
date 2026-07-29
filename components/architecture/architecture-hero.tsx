@@ -59,7 +59,9 @@ export function ArchitectureHero({
                 </a>
               </Button>
               <Button asChild variant="secondary">
-                <Link href={`/projects/${slug}/case-study`}>Read Case Study</Link>
+                <Link href={`/projects/${slug}/case-study`}>
+                  Read Case Study
+                </Link>
               </Button>
               <Button asChild variant="secondary">
                 <Link href={`/projects/${slug}/engineering`}>

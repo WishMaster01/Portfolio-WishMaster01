@@ -192,7 +192,9 @@ export default async function ArchitecturePage({ params }: PageProps) {
                   className="group inline-flex items-center gap-2 rounded-2xl border border-border bg-background/55 px-4 py-3 text-muted-foreground transition hover:border-accent/45 hover:bg-accent/10 hover:text-accent"
                 >
                   <span>{label}</span>
-                  <span className="transition group-hover:translate-x-1">→</span>
+                  <span className="transition group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
               ))}
             </nav>
