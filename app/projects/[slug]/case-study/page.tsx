@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CaseStudyHero } from "@/components/case-study/case-study-hero";
 import { DecisionMatrix } from "@/components/case-study/decision-matrix";
 import { LessonSection } from "@/components/case-study/lesson-section";
 import { OutcomeGrid } from "@/components/case-study/outcome-grid";
 import { ProblemSection } from "@/components/case-study/problem-section";
 import { ProcessTimeline } from "@/components/case-study/process-timeline";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site";
 import { getProjectCaseStudy } from "@/server/queries/get-project-case-study";
@@ -73,8 +70,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   const caseStudy = project.caseStudy;
 
   return (
-    <div className="relative overflow-hidden bg-background text-foreground">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[var(--theme-texture)] bg-[length:var(--theme-texture-size)] opacity-60" />
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -91,37 +87,25 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           }),
         }}
       />
-      <Section className="py-8 sm:py-12">
-        <Container className="max-w-[1280px]">
-          <CaseStudyHero
-            title={project.title}
-            slug={project.slug}
-            coverImage={project.coverImage}
-            liveUrl={project.liveUrl}
-            githubUrl={project.githubUrl}
-          />
+      <div className="mt-8 space-y-16 sm:mt-10 sm:space-y-20">
+        <ProblemSection
+          background={caseStudy.background}
+          problem={caseStudy.problem}
+          targetUsers={caseStudy.targetUsers}
+          role={caseStudy.role}
+        />
 
-          <div className="mt-14 space-y-16 sm:mt-20 sm:space-y-20">
-            <ProblemSection
-              background={caseStudy.background}
-              problem={caseStudy.problem}
-              targetUsers={caseStudy.targetUsers}
-              role={caseStudy.role}
-            />
+        <DecisionMatrix
+          constraints={caseStudy.constraints}
+          goals={caseStudy.goals}
+        />
 
-            <DecisionMatrix
-              constraints={caseStudy.constraints}
-              goals={caseStudy.goals}
-            />
+        <ProcessTimeline phases={caseStudy.process} />
 
-            <ProcessTimeline phases={caseStudy.process} />
+        <OutcomeGrid outcomes={caseStudy.outcomes} />
 
-            <OutcomeGrid outcomes={caseStudy.outcomes} />
-
-            <LessonSection lessons={caseStudy.lessons} />
-          </div>
-        </Container>
-      </Section>
-    </div>
+        <LessonSection lessons={caseStudy.lessons} />
+      </div>
+    </>
   );
 }

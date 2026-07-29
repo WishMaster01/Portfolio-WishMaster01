@@ -3,6 +3,7 @@ import { AdminHeader } from "@/components/admin/admin-header";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { AnalyticsChart } from "@/components/admin/analytics-chart";
 import { BlogEditor } from "@/components/admin/blog-editor";
+import { CaseStudyEditor } from "@/components/admin/case-study-editor";
 import { DataTable, type DataTableColumn } from "@/components/admin/data-table";
 import { MessageViewer } from "@/components/admin/message-viewer";
 import { MetricCard } from "@/components/admin/metric-card";
@@ -186,9 +187,9 @@ export default async function AdminPage() {
 
   return (
     <div className="relative overflow-hidden bg-background text-foreground">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[var(--theme-texture)] bg-[length:var(--theme-texture-size)] opacity-60" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-(--theme-texture) bg-size-(--theme-texture-size) opacity-60" />
       <Section className="py-8 sm:py-10">
-        <Container className="max-w-[1500px]">
+        <Container className="max-w-375">
           <div className="grid gap-6 lg:grid-cols-[290px_minmax(0,1fr)]">
             <Reveal>
               <AdminSidebar />
@@ -243,6 +244,10 @@ export default async function AdminPage() {
 
               <Reveal delay={0.08}>
                 <ProjectForm />
+              </Reveal>
+
+              <Reveal delay={0.09}>
+                <CaseStudyEditor />
               </Reveal>
 
               <Reveal delay={0.1}>
@@ -405,7 +410,7 @@ function AdminInfoModule({
   return (
     <section
       id={id}
-      className="h-full rounded-[2rem] border border-border bg-surface/85 p-5 shadow-sm shadow-foreground/5 backdrop-blur sm:p-6"
+      className="h-full rounded-4xl border border-border bg-surface/85 p-5 shadow-sm shadow-foreground/5 backdrop-blur sm:p-6"
     >
       <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
         {eyebrow}

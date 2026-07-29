@@ -18,6 +18,7 @@ export type ProjectCaseStudyData = {
   process: CaseStudyPhase[];
   outcomes: CaseStudyMetric[];
   lessons: string[];
+  futureScope?: string[];
 };
 
 export type ProjectCaseStudy = {

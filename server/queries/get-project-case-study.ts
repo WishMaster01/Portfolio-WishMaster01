@@ -33,7 +33,9 @@ function isCaseStudyData(value: unknown): value is ProjectCaseStudyData {
       Array.isArray(candidate.goals) &&
       Array.isArray(candidate.process) &&
       Array.isArray(candidate.outcomes) &&
-      Array.isArray(candidate.lessons),
+      Array.isArray(candidate.lessons) &&
+      (candidate.futureScope === undefined ||
+        Array.isArray(candidate.futureScope)),
   );
 }
 
