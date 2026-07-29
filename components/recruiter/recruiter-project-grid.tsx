@@ -28,7 +28,7 @@ export function RecruiterProjectGrid({ projects }: RecruiterProjectGridProps) {
         {projects.map((project, index) => (
           <Reveal key={project.slug} delay={index * 0.05}>
             <article className="group h-full overflow-hidden rounded-[2rem] border border-border bg-surface/85 shadow-sm shadow-foreground/5 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10">
-              <div className="relative h-40 overflow-hidden bg-linear-to-br from-accent/20 via-surface-elevated to-background">
+              <div className="relative h-40 overflow-hidden bg-gradient-to-br from-accent/20 via-surface-elevated to-background">
                 <div className="absolute inset-5 rounded-2xl border border-border/70 bg-background/65 p-4 shadow-xl shadow-foreground/5">
                   <div className="flex gap-1.5 border-b border-border pb-3">
                     <span className="h-2 w-2 rounded-full bg-red-400" />

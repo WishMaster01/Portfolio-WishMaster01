@@ -21,7 +21,7 @@ export function ProcessTimeline({ phases }: ProcessTimelineProps) {
       </Reveal>
 
       <div className="relative mt-8 grid gap-4 lg:grid-cols-4">
-        <div className="pointer-events-none absolute left-6 right-6 top-10 hidden h-px bg-linear-to-r from-transparent via-accent/50 to-transparent lg:block" />
+        <div className="pointer-events-none absolute left-6 right-6 top-10 hidden h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent lg:block" />
         {phases.map((phase, index) => (
           <Reveal key={phase.phase} delay={index * 0.05}>
             <article className="relative h-full rounded-[2rem] border border-border bg-surface/90 p-5 shadow-sm shadow-foreground/5 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-accent/40 sm:p-6">

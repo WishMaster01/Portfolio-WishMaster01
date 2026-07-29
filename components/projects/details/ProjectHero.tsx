@@ -42,7 +42,9 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
                   Role
                 </p>
-                <p className="mt-2 font-black text-foreground">{project.role}</p>
+                <p className="mt-2 font-black text-foreground">
+                  {project.role}
+                </p>
               </div>
               <div className="rounded-2xl border border-border bg-background/70 p-4">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
@@ -56,7 +58,9 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
                   Build Type
                 </p>
-                <p className="mt-2 font-black text-foreground">{project.status}</p>
+                <p className="mt-2 font-black text-foreground">
+                  {project.status}
+                </p>
               </div>
             </div>
 
@@ -105,11 +109,11 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           </div>
 
           <div
-            className={`relative min-h-[260px] overflow-hidden bg-linear-to-br sm:min-h-[360px] ${
+            className={`relative min-h-[260px] overflow-hidden bg-gradient-to-br sm:min-h-[360px] ${
               projectVisuals[project.slug] ?? projectVisuals.infinityai
             }`}
           >
-            <div className="absolute inset-0 bg-[radial-linear(circle_at_22%_24%,rgba(255,255,255,0.26),transparent_30%),radial-linear(circle_at_80%_70%,rgba(255,255,255,0.18),transparent_34%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_24%,rgba(255,255,255,0.26),transparent_30%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,0.18),transparent_34%)]" />
             <div className="absolute inset-x-3 top-8 rounded-2xl border border-white/25 bg-black/25 p-3 shadow-2xl backdrop-blur-md sm:inset-x-8 sm:top-10 sm:rounded-[2rem] sm:p-5">
               <div className="flex gap-1.5 border-b border-white/15 pb-3 sm:gap-2 sm:pb-4">
                 <span className="h-2 w-2 rounded-full bg-red-300 sm:h-3 sm:w-3" />
@@ -129,7 +133,10 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 <div className="hidden rounded-3xl border border-white/20 bg-white/15 p-4 sm:block">
                   <div className="grid gap-3">
                     {project.metrics.map((metric) => (
-                      <div key={metric.label} className="rounded-2xl bg-black/20 p-3 text-white">
+                      <div
+                        key={metric.label}
+                        className="rounded-2xl bg-black/20 p-3 text-white"
+                      >
                         <p className="text-xl font-black">{metric.value}</p>
                         <p className="text-xs opacity-75">{metric.label}</p>
                       </div>

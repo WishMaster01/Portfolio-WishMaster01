@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const algorithmGroups = [
   {
-    label: "Linear thinking",
+    label: "gradient thinking",
     items: ["Arrays", "Linked Lists", "Stacks", "Queues"],
   },
   {
@@ -68,7 +68,7 @@ export function DsaTopicShowcase() {
     <div className="space-y-6">
       <Card className="overflow-hidden rounded-[2rem] border-accent/20 bg-surface/95 shadow-xl shadow-foreground/5">
         <CardContent className="relative p-0">
-          <div className="absolute inset-0 bg-[radial-linear(circle_at_18%_12%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_28%),radial-linear(circle_at_88%_10%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_28%),radial-gradient(circle_at_88%_10%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
 
           <div className="relative grid gap-5 p-4 sm:gap-8 sm:p-7 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_360px] lg:p-8">
             <div>

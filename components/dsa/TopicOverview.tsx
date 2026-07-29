@@ -11,7 +11,7 @@ export function TopicOverview({ topic }: TopicOverviewProps) {
     <div className="space-y-6">
       <Card className="overflow-hidden rounded-[2rem] border-accent/20 bg-surface/95">
         <CardContent className="relative p-6 sm:p-8">
-          <div className="absolute inset-0 bg-[radial-linear(circle_at_12%_10%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_30%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_10%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_30%)]" />
           <div className="relative">
             <div className="flex flex-wrap gap-2">
               <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-black text-accent">

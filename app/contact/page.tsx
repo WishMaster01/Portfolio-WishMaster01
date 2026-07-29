@@ -96,7 +96,7 @@ export default function ContactPage() {
             <div className="space-y-6">
               <Reveal>
                 <Card className="relative overflow-hidden rounded-[2rem] border-accent/20 bg-surface/80">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-accent via-[var(--ambient-two)] to-[var(--ambient-three)]" />
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-[var(--ambient-two)] to-[var(--ambient-three)]" />
                   <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/20 blur-3xl" />
                   <CardContent className="p-6 sm:p-8 lg:p-10">
                     <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
@@ -213,7 +213,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="rounded-[2rem] border-accent/20 bg-linear-to-br from-accent/20 via-surface to-surface">
+              <Card className="rounded-[2rem] border-accent/20 bg-gradient-to-br from-accent/20 via-surface to-surface">
                 <CardContent className="p-5 sm:p-6">
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
                     Workflow

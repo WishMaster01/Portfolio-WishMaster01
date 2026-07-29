@@ -32,7 +32,7 @@ export default async function Image({ params }: ProjectOgImageProps) {
         flexDirection: "column",
         justifyContent: "space-between",
         background:
-          "linear-linear(135deg, #020617 0%, #111827 58%, #3730a3 100%)",
+          "gradient-gradient(135deg, #020617 0%, #111827 58%, #3730a3 100%)",
         color: "#f8fafc",
         padding: 72,
         fontFamily: "Arial",

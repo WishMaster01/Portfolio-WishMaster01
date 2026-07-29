@@ -166,11 +166,11 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
             <Link href={`/projects/${project.slug}`} className="block">
               <div
                 className={cn(
-                  "relative h-44 overflow-hidden bg-linear-to-br sm:h-60",
+                  "relative h-44 overflow-hidden bg-gradient-to-br sm:h-60",
                   projectVisuals[project.slug] ?? projectVisuals.infinityai,
                 )}
               >
-                <div className="absolute inset-0 bg-[radial-linear(circle_at_26%_20%,rgba(255,255,255,0.28),transparent_28%),radial-linear(circle_at_78%_72%,rgba(255,255,255,0.18),transparent_30%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_26%_20%,rgba(255,255,255,0.28),transparent_28%),radial-gradient(circle_at_78%_72%,rgba(255,255,255,0.18),transparent_30%)]" />
                 <div className="absolute left-4 right-4 top-6 rounded-2xl border border-white/25 bg-black/25 p-3 shadow-2xl backdrop-blur-md sm:left-6 sm:right-6 sm:top-8 sm:rounded-3xl sm:p-4">
                   <div className="flex gap-2 border-b border-white/15 pb-3">
                     <span className="h-2.5 w-2.5 rounded-full bg-red-300" />

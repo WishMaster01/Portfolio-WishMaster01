@@ -27,7 +27,7 @@ export function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
                 key={screenshot.title}
                 className="group overflow-hidden rounded-2xl border border-border bg-background/70 transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10"
               >
-                <div className="grid aspect-video place-items-center bg-[radial-linear(circle_at_50%_30%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_42%),linear-linear(135deg,var(--surface-elevated),var(--background))] p-8">
+                <div className="grid aspect-video place-items-center bg-[radial-gradient(circle_at_50%_30%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_42%),gradient-gradient(135deg,var(--surface-elevated),var(--background))] p-8">
                   <div className="rounded-2xl border border-border bg-surface/80 p-5 shadow-lg transition group-hover:scale-105">
                     <Image
                       src={screenshot.image}

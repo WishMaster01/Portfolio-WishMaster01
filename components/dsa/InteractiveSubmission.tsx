@@ -95,7 +95,7 @@ export function InteractiveSubmission({ topic }: InteractiveSubmissionProps) {
       className="overflow-hidden rounded-[2rem] border border-accent/20 bg-surface shadow-2xl shadow-accent/10"
     >
       <div className="relative overflow-hidden border-b border-border p-5 sm:p-6">
-        <div className="absolute inset-0 bg-[radial-linear(circle_at_20%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%)]" />
         <div className="relative flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-accent">

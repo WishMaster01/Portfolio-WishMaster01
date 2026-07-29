@@ -37,7 +37,7 @@ export function AnalyticsChart({
           <div
             className="relative grid h-56 w-56 place-items-center rounded-full border border-border shadow-inner shadow-foreground/10"
             style={{
-              background: `conic-linear(${items
+              background: `conic-gradient(${items
                 .reduce(
                   (segments, item) => {
                     const start = segments.offset;

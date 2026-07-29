@@ -26,7 +26,7 @@ export const dsaLearningPath = [
 export const dsaTopics = [
   {
     title: "Arrays",
-    category: "Linear Data Structure",
+    category: "gradient Data Structure",
     difficulty: "Foundation",
     description:
       "Arrays store elements in contiguous memory and are the base for traversal, two pointers, prefix sums, frequency counting, and sliding window problems.",
@@ -77,7 +77,12 @@ export const dsaTopics = [
     difficulty: "Foundation",
     description:
       "Linked lists connect nodes through references. They test pointer discipline, mutation safety, cycle detection, and in-place transformations.",
-    patterns: ["Fast & Slow Pointers", "Reversal", "Merge Lists", "Cycle Detection"],
+    patterns: [
+      "Fast & Slow Pointers",
+      "Reversal",
+      "Merge Lists",
+      "Cycle Detection",
+    ],
     recognition: [
       "The input is a head node instead of a random-access array.",
       "The task asks for reversing, merging, deleting, detecting cycles, or finding middle nodes.",
@@ -105,7 +110,11 @@ export const dsaTopics = [
       "Not handling empty or single-node lists.",
       "Creating unnecessary extra nodes when the problem asks for in-place mutation.",
     ],
-    practice: ["Reverse Linked List", "Linked List Cycle", "Merge Two Sorted Lists"],
+    practice: [
+      "Reverse Linked List",
+      "Linked List Cycle",
+      "Merge Two Sorted Lists",
+    ],
     code: `class Node {
   int val;
   Node next;
@@ -127,11 +136,16 @@ Node reverse(Node head) {
   },
   {
     title: "Stacks",
-    category: "Linear Data Structure",
+    category: "gradient Data Structure",
     difficulty: "Foundation",
     description:
       "Stacks follow LIFO order. They are ideal when the latest unresolved item must be processed first.",
-    patterns: ["Monotonic Stack", "Expression Parsing", "Backtracking", "Next Greater Element"],
+    patterns: [
+      "Monotonic Stack",
+      "Expression Parsing",
+      "Backtracking",
+      "Next Greater Element",
+    ],
     recognition: [
       "The problem uses nested structures, brackets, undo behavior, or previous greater/smaller elements.",
       "You need to remember unresolved candidates while scanning left to right.",
@@ -158,7 +172,11 @@ Node reverse(Node head) {
       "Using the wrong monotonic direction.",
       "Forgetting to fill unresolved items with -1 or another default.",
     ],
-    practice: ["Valid Parentheses", "Daily Temperatures", "Largest Rectangle in Histogram"],
+    practice: [
+      "Valid Parentheses",
+      "Daily Temperatures",
+      "Largest Rectangle in Histogram",
+    ],
     code: `int[] nextGreater(int[] arr) {
   int[] answer = new int[arr.length];
   Arrays.fill(answer, -1);
@@ -175,11 +193,16 @@ Node reverse(Node head) {
   },
   {
     title: "Queues",
-    category: "Linear Data Structure",
+    category: "gradient Data Structure",
     difficulty: "Foundation",
     description:
       "Queues follow FIFO order and are essential for breadth-first traversal, scheduling, and level-by-level processing.",
-    patterns: ["BFS", "Level Order", "Sliding Window Queue", "Topological Processing"],
+    patterns: [
+      "BFS",
+      "Level Order",
+      "Sliding Window Queue",
+      "Topological Processing",
+    ],
     recognition: [
       "The problem asks for shortest path in an unweighted graph or matrix.",
       "Processing should happen in the same order elements are discovered.",
@@ -206,7 +229,11 @@ Node reverse(Node head) {
       "Mixing level counters with node counters incorrectly.",
       "Using DFS for shortest unweighted path when BFS is required.",
     ],
-    practice: ["Binary Tree Level Order", "Rotting Oranges", "Number of Islands"],
+    practice: [
+      "Binary Tree Level Order",
+      "Rotting Oranges",
+      "Number of Islands",
+    ],
     code: `List<List<Integer>> levelOrder(TreeNode root) {
   List<List<Integer>> levels = new ArrayList<>();
   if (root == null) return levels;
@@ -246,7 +273,8 @@ Node reverse(Node head) {
       "For BSTs, use value bounds or sorted inorder properties.",
       "For path problems, maintain current path and backtrack after visiting children.",
     ],
-    complexity: "Traversal O(n), Balanced BST search O(log n), worst-case BST search O(n)",
+    complexity:
+      "Traversal O(n), Balanced BST search O(log n), worst-case BST search O(n)",
     useCase:
       "Used in file systems, DOM structure, compiler ASTs, search indexes, heaps, and hierarchical data.",
     example: {
@@ -273,7 +301,7 @@ Node reverse(Node head) {
   },
   {
     title: "Graphs",
-    category: "Non-Linear Structure",
+    category: "Non-gradient Structure",
     difficulty: "Intermediate",
     description:
       "Graphs model relationships between nodes. They are key for networks, dependency resolution, routes, connectivity, and recommendations.",
@@ -339,7 +367,12 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
     difficulty: "Foundation",
     description:
       "Searching finds target values efficiently. Binary search is especially important when the answer space is sorted or monotonic.",
-    patterns: ["Linear Search", "Binary Search", "Search on Answer", "Lower Bound"],
+    patterns: [
+      "gradient Search",
+      "Binary Search",
+      "Search on Answer",
+      "Lower Bound",
+    ],
     recognition: [
       "The input or answer space is sorted, monotonic, or can be validated with a yes/no condition.",
       "The task asks for first/last occurrence, minimum feasible value, or exact target.",
@@ -351,7 +384,8 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
       "For search-on-answer, write a helper that checks if a candidate is feasible.",
       "Be explicit about lower bound versus upper bound behavior.",
     ],
-    complexity: "Linear O(n), Binary O(log n), search-on-answer O(log range * check)",
+    complexity:
+      "gradient O(n), Binary O(log n), search-on-answer O(log range * check)",
     useCase:
       "Used in sorted arrays, optimization problems, allocation problems, and database-like lookup logic.",
     example: {
@@ -366,7 +400,11 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
       "Returning any occurrence when the problem asks for first or last occurrence.",
       "Using binary search when the predicate is not monotonic.",
     ],
-    practice: ["Binary Search", "Search Insert Position", "Koko Eating Bananas"],
+    practice: [
+      "Binary Search",
+      "Search Insert Position",
+      "Koko Eating Bananas",
+    ],
     code: `int lowerBound(int[] arr, int target) {
   int left = 0;
   int right = arr.length;
@@ -385,7 +423,12 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
     difficulty: "Foundation",
     description:
       "Sorting organizes data and often unlocks greedy, two-pointer, binary-search, and interval solutions.",
-    patterns: ["Merge Sort", "Quick Sort", "Custom Comparator", "Counting Sort"],
+    patterns: [
+      "Merge Sort",
+      "Quick Sort",
+      "Custom Comparator",
+      "Counting Sort",
+    ],
     recognition: [
       "Relative order helps reveal pairs, intervals, duplicates, or greedy choices.",
       "The problem asks for ranking, merging, minimum removals, or lexicographic order.",
@@ -397,7 +440,8 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
       "For strings or objects, ensure comparator is transitive.",
       "Consider stable ordering only when the problem depends on original order.",
     ],
-    complexity: "Common comparison sorting O(n log n); counting sort O(n + range)",
+    complexity:
+      "Common comparison sorting O(n log n); counting sort O(n + range)",
     useCase:
       "Used in ranking, scheduling, interval problems, deduplication, greedy preprocessing, and search optimization.",
     example: {
@@ -461,7 +505,11 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
       "Wrong base cases for index 0, index 1, or empty input.",
       "Using DP when a greedy proof is simpler and sufficient.",
     ],
-    practice: ["Climbing Stairs", "House Robber", "Longest Increasing Subsequence"],
+    practice: [
+      "Climbing Stairs",
+      "House Robber",
+      "Longest Increasing Subsequence",
+    ],
     code: `int minCostClimbingStairs(int[] cost) {
   int prev2 = 0;
   int prev1 = 0;
@@ -482,7 +530,12 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
     difficulty: "Intermediate",
     description:
       "Greedy algorithms make the locally best choice when that choice can be proven to lead to a global optimum.",
-    patterns: ["Intervals", "Sorting + Choice", "Priority Queue", "Min/Max Strategy"],
+    patterns: [
+      "Intervals",
+      "Sorting + Choice",
+      "Priority Queue",
+      "Min/Max Strategy",
+    ],
     recognition: [
       "The problem asks for minimum resources, maximum count, earliest finish, or best immediate choice.",
       "Sorting reveals a natural choice order.",
@@ -509,7 +562,11 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
       "Using greedy without a correctness argument.",
       "Ignoring equality rules for overlapping boundaries.",
     ],
-    practice: ["Non-overlapping Intervals", "Jump Game", "Minimum Number of Arrows"],
+    practice: [
+      "Non-overlapping Intervals",
+      "Jump Game",
+      "Minimum Number of Arrows",
+    ],
     code: `int maxMeetings(int[][] meetings) {
   Arrays.sort(meetings, (a, b) -> Integer.compare(a[1], b[1]));
   int count = 0;
@@ -593,7 +650,8 @@ void dfs(int node, boolean[] seen, List<List<Integer>> graph) {
     useCase:
       "Used in permissions, compression, parity checks, subset DP, feature flags, and optimization problems.",
     example: {
-      problem: "Find the number that appears once when every other number appears twice.",
+      problem:
+        "Find the number that appears once when every other number appears twice.",
       input: "[4, 1, 2, 1, 2]",
       output: "4",
       explanation:
@@ -654,7 +712,9 @@ export const algorithmTopics: AlgorithmTopic[] = dsaTopics.map((topic) => {
     explanation: topic.description,
     visualExplanation: `${topic.title} problems are usually recognized through ${topic.patterns
       .slice(0, 3)
-      .join(", ")}. Start by modeling the input, then trace how state changes after each operation.`,
+      .join(
+        ", ",
+      )}. Start by modeling the input, then trace how state changes after each operation.`,
     javaCode: topic.code,
     timeComplexity,
     spaceComplexity,

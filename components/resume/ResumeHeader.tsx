@@ -9,7 +9,7 @@ export function ResumeHeader() {
   return (
     <Card className="overflow-hidden rounded-[2rem] border-accent/20 bg-surface/95 shadow-2xl shadow-accent/10">
       <CardContent className="relative p-6 sm:p-8">
-        <div className="absolute inset-0 bg-[radial-linear(circle_at_12%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%),radial-linear(circle_at_90%_12%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_34%),radial-gradient(circle_at_90%_12%,color-mix(in_oklab,var(--ambient-two)_14%,transparent),transparent_30%)]" />
         <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">

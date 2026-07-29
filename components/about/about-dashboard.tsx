@@ -74,7 +74,7 @@ export function AboutDashboard() {
           className="relative min-h-[220px] sm:min-h-[380px] xl:min-h-[460px]"
         >
           <div className="absolute inset-3 rounded-[2rem] bg-accent/10 blur-2xl sm:inset-6 sm:rounded-[3rem] sm:blur-3xl" />
-          <div className="absolute right-2 top-5 h-20 w-16 bg-[radial-linear(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px] sm:right-6 sm:top-8 sm:h-32 sm:w-24" />
+          <div className="absolute right-2 top-5 h-20 w-16 bg-[radial-gradient(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px] sm:right-6 sm:top-8 sm:h-32 sm:w-24" />
           <div className="about-character-frame relative z-10 ml-auto flex h-[220px] w-full max-w-[150px] items-end justify-center overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-xl shadow-foreground/5 sm:mx-auto sm:h-[380px] sm:max-w-[430px] sm:rounded-[2.25rem] xl:h-[460px] xl:max-w-[520px]">
             <Image
               src="/about-page-character-cutout.png"
