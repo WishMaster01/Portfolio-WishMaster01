@@ -13,7 +13,7 @@
 
 Showcasing enterprise-grade projects, AI applications, technical blogs, DSA visualizations, recruiter-focused pages, and modern web engineering.
 
-**Live Demo:** https://your-domain.com
+**Live Demo:** https://wishmaster01.vercel.app
 
 </div>
 
@@ -480,11 +480,11 @@ Contributions are welcome.
 
 **Full-Stack AI & SaaS Developer**
 
-🌐 Portfolio: https://your-domain.com
+🌐 Portfolio: https://wishmaster01.vercel.app
 
 💻 GitHub: https://github.com/WishMaster01
 
-💼 LinkedIn: https://linkedin.com/in/your-profile
+💼 LinkedIn: https://linkedin.com/in/Sumit2589
 
 📧 Email: hello@wishmaster01.com
 
