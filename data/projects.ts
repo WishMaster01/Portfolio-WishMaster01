@@ -1,4 +1,5 @@
 import type { Project } from "@/types/project";
+import { siteConfig } from "./site";
 
 const commonScreenshots = (project: string): Project["screenshots"] => [
   {
@@ -60,7 +61,14 @@ export const projects: Project[] = [
     impact:
       "Creates a portfolio-ready foundation for presenting AI workflows with credible UX, clear routing, and future API integration points.",
     stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion", "AI UX"],
-    technologies: ["Next.js App Router", "TypeScript", "Tailwind CSS", "Framer Motion", "Route Handlers", "OpenRouter/Gemini-ready APIs"],
+    technologies: [
+      "Next.js App Router",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Route Handlers",
+      "OpenRouter/Gemini-ready APIs",
+    ],
     features: [
       {
         title: "Prompt workspace",
@@ -82,10 +90,26 @@ export const projects: Project[] = [
       summary:
         "InfinityAI uses server-rendered product pages with isolated client components for prompt interaction and backend route handlers for provider calls.",
       layers: [
-        { title: "Presentation", description: "Landing, workspace, and case-study UI built from reusable components." },
-        { title: "Interaction", description: "Client-side prompt controls, loading states, and result rendering." },
-        { title: "API", description: "Validated route handlers for model providers and future account-scoped usage." },
-        { title: "Persistence", description: "Prepared for prompt history, saved outputs, and user-level analytics." },
+        {
+          title: "Presentation",
+          description:
+            "Landing, workspace, and case-study UI built from reusable components.",
+        },
+        {
+          title: "Interaction",
+          description:
+            "Client-side prompt controls, loading states, and result rendering.",
+        },
+        {
+          title: "API",
+          description:
+            "Validated route handlers for model providers and future account-scoped usage.",
+        },
+        {
+          title: "Persistence",
+          description:
+            "Prepared for prompt history, saved outputs, and user-level analytics.",
+        },
       ],
     },
     screenshots: commonScreenshots("InfinityAI"),
@@ -112,7 +136,7 @@ export const projects: Project[] = [
       "Team workspaces",
     ],
     githubUrl: "https://github.com/WishMaster01/infinityai",
-    liveUrl: "https://wishmaster01.com/projects/infinityai",
+    liveUrl: `${siteConfig.url}/projects/infinityai`,
     milestones: commonMilestones(
       "Defined the AI workspace narrative and key recruiter-facing story.",
       "Separated prompt UI, provider API boundary, and future persistence layer.",
@@ -163,38 +187,79 @@ export const projects: Project[] = [
     impact:
       "Provides a scalable route and component model for destination pages, itinerary previews, and curated recommendation systems.",
     stack: ["Next.js", "TypeScript", "Tailwind", "Maps-ready UI", "SEO"],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Static Generation", "SEO Metadata", "Maps-ready UI"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Static Generation",
+      "SEO Metadata",
+      "Maps-ready UI",
+    ],
     features: [
-      { title: "Destination discovery", description: "Curated cards and content hierarchy for fast destination comparison." },
-      { title: "Itinerary-ready model", description: "Data structure can evolve into saved routes, plans, and recommendations." },
-      { title: "SEO-first pages", description: "Static route strategy supports future destination detail pages." },
+      {
+        title: "Destination discovery",
+        description:
+          "Curated cards and content hierarchy for fast destination comparison.",
+      },
+      {
+        title: "Itinerary-ready model",
+        description:
+          "Data structure can evolve into saved routes, plans, and recommendations.",
+      },
+      {
+        title: "SEO-first pages",
+        description:
+          "Static route strategy supports future destination detail pages.",
+      },
     ],
     architecture: {
       summary:
         "ExploreX separates destinations, tags, itinerary modules, and media so content can move from static data to a CMS or database.",
       layers: [
-        { title: "Routes", description: "Static marketing and discovery routes with future dynamic destination pages." },
-        { title: "Content", description: "Typed records for destinations, collections, and itinerary blocks." },
-        { title: "Filtering", description: "Client-side filtering first, database search later." },
-        { title: "Integrations", description: "Prepared for maps, location APIs, and saved trips." },
+        {
+          title: "Routes",
+          description:
+            "Static marketing and discovery routes with future dynamic destination pages.",
+        },
+        {
+          title: "Content",
+          description:
+            "Typed records for destinations, collections, and itinerary blocks.",
+        },
+        {
+          title: "Filtering",
+          description: "Client-side filtering first, database search later.",
+        },
+        {
+          title: "Integrations",
+          description: "Prepared for maps, location APIs, and saved trips.",
+        },
       ],
     },
     screenshots: commonScreenshots("ExploreX"),
     challenges: [
       {
         title: "Travel content overload",
-        description: "Destination platforms can become visually dense and hard to compare.",
-        resolution: "The layout uses progressive detail and consistent cards before advanced filters.",
+        description:
+          "Destination platforms can become visually dense and hard to compare.",
+        resolution:
+          "The layout uses progressive detail and consistent cards before advanced filters.",
       },
       {
         title: "Future map integration",
         description: "Maps can dominate layout and performance.",
-        resolution: "Map surfaces are treated as optional progressive enhancements.",
+        resolution:
+          "Map surfaces are treated as optional progressive enhancements.",
       },
     ],
-    futureScope: ["Destination detail pages", "Saved itineraries", "Map integration", "Recommendation engine"],
+    futureScope: [
+      "Destination detail pages",
+      "Saved itineraries",
+      "Map integration",
+      "Recommendation engine",
+    ],
     githubUrl: "https://github.com/WishMaster01/explorex",
-    liveUrl: "https://wishmaster01.com/projects/explorex",
+    liveUrl: `${siteConfig.url}/projects/explorex`,
     milestones: commonMilestones(
       "Defined destination discovery and itinerary planning goals.",
       "Created a content model that can scale into dynamic destination pages.",
@@ -245,20 +310,54 @@ export const projects: Project[] = [
     impact:
       "Creates a credible storefront foundation that can grow into inventory, account, payment, and order-management features.",
     stack: ["Next.js", "TypeScript", "Tailwind", "Commerce UI", "Prisma-ready"],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma-ready Data Model", "PostgreSQL-ready", "Checkout-ready UI"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Prisma-ready Data Model",
+      "PostgreSQL-ready",
+      "Checkout-ready UI",
+    ],
     features: [
-      { title: "Category browsing", description: "Simple essentials-first navigation for quick product discovery." },
-      { title: "Conversion cards", description: "Product cards emphasize price, benefit, trust, and action." },
-      { title: "Checkout boundary", description: "Component structure is prepared for cart and checkout integration." },
+      {
+        title: "Category browsing",
+        description:
+          "Simple essentials-first navigation for quick product discovery.",
+      },
+      {
+        title: "Conversion cards",
+        description:
+          "Product cards emphasize price, benefit, trust, and action.",
+      },
+      {
+        title: "Checkout boundary",
+        description:
+          "Component structure is prepared for cart and checkout integration.",
+      },
     ],
     architecture: {
       summary:
         "DailyEssentials is organized around product, category, cart, and order boundaries so commerce logic can be added without rewriting the UI.",
       layers: [
-        { title: "Catalog", description: "Products, categories, variants, and promotional collections." },
-        { title: "Cart", description: "Future cart state and checkout handoff boundary." },
-        { title: "Orders", description: "Prepared for order persistence and transactional records." },
-        { title: "Admin", description: "Ready for catalog management via the existing admin-ready APIs." },
+        {
+          title: "Catalog",
+          description:
+            "Products, categories, variants, and promotional collections.",
+        },
+        {
+          title: "Cart",
+          description: "Future cart state and checkout handoff boundary.",
+        },
+        {
+          title: "Orders",
+          description:
+            "Prepared for order persistence and transactional records.",
+        },
+        {
+          title: "Admin",
+          description:
+            "Ready for catalog management via the existing admin-ready APIs.",
+        },
       ],
     },
     screenshots: commonScreenshots("DailyEssentials"),
@@ -266,17 +365,25 @@ export const projects: Project[] = [
       {
         title: "Routine shopping speed",
         description: "Users buying essentials want low-friction discovery.",
-        resolution: "The UI reduces navigation depth and prioritizes repeat-purchase clarity.",
+        resolution:
+          "The UI reduces navigation depth and prioritizes repeat-purchase clarity.",
       },
       {
         title: "Commerce data complexity",
-        description: "Products, variants, inventory, and orders can tangle quickly.",
-        resolution: "The case study defines clean data boundaries before backend implementation.",
+        description:
+          "Products, variants, inventory, and orders can tangle quickly.",
+        resolution:
+          "The case study defines clean data boundaries before backend implementation.",
       },
     ],
-    futureScope: ["Product filters", "Cart state", "Checkout integration", "Inventory admin"],
+    futureScope: [
+      "Product filters",
+      "Cart state",
+      "Checkout integration",
+      "Inventory admin",
+    ],
     githubUrl: "https://github.com/WishMaster01/dailyessentials",
-    liveUrl: "https://wishmaster01.com/projects/dailyessentials",
+    liveUrl: `${siteConfig.url}/projects/dailyessentials`,
     milestones: commonMilestones(
       "Mapped recurring essentials shopping behavior and conversion goals.",
       "Separated catalog, cart, checkout, and order boundaries.",
@@ -326,21 +433,59 @@ export const projects: Project[] = [
       "Vyvo focuses on modular metric cards, trend summaries, and visual rhythm that keeps personal data readable and actionable.",
     impact:
       "Demonstrates dashboard thinking, information hierarchy, and component design for data-rich personal technology products.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Dashboard UI", "Data Viz-ready"],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Dashboard UI", "Chart-ready Components", "Accessibility"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Dashboard UI",
+      "Data Viz-ready",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Dashboard UI",
+      "Chart-ready Components",
+      "Accessibility",
+    ],
     features: [
-      { title: "Metric cards", description: "Reusable cards for status, trends, and personal wellness indicators." },
-      { title: "Trend summaries", description: "Readable summaries that avoid overwhelming raw data views." },
-      { title: "Personalization-ready UI", description: "Layouts are prepared for user-specific dashboard modules." },
+      {
+        title: "Metric cards",
+        description:
+          "Reusable cards for status, trends, and personal wellness indicators.",
+      },
+      {
+        title: "Trend summaries",
+        description:
+          "Readable summaries that avoid overwhelming raw data views.",
+      },
+      {
+        title: "Personalization-ready UI",
+        description:
+          "Layouts are prepared for user-specific dashboard modules.",
+      },
     ],
     architecture: {
       summary:
         "Vyvo isolates dashboard modules, metric cards, chart containers, and recommendation blocks for future telemetry data.",
       layers: [
-        { title: "Dashboard shell", description: "Responsive grid and navigation for wellness modules." },
-        { title: "Metrics", description: "Typed metric cards with trend and status states." },
-        { title: "Visualization", description: "Chart-ready containers that can adopt a chart library later." },
-        { title: "Personalization", description: "Prepared for user goals, preferences, and device data." },
+        {
+          title: "Dashboard shell",
+          description: "Responsive grid and navigation for wellness modules.",
+        },
+        {
+          title: "Metrics",
+          description: "Typed metric cards with trend and status states.",
+        },
+        {
+          title: "Visualization",
+          description:
+            "Chart-ready containers that can adopt a chart library later.",
+        },
+        {
+          title: "Personalization",
+          description: "Prepared for user goals, preferences, and device data.",
+        },
       ],
     },
     screenshots: commonScreenshots("Vyvo"),
@@ -348,17 +493,24 @@ export const projects: Project[] = [
       {
         title: "Data readability",
         description: "Wellness dashboards can become dense and clinical.",
-        resolution: "The design uses calm hierarchy and summarized trends before detailed charts.",
+        resolution:
+          "The design uses calm hierarchy and summarized trends before detailed charts.",
       },
       {
         title: "Chart dependency timing",
         description: "Adding charts too early can lock the UI into a library.",
-        resolution: "The case study uses chart-ready containers without coupling to a chart dependency yet.",
+        resolution:
+          "The case study uses chart-ready containers without coupling to a chart dependency yet.",
       },
     ],
-    futureScope: ["Chart primitives", "Mock telemetry data", "User goals", "Dashboard personalization"],
+    futureScope: [
+      "Chart primitives",
+      "Mock telemetry data",
+      "User goals",
+      "Dashboard personalization",
+    ],
     githubUrl: "https://github.com/WishMaster01/vyvo",
-    liveUrl: "https://wishmaster01.com/projects/vyvo",
+    liveUrl: `${siteConfig.url}/projects/vyvo`,
     milestones: commonMilestones(
       "Defined wellness metrics and calm dashboard principles.",
       "Separated metric cards, charts, recommendations, and personalization zones.",
@@ -408,21 +560,62 @@ export const projects: Project[] = [
       "WishCart is organized around reusable marketplace primitives for product cards, seller context, curated collections, and future checkout flows.",
     impact:
       "Shows a path from portfolio concept to production marketplace architecture with clean separation between presentation and commerce logic.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Marketplace UX", "PostgreSQL-ready"],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Marketplace Architecture"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Marketplace UX",
+      "PostgreSQL-ready",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Prisma",
+      "PostgreSQL",
+      "Marketplace Architecture",
+    ],
     features: [
-      { title: "Marketplace catalog", description: "Seller-aware product and collection structures for scalable discovery." },
-      { title: "Trust surfaces", description: "UI sections for seller context, product confidence, and transaction clarity." },
-      { title: "Order-ready foundation", description: "Prepared boundaries for cart, checkout, orders, and audit trails." },
+      {
+        title: "Marketplace catalog",
+        description:
+          "Seller-aware product and collection structures for scalable discovery.",
+      },
+      {
+        title: "Trust surfaces",
+        description:
+          "UI sections for seller context, product confidence, and transaction clarity.",
+      },
+      {
+        title: "Order-ready foundation",
+        description:
+          "Prepared boundaries for cart, checkout, orders, and audit trails.",
+      },
     ],
     architecture: {
       summary:
         "WishCart separates marketplace domains into users, sellers, products, variants, carts, orders, payments, and audit logs.",
       layers: [
-        { title: "Marketplace UI", description: "Product cards, seller panels, collections, and conversion sections." },
-        { title: "Catalog domain", description: "Products, variants, categories, sellers, and merchandising." },
-        { title: "Transaction domain", description: "Cart, checkout, payment handoff, order records, and fulfillment states." },
-        { title: "Admin domain", description: "Future seller/admin tools backed by PostgreSQL and Prisma." },
+        {
+          title: "Marketplace UI",
+          description:
+            "Product cards, seller panels, collections, and conversion sections.",
+        },
+        {
+          title: "Catalog domain",
+          description:
+            "Products, variants, categories, sellers, and merchandising.",
+        },
+        {
+          title: "Transaction domain",
+          description:
+            "Cart, checkout, payment handoff, order records, and fulfillment states.",
+        },
+        {
+          title: "Admin domain",
+          description:
+            "Future seller/admin tools backed by PostgreSQL and Prisma.",
+        },
       ],
     },
     screenshots: commonScreenshots("WishCart"),
@@ -430,17 +623,25 @@ export const projects: Project[] = [
       {
         title: "Marketplace scope control",
         description: "Marketplaces can expand into too many domains at once.",
-        resolution: "The case study names the domains but stages implementation around catalog and cart first.",
+        resolution:
+          "The case study names the domains but stages implementation around catalog and cart first.",
       },
       {
         title: "Transaction safety",
         description: "Payment and order flows require strong boundaries.",
-        resolution: "The architecture keeps transaction logic separate from presentation components.",
+        resolution:
+          "The architecture keeps transaction logic separate from presentation components.",
       },
     ],
-    futureScope: ["Seller metadata", "Cart state", "Checkout handoff", "Order management", "Audit logging"],
+    futureScope: [
+      "Seller metadata",
+      "Cart state",
+      "Checkout handoff",
+      "Order management",
+      "Audit logging",
+    ],
     githubUrl: "https://github.com/WishMaster01/wishcart",
-    liveUrl: "https://wishmaster01.com/projects/wishcart",
+    liveUrl: `${siteConfig.url}/projects/wishcart`,
     milestones: commonMilestones(
       "Defined marketplace domain boundaries and seller/product story.",
       "Structured catalog, transaction, and admin layers for future backend work.",

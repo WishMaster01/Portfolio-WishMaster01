@@ -41,7 +41,7 @@ export function ResumeHeader() {
               />
               <ContactLine
                 label="Portfolio"
-                value="wishmaster01.com"
+                value={resume.portfolio.replace(/^https?:\/\//, "")}
                 href={resume.portfolio}
               />
             </div>

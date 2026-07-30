@@ -115,7 +115,13 @@ const projects = [
       "Vyvo focuses on modular metric cards, trend summaries, and visual rhythm that keeps personal data readable and actionable.",
     impact:
       "Demonstrates dashboard thinking, information hierarchy, and component design for data-rich personal technology products.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Dashboard UI", "Data Viz-ready"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Dashboard UI",
+      "Data Viz-ready",
+    ],
     highlights: [
       "Metric-card system",
       "Trend summary patterns",
@@ -144,7 +150,13 @@ const projects = [
       "WishCart is organized around reusable marketplace primitives for product cards, seller context, curated collections, and future checkout flows.",
     impact:
       "Shows a path from portfolio concept to production marketplace architecture with clean separation between presentation and commerce logic.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Marketplace UX", "PostgreSQL-ready"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind",
+      "Marketplace UX",
+      "PostgreSQL-ready",
+    ],
     highlights: [
       "Marketplace-first content model",
       "Seller and product boundaries",
@@ -265,94 +277,91 @@ function projectDefaults(project) {
       project.description ??
       `${title} is a portfolio case study focused on product direction, interface quality, and scalable full-stack architecture.`,
     technologies: project.technologies ?? stack,
-    features:
-      project.features ?? [
-        {
-          title: "Responsive product interface",
-          description:
-            "A polished multi-section experience designed for desktop, tablet, and mobile usage.",
-        },
-        {
-          title: "Typed content structure",
-          description:
-            "Project data is structured for static rendering now and database-backed admin workflows later.",
-        },
-        {
-          title: "Production-ready foundation",
-          description:
-            "The route, metadata, and API structure are prepared for real deployment and iteration.",
-        },
-      ],
-    architecture:
-      project.architecture ?? {
-        summary:
-          "The architecture separates route-level pages, reusable UI components, typed data records, and backend-ready persistence boundaries.",
-        layers: [
-          {
-            title: "Presentation layer",
-            description:
-              "Next.js App Router pages and reusable Tailwind components render the project experience.",
-          },
-          {
-            title: "Data layer",
-            description:
-              "Typed static data maps cleanly to Prisma models for future admin-managed content.",
-          },
-          {
-            title: "API layer",
-            description:
-              "Route handlers provide a backend-ready structure for project, blog, contact, and admin operations.",
-          },
-        ],
+    features: project.features ?? [
+      {
+        title: "Responsive product interface",
+        description:
+          "A polished multi-section experience designed for desktop, tablet, and mobile usage.",
       },
-    screenshots:
-      project.screenshots ?? [
+      {
+        title: "Typed content structure",
+        description:
+          "Project data is structured for static rendering now and database-backed admin workflows later.",
+      },
+      {
+        title: "Production-ready foundation",
+        description:
+          "The route, metadata, and API structure are prepared for real deployment and iteration.",
+      },
+    ],
+    architecture: project.architecture ?? {
+      summary:
+        "The architecture separates route-level pages, reusable UI components, typed data records, and backend-ready persistence boundaries.",
+      layers: [
         {
-          title: `${title} overview`,
-          description: "Generated product overview preview for the case study.",
-          image: "/window.svg",
-        },
-      ],
-    challenges:
-      project.challenges ?? [
-        {
-          title: "Clear product storytelling",
+          title: "Presentation layer",
           description:
-            "The project needed to communicate value quickly while still showing technical depth.",
-          resolution:
-            "The page structure separates problem, solution, features, architecture, timeline, and future scope.",
+            "Next.js App Router pages and reusable Tailwind components render the project experience.",
+        },
+        {
+          title: "Data layer",
+          description:
+            "Typed static data maps cleanly to Prisma models for future admin-managed content.",
+        },
+        {
+          title: "API layer",
+          description:
+            "Route handlers provide a backend-ready structure for project, blog, contact, and admin operations.",
         },
       ],
-    futureScope:
-      project.futureScope ?? [
-        "Connect project records to a protected admin dashboard.",
-        "Add analytics for project views and recruiter engagement.",
-        "Expand case studies with real screenshots and implementation metrics.",
-      ],
+    },
+    screenshots: project.screenshots ?? [
+      {
+        title: `${title} overview`,
+        description: "Generated product overview preview for the case study.",
+        image: "/window.svg",
+      },
+    ],
+    challenges: project.challenges ?? [
+      {
+        title: "Clear product storytelling",
+        description:
+          "The project needed to communicate value quickly while still showing technical depth.",
+        resolution:
+          "The page structure separates problem, solution, features, architecture, timeline, and future scope.",
+      },
+    ],
+    futureScope: project.futureScope ?? [
+      "Connect project records to a protected admin dashboard.",
+      "Add analytics for project views and recruiter engagement.",
+      "Expand case studies with real screenshots and implementation metrics.",
+    ],
     githubUrl:
       project.githubUrl ?? `https://github.com/WishMaster01/${project.slug}`,
-    liveUrl: project.liveUrl ?? `https://wishmaster01.com/projects/${project.slug}`,
-    milestones:
-      project.milestones ?? [
-        {
-          label: "Planning",
-          date: "Phase 1",
-          description:
-            "Defined the project scope, user flow, and presentation goals.",
-        },
-        {
-          label: "Implementation",
-          date: "Phase 2",
-          description:
-            "Built the route structure, content model, and responsive UI sections.",
-        },
-        {
-          label: "Polish",
-          date: "Phase 3",
-          description:
-            "Added animations, metadata, accessibility, and production validation.",
-        },
-      ],
+    liveUrl:
+      project.liveUrl ??
+      (process.env.NEXT_PUBLIC_SITE_URL || "https://wishmaster01.com") +
+        `/projects/${project.slug}`,
+    milestones: project.milestones ?? [
+      {
+        label: "Planning",
+        date: "Phase 1",
+        description:
+          "Defined the project scope, user flow, and presentation goals.",
+      },
+      {
+        label: "Implementation",
+        date: "Phase 2",
+        description:
+          "Built the route structure, content model, and responsive UI sections.",
+      },
+      {
+        label: "Polish",
+        date: "Phase 3",
+        description:
+          "Added animations, metadata, accessibility, and production validation.",
+      },
+    ],
   };
 }
 

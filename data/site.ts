@@ -3,7 +3,7 @@ export const siteConfig = {
   creator: "WishMaster01",
   description:
     "Enterprise-level software portfolio for product engineering, polished interfaces, and production-ready web systems.",
-  url: "https://wishmaster01.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://wishmaster01.com",
   email: "hello@wishmaster01.com",
   social: {
     twitter: "@wishmaster01",
@@ -29,7 +29,11 @@ export const services = [
     title: "Frontend architecture",
     description:
       "Build maintainable interface systems with reusable components, route boundaries, and clean data flow.",
-    deliverables: ["Design system", "App Router structure", "Performance review"],
+    deliverables: [
+      "Design system",
+      "App Router structure",
+      "Performance review",
+    ],
   },
   {
     title: "Portfolio systems",

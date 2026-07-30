@@ -54,7 +54,13 @@ function addWrapped(
   text: string,
   x: number,
   y: number,
-  options: { size: number; maxChars: number; leading?: number; maxLines?: number; font?: "regular" | "bold" },
+  options: {
+    size: number;
+    maxChars: number;
+    leading?: number;
+    maxLines?: number;
+    font?: "regular" | "bold";
+  },
 ) {
   const lines = wrapText(text, options.maxChars).slice(0, options.maxLines);
   const leading = options.leading ?? options.size + 3;
@@ -96,21 +102,28 @@ function buildResumeOps() {
     x: leftX,
     y: leftY,
     size: 8,
-    text: `${resume.location} | ${resume.email} | github.com/WishMaster01 | wishmaster01.com`,
+    text: `${resume.location} | ${resume.email} | github.com/WishMaster01 | ${resume.portfolio.replace(/^https?:\/\//, "")}`,
   });
   leftY -= 24;
 
   leftY = section(ops, "Profile", leftX, leftY);
-  leftY = addWrapped(ops, resume.summary, leftX, leftY, {
-    size: 8,
-    maxChars: leftChars,
-    maxLines: 4,
-  }) - 8;
+  leftY =
+    addWrapped(ops, resume.summary, leftX, leftY, {
+      size: 8,
+      maxChars: leftChars,
+      maxLines: 4,
+    }) - 8;
 
   leftY = section(ops, "Experience", leftX, leftY);
   for (const item of experienceItems.slice(0, 3)) {
     ops.push({ x: leftX, y: leftY, size: 9, text: item.title, font: "bold" });
-    ops.push({ x: leftX + 190, y: leftY, size: 7, text: item.period, font: "bold" });
+    ops.push({
+      x: leftX + 190,
+      y: leftY,
+      size: 7,
+      text: item.period,
+      font: "bold",
+    });
     leftY -= 10;
     ops.push({ x: leftX, y: leftY, size: 7, text: item.company, font: "bold" });
     leftY -= 10;
@@ -127,30 +140,44 @@ function buildResumeOps() {
 
   leftY = section(ops, "Projects", leftX, leftY);
   for (const project of projects.slice(0, 4)) {
-    ops.push({ x: leftX, y: leftY, size: 8, text: project.title, font: "bold" });
+    ops.push({
+      x: leftX,
+      y: leftY,
+      size: 8,
+      text: project.title,
+      font: "bold",
+    });
     leftY -= 9;
-    leftY = addWrapped(
-      ops,
-      `${project.summary} Stack: ${project.stack.slice(0, 4).join(", ")}.`,
-      leftX,
-      leftY,
-      { size: 7, maxChars: leftChars, maxLines: 2, leading: 9 },
-    ) - 3;
+    leftY =
+      addWrapped(
+        ops,
+        `${project.summary} Stack: ${project.stack.slice(0, 4).join(", ")}.`,
+        leftX,
+        leftY,
+        { size: 7, maxChars: leftChars, maxLines: 2, leading: 9 },
+      ) - 3;
   }
 
   rightY = section(ops, "Skills", rightX, rightY);
   for (const group of skillGroups.slice(0, 6)) {
-    rightY = addWrapped(
-      ops,
-      `${group.title}: ${group.skills.join(", ")}`,
-      rightX,
-      rightY,
-      { size: 7, maxChars: rightChars, maxLines: 2, leading: 9 },
-    ) - 3;
+    rightY =
+      addWrapped(
+        ops,
+        `${group.title}: ${group.skills.join(", ")}`,
+        rightX,
+        rightY,
+        { size: 7, maxChars: rightChars, maxLines: 2, leading: 9 },
+      ) - 3;
   }
 
   rightY = section(ops, "Education", rightX, rightY - 4);
-  ops.push({ x: rightX, y: rightY, size: 8, text: education.degree, font: "bold" });
+  ops.push({
+    x: rightX,
+    y: rightY,
+    size: 8,
+    text: education.degree,
+    font: "bold",
+  });
   rightY -= 10;
   ops.push({
     x: rightX,
@@ -160,32 +187,35 @@ function buildResumeOps() {
     font: "bold",
   });
   rightY -= 10;
-  rightY = addWrapped(ops, education.coursework, rightX, rightY, {
-    size: 7,
-    maxChars: rightChars,
-    maxLines: 3,
-    leading: 9,
-  }) - 8;
+  rightY =
+    addWrapped(ops, education.coursework, rightX, rightY, {
+      size: 7,
+      maxChars: rightChars,
+      maxLines: 3,
+      leading: 9,
+    }) - 8;
 
   rightY = section(ops, "Achievements", rightX, rightY);
   for (const achievement of resume.achievements.slice(0, 4)) {
-    rightY = addWrapped(ops, `- ${achievement}`, rightX, rightY, {
-      size: 7,
-      maxChars: rightChars,
-      maxLines: 2,
-      leading: 9,
-    }) - 2;
+    rightY =
+      addWrapped(ops, `- ${achievement}`, rightX, rightY, {
+        size: 7,
+        maxChars: rightChars,
+        maxLines: 2,
+        leading: 9,
+      }) - 2;
   }
 
   rightY = section(ops, "Certifications", rightX, rightY - 4);
   for (const certification of resume.certifications) {
-    rightY = addWrapped(
-      ops,
-      `- ${certification.title} - ${certification.issuer}, ${certification.year}`,
-      rightX,
-      rightY,
-      { size: 7, maxChars: rightChars, maxLines: 2, leading: 9 },
-    ) - 2;
+    rightY =
+      addWrapped(
+        ops,
+        `- ${certification.title} - ${certification.issuer}, ${certification.year}`,
+        rightX,
+        rightY,
+        { size: 7, maxChars: rightChars, maxLines: 2, leading: 9 },
+      ) - 2;
   }
 
   return ops;

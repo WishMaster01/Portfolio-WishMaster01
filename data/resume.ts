@@ -1,3 +1,5 @@
+import { siteConfig } from "./site";
+
 export const resume = {
   name: "WishMaster01",
   title: "Full-Stack AI & SaaS Developer",
@@ -6,7 +8,7 @@ export const resume = {
   phone: "+91 12345 67890",
   github: "https://github.com/WishMaster01",
   linkedin: "https://www.linkedin.com/in/wishmaster01",
-  portfolio: "https://wishmaster01.com",
+  portfolio: siteConfig.url,
   summary:
     "Product-minded full-stack developer focused on Next.js, TypeScript, AI-powered SaaS interfaces, Prisma/PostgreSQL data models, responsive UI systems, and production-ready portfolio/product architecture.",
   strengths: [
