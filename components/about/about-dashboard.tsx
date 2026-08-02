@@ -16,7 +16,7 @@ export function AboutDashboard() {
 
   return (
     <div className="space-y-10">
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(100px,34vw)] items-center gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(220px,40vw)] sm:gap-8 xl:grid-cols-[1fr_520px]">
+      <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(220px,40vw)] sm:items-center sm:gap-8 xl:grid-cols-[1fr_520px]">
         <div className="space-y-6">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
@@ -71,11 +71,11 @@ export function AboutDashboard() {
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative min-h-[220px] sm:min-h-[380px] xl:min-h-[460px]"
+          className="relative hidden sm:block sm:min-h-[380px] xl:min-h-[460px]"
         >
           <div className="absolute inset-3 rounded-[2rem] bg-accent/10 blur-2xl sm:inset-6 sm:rounded-[3rem] sm:blur-3xl" />
           <div className="absolute right-2 top-5 h-20 w-16 bg-[radial-gradient(circle,color-mix(in_oklab,var(--accent)_45%,transparent)_1.5px,transparent_1.5px)] [background-size:14px_14px] sm:right-6 sm:top-8 sm:h-32 sm:w-24" />
-          <div className="about-character-frame relative z-10 ml-auto flex h-[220px] w-full max-w-[150px] items-end justify-center overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-xl shadow-foreground/5 sm:mx-auto sm:h-[380px] sm:max-w-[430px] sm:rounded-[2.25rem] xl:h-[460px] xl:max-w-[520px]">
+          <div className="about-character-frame relative z-10 mx-auto flex h-[220px] w-full max-w-[150px] items-end justify-center overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-xl shadow-foreground/5 sm:h-[380px] sm:max-w-[430px] sm:rounded-[2.25rem] xl:h-[460px] xl:max-w-[520px]">
             <Image
               src="/about-page-character-cutout.png"
               alt="WishMaster01 about page character"

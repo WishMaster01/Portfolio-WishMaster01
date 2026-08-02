@@ -1,124 +1,97 @@
-# 🚀 WishMaster01 Portfolio
+# WishMaster01 Portfolio
 
-<div align="center">
+Production-ready developer portfolio for AI products, SaaS interfaces, full-stack engineering, DSA learning, technical writing, and recruiter-facing presentation.
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
-![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?logo=postgresql)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?logo=tailwindcss)
-![License](https://img.shields.io/badge/License-MIT-green)
+Live Portfolio: [https://wishmaster01.vercel.app](https://wishmaster01.vercel.app)
 
-### 🌐 A Production-Ready Developer Portfolio for AI, Full-Stack & SaaS Engineering
+The project uses `NEXT_PUBLIC_SITE_URL` for metadata, canonical URLs, sitemap generation, robots rules, API provider headers, resume links, and portfolio route references.
 
-Showcasing enterprise-grade projects, AI applications, technical blogs, DSA visualizations, recruiter-focused pages, and modern web engineering.
+## What this portfolio includes
 
-**Live Demo:** https://wishmaster01.vercel.app
-
-</div>
-
----
-
-# 📖 Overview
-
-This portfolio is more than a personal website—it's a complete engineering platform designed to demonstrate professional software development skills, system design expertise, and modern AI application development.
-
-It showcases:
-
-- AI-powered applications
-- Enterprise SaaS products
-- Full-stack engineering projects
-- Interactive DSA visualizations
-- Technical blogs
-- Resume & recruiter mode
-- Architecture documentation
-- AI portfolio chatbot
+- Multi-page public portfolio built with the Next.js App Router
+- Project showcase with deep product pages
+- Architecture, engineering, and case-study route variants for projects
+- Skills dashboard and experience dashboard
+- Resume page with download and print support
+- About page with capability, principles, and journey sections
+- Technical blog with category, tag, and related-article exploration
+- Interactive DSA showcase with topic pages, recognition patterns, examples, Java code, and practice problems
 - GitHub analytics dashboard
+- Recruiter mode page
+- Contact page with validated form and newsletter signup
+- AI portfolio chatbot grounded on portfolio context
+- Admin dashboard for content and analytics workflows
+- Theme system with multiple visual presets
 
----
+## Main routes
 
-# ✨ Features
+- `/`
+- `/about`
+- `/projects`
+- `/skills`
+- `/experience`
+- `/dsa-showcase`
+- `/github`
+- `/blog`
+- `/contact`
+- `/resume`
+- `/recruiter`
+- `/admin`
 
-## 👤 Portfolio
+## Project modules
 
-- Multi-page portfolio
-- Responsive UI
-- Dark & Light themes
-- Smooth animations
-- Accessibility support
-- SEO optimized
+The portfolio currently contains five primary project case studies:
 
----
+- `InfinityAI` - AI product platform with prompt UX, output states, provider-safe API boundaries, and future usage/account flows
+- `ExploreX` - travel discovery system with itinerary-ready content structure, SEO-first route strategy, and maps-ready UI
+- `DailyEssentials` - commerce storefront focused on category navigation, conversion-oriented cards, and checkout-ready boundaries
+- `Vyvo` - wellness dashboard concept with calm information hierarchy, metric cards, and visualization-ready modules
+- `WishCart` - marketplace platform with seller-aware catalog modeling, transaction boundaries, and full-stack commerce direction
 
-## 🤖 AI Portfolio Chatbot
+Each project includes:
 
-Powered by:
+- Summary, description, problem, solution, and impact
+- Stack, technologies, features, and metrics
+- Architecture layers
+- Challenges and resolutions
+- Milestones and highlights
+- Future scope
+- Dedicated detail routes for:
+  - `/projects/[slug]`
+  - `/projects/[slug]/case-study`
+  - `/projects/[slug]/architecture`
+  - `/projects/[slug]/engineering`
 
-- OpenRouter
-- Google Gemini
+## Blog coverage
 
-Capabilities:
+The blog section includes technical writing across:
 
-- Answer project-related questions
-- Explain technologies
-- Provide career information
-- Portfolio navigation assistance
-
----
-
-## 💼 Projects Showcase
-
-Featured Projects include:
-
-- InfinityAI
-- ExploreX
-- Vyvo
-- DailyEssentials
-- WishCart
-
-Each project contains:
-
-- Overview
-- Features
-- Architecture
-- Tech Stack
-- Challenges
-- Future Improvements
-- Live Demo
-- GitHub Repository
-
----
-
-## 📚 Technical Blog
-
-Categories include:
-
-- Artificial Intelligence
-- Next.js
-- React
-- TypeScript
-- Prisma
-- PostgreSQL
+- Next.js architecture
+- AI portfolio chatbots
+- PostgreSQL and Prisma schema design
+- DSA learning patterns
+- AI trip planners
 - Authentication
-- System Design
-- Deployment
-- DSA
+- Payment integrations
+- Real-time chat
+- Deployment workflows
+- Product/AI case studies such as InfinityAI
 
-Features:
+Blog capabilities include:
 
 - Search
-- Categories
-- Tags
-- Reading Time
-- Table of Contents
-- Syntax Highlighting
-- Related Articles
+- Category filters
+- Tag filters
+- Reading time labels
+- Table of contents
+- Syntax-highlighted code blocks
+- Related articles
+- Adjacent article navigation
+- Open Graph metadata
 
----
+## DSA showcase
 
-## 🧠 Interactive DSA Showcase
-
-Includes:
+The DSA section includes structured topic coverage for:
 
 - Arrays
 - Linked Lists
@@ -126,211 +99,159 @@ Includes:
 - Queues
 - Trees
 - Graphs
+- Searching
+- Sorting
 - Dynamic Programming
 - Greedy Algorithms
-- Sorting
-- Searching
+- Backtracking
+- Bit Manipulation
 
-Features:
+Each topic includes:
 
-- Code execution via Judge0
-- Complexity analysis
-- Interactive examples
-- Visual explanations
+- Recognition cues
+- Problem-solving approach
+- Complexity notes
+- Use cases
+- Java example code
+- Practice problem suggestions
+- Interactive submission support through Judge0-backed APIs
 
----
+## GitHub and recruiter features
 
-## 📄 Resume
+- GitHub profile overview
+- Repository statistics
+- Language chart
+- Contribution graph
+- Recent activity
+- Pinned repositories
+- Recruiter mode with quick summary, skills, projects, links, and contact path
 
-Professional resume page including:
+## Contact and communication features
 
-- Summary
-- Education
-- Technical Skills
-- Projects
-- Certifications
-- Experience
-- Downloadable PDF
+- Contact form with schema validation
+- Newsletter subscription flow
+- Rate limiting
+- PostgreSQL-backed storage
+- Resend email integration
+- Spam-resistant server-side processing
 
----
+## AI chatbot
 
-## 📬 Contact System
+The portfolio chatbot is built around structured portfolio context and provider fallback.
 
-Features:
+Current behavior includes:
 
-- Contact Form
-- Newsletter Subscription
-- Zod Validation
-- Rate Limiting
-- PostgreSQL Storage
-- Resend Email Integration
-- Spam Protection
+- Context-grounded replies about projects, skills, resume, and experience
+- Input validation with Zod
+- OpenRouter as primary provider
+- Gemini as fallback provider
+- Server-side provider key protection
 
----
+## Admin dashboard
 
-## ⚡ GitHub Dashboard
+The admin route is designed for portfolio operations and includes:
 
-Displays:
+- Project inventory table
+- Project form
+- Case-study editor
+- Blog inventory table
+- Blog editor
+- Recent message viewer
+- Content distribution analytics
+- Skills, DSA, resume, newsletter, and settings summary modules
 
-- Repository Statistics
-- Contribution Graph
-- Pinned Repositories
-- Languages Used
-- Followers
-- Activity
-- Stars
+## Design and UX system
 
-Server-side cached to reduce GitHub API rate limits.
+- Tailwind CSS v4 styling
+- Framer Motion transitions and reveal effects
+- Responsive layouts across mobile, tablet, and desktop
+- Reduced-motion support
+- Skip links and focus visibility
+- Light, dark, cyber, gradient, solarized, ocean, forest, sunset, monochrome, and futuristic themes
+- Command palette for route and content navigation
 
----
+## Tech stack
 
-## 🎨 Theme System
-
-Supported themes:
-
-- Light
-- Dark
-- Cyber
-- Gradient
-- Ocean
-- Forest
-- Solarized
-- Sunset
-- Monochrome
-- System
-
----
-
-# 🛠 Tech Stack
-
-## Frontend
+### Frontend
 
 - Next.js 16
-- React
-- TypeScript
-- Tailwind CSS
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
 - Framer Motion
-- Lucide Icons
+- `cmdk`
 
----
-
-## Backend
+### Backend and data
 
 - Next.js Route Handlers
-- Server Actions
 - Prisma ORM
 - PostgreSQL
-- Zod Validation
+- Zod validation
 
----
-
-## AI
+### Integrations
 
 - OpenRouter
 - Google Gemini
-
----
-
-## Integrations
-
 - GitHub API
 - Judge0
 - Resend
 
----
-
-# 📂 Project Structure
+## Project structure
 
 ```text
-src/
-├── app/
-├── components/
-├── data/
-├── hooks/
-├── lib/
-├── server/
-├── types/
-├── validations/
-│
+app/
+components/
+data/
+lib/
 prisma/
-│
 public/
+server/
+types/
+validations/
 ```
 
----
-
-# 🚀 Getting Started
-
-## Clone
+## Local setup
 
 ```bash
 git clone https://github.com/WishMaster01/wishmaster01-portfolio.git
 cd wishmaster01-portfolio
-```
-
-## Install
-
-```bash
 npm install
-```
-
-## Configure Environment
-
-```bash
 cp .env.example .env
 ```
 
-Update all required environment variables.
-
----
-
-## Prisma
-
-Generate Client
-
-```bash
-npx prisma generate
-```
-
-Apply Migrations
-
-```bash
-npx prisma migrate dev
-```
-
-Seed Database
-
-```bash
-npx prisma db seed
-```
-
----
-
-## Development
+Then configure your environment variables and run:
 
 ```bash
 npm run dev
 ```
 
-Open
+Local app URL: [http://localhost:3000](http://localhost:3000)
 
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+npm run db:studio
 ```
-http://localhost:3000
-```
 
----
-
-# 🔑 Environment Variables
+## Environment variables
 
 ```env
 DATABASE_URL=""
 ADMIN_API_KEY=""
 
-OPENROUTER_API_KEY=""
-OPENROUTER_MODEL=""
+NEXT_PUBLIC_SITE_URL="https://wishmaster01.vercel.app"
 
+OPENROUTER_API_KEY=""
+OPENROUTER_MODEL="openai/gpt-4o-mini"
 GEMINI_API_KEY=""
-GEMINI_MODEL=""
+GEMINI_MODEL="gemini-3.5-flash"
 
 GITHUB_TOKEN=""
 GITHUB_USERNAME="WishMaster01"
@@ -341,179 +262,46 @@ JUDGE0_API_KEY=""
 
 RESEND_API_KEY=""
 CONTACT_NOTIFICATION_TO=""
-CONTACT_NOTIFICATION_FROM=""
-CONTACT_REPLY_TO=""
-NEWSLETTER_FROM=""
-NEWSLETTER_REPLY_TO=""
+CONTACT_NOTIFICATION_FROM="WishMaster01 <hello@wishmaster01.com>"
+CONTACT_REPLY_TO="hello@wishmaster01.com"
+NEWSLETTER_FROM="WishMaster01 <hello@wishmaster01.com>"
+NEWSLETTER_REPLY_TO="hello@wishmaster01.com"
 ```
 
-Never commit your `.env` file.
+Important notes:
 
----
+- Keep `NEXT_PUBLIC_SITE_URL` aligned with your deployed domain
+- Never commit `.env`
+- Keep all provider secrets server-side
 
-# 📊 Performance
+## API surface
 
-Optimizations include:
+The app includes route handlers for:
 
-- Server Components
-- Dynamic Imports
-- Lazy Loading
-- Image Optimization
-- Font Optimization
-- Cached GitHub Requests
-- Route-level Error Boundaries
-- Parallel Data Fetching
-- Responsive Images
+- Blog data
+- Project data
+- Project architecture, case-study, and engineering data
+- Resume data and PDF output
+- Contact submissions
+- Newsletter subscriptions
+- GitHub profile, repositories, and language data
+- DSA topic data and submissions
+- Recruiter profile data
+- User preferences
+- Health checks
+- Admin project and blog operations
+- AI chat requests
 
----
+## Quality and production notes
 
-# 🔒 Security
+- Typed content models across projects, blog posts, skills, recruiter data, resume data, and DSA topics
+- Reusable UI primitives for cards, buttons, badges, sections, and containers
+- SEO metadata, sitemap, robots, and manifest support
+- Open Graph image support
+- Build-safe server/client separation
+- Production-minded content architecture
+- Mobile layout adjusted to avoid phantom horizontal overflow
 
-- Server-side Secrets
-- Zod Validation
-- Rate Limiting
-- Honeypot Protection
-- Prisma Parameterized Queries
-- Environment Validation
-- Secure API Routes
-- Admin API Protection
+## License
 
----
-
-# ♿ Accessibility
-
-- Keyboard Navigation
-- Skip Links
-- Focus Indicators
-- Reduced Motion
-- Semantic HTML
-- Screen Reader Support
-- Responsive Typography
-
----
-
-# 📈 SEO
-
-- Dynamic Metadata
-- Open Graph Images
-- Twitter Cards
-- Structured Data
-- Sitemap
-- Robots.txt
-- Canonical URLs
-
----
-
-# 🚀 Deployment
-
-Recommended deployment:
-
-- Vercel
-- PostgreSQL
-- Prisma
-- GitHub
-
-Build command
-
-```bash
-npm run build
-```
-
-Deployment
-
-```bash
-npx prisma generate
-npx prisma migrate deploy
-npm run build
-```
-
----
-
-# ✅ Production Checklist
-
-- Environment Variables Configured
-- Database Connected
-- Prisma Generated
-- Migrations Applied
-- Contact Form Working
-- Newsletter Working
-- AI Providers Configured
-- GitHub API Configured
-- Images Optimized
-- SEO Enabled
-- Build Successful
-
----
-
-# 🗺 Roadmap
-
-Future Improvements:
-
-- Admin Dashboard
-- CMS Integration
-- Full-text Search
-- pgvector AI Search
-- Analytics Dashboard
-- Error Monitoring
-- Internationalization
-- Project Comparison
-- AI Resume Generator
-- Advanced DSA Progress Tracking
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to your fork
-5. Open a Pull Request
-
----
-
-# 👨‍💻 Author
-
-## Sumit Kumar (WishMaster01)
-
-**Full-Stack AI & SaaS Developer**
-
-🌐 Portfolio: https://wishmaster01.vercel.app
-
-💻 GitHub: https://github.com/WishMaster01
-
-💼 LinkedIn: https://linkedin.com/in/Sumit2589
-
-📧 Email: hello@wishmaster01.com
-
----
-
-# ⭐ Support
-
-If you found this project useful:
-
-⭐ Star the repository
-
-🍴 Fork it
-
-📢 Share it
-
----
-
-# 📄 License
-
-This project is licensed under the **MIT License**.
-
----
-
-<div align="center">
-
-### ⭐ Thanks for visiting my portfolio repository! ⭐
-
-**Building AI • SaaS • Web • Mobile • Enterprise Applications**
-
-Made with ❤️ using Next.js, TypeScript, Prisma & PostgreSQL
-
-</div>
+MIT

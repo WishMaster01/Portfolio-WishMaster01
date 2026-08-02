@@ -400,6 +400,8 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   font-size: calc(16px * var(--font-scale));
 }
@@ -438,6 +440,8 @@ html[data-reduced-motion="true"] *::after {
 }
 
 body {
+  max-width: 100%;
+  overflow-x: clip;
   background-color: var(--background);
   background-image:
     var(--theme-texture),

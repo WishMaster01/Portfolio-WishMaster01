@@ -83,7 +83,7 @@ export default function RootLayout({
       className="h-full antialiased"
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-background text-foreground">
+      <body className="min-h-full overflow-x-hidden bg-background text-foreground">
         <ThemeProvider>
           <a href="#main-content" className="skip-link">
             Skip to content

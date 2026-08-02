@@ -19,7 +19,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
   return (
     <Reveal>
       <section className="overflow-hidden rounded-[2.25rem] border border-border bg-surface/95 shadow-xl shadow-foreground/5">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(112px,34vw)] gap-0 md:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
           <div className="min-w-0 p-4 sm:p-8 lg:p-10">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <Badge>{project.status}</Badge>
