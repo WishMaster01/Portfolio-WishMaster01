@@ -302,6 +302,75 @@ The app includes route handlers for:
 - Production-minded content architecture
 - Mobile layout adjusted to avoid phantom horizontal overflow
 
-## License
+# 🗺 Roadmap
 
-MIT
+Future Improvements:
+
+- Admin Dashboard
+- CMS Integration
+- Full-text Search
+- pgvector AI Search
+- Analytics Dashboard
+- Error Monitoring
+- Internationalization
+- Project Comparison
+- AI Resume Generator
+- Advanced DSA Progress Tracking
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to your fork
+5. Open a Pull Request
+
+---
+
+# 👨‍💻 Author
+
+## Sumit Kumar (WishMaster01)
+
+**Full-Stack AI & SaaS Developer**
+
+🌐 Portfolio: https://your-domain.com
+
+💻 GitHub: https://github.com/WishMaster01
+
+💼 LinkedIn: https://linkedin.com/in/your-profile
+
+📧 Email: hello@wishmaster01.com
+
+---
+
+# ⭐ Support
+
+If you found this project useful:
+
+⭐ Star the repository
+
+🍴 Fork it
+
+📢 Share it
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+<div align="center">
+
+### ⭐ Thanks for visiting my portfolio repository! ⭐
+
+**Building AI • SaaS • Web • Mobile • Enterprise Applications**
+
+Made with ❤️ using Next.js, TypeScript, Prisma & PostgreSQL
+
+</div>
