@@ -1,6 +1,12 @@
 import { getProjectBySlug, projects } from "@/data/projects";
-import type { Project } from "@/types/project";
 import { getPrisma } from "@/lib/server/prisma";
+import {
+  binarySearchByKey,
+  decodeCursor,
+  encodeCursor,
+  type CursorPage,
+} from "@/lib/server/pagination";
+import type { Project } from "@/types/project";
 
 type ProjectDelegate = {
   findMany: (args: unknown) => Promise<unknown>;
@@ -16,6 +22,26 @@ type ProjectInput = Omit<Project, "sections" | "metrics"> & {
   featured?: boolean;
   sortOrder?: number;
 };
+
+type ProjectFilters = {
+  category?: string;
+  featured?: boolean;
+};
+
+type ProjectPageFilters = ProjectFilters & {
+  cursor?: string;
+  limit?: number;
+};
+
+const staticProjectsBySlug = [...projects].sort((left, right) =>
+  left.slug.localeCompare(right.slug),
+);
+const staticCategoryIndex = projects.reduce((index, project) => {
+  const bucket = index.get(project.category) ?? [];
+  bucket.push(project);
+  index.set(project.category, bucket);
+  return index;
+}, new Map<string, Project[]>());
 
 function getProjectDelegate(prisma: Record<string, unknown> | null) {
   return prisma?.project as ProjectDelegate | undefined;
@@ -109,10 +135,22 @@ function projectWriteData(input: ProjectInput) {
   };
 }
 
-export async function listProjects(filters?: {
-  category?: string;
-  featured?: boolean;
-}) {
+function filterStaticProjects(filters?: ProjectFilters) {
+  const categoryProjects = filters?.category
+    ? staticCategoryIndex.get(filters.category) ?? []
+    : staticProjectsBySlug;
+
+  return categoryProjects.filter((item) => {
+    if (typeof filters?.featured === "boolean") {
+      const isFeatured = projects.slice(0, 3).some((project) => project.slug === item.slug);
+      return filters.featured ? isFeatured : !isFeatured;
+    }
+
+    return true;
+  });
+}
+
+export async function listProjects(filters?: ProjectFilters) {
   const prisma = await getPrisma();
   const project = getProjectDelegate(prisma);
 
@@ -137,17 +175,66 @@ export async function listProjects(filters?: {
     }
   }
 
-  return projects.filter((item, index) => {
-    if (filters?.category && item.category !== filters.category) {
-      return false;
-    }
+  return filterStaticProjects(filters);
+}
 
-    if (typeof filters?.featured === "boolean") {
-      return filters.featured ? index < 3 : index >= 3;
-    }
+export async function listProjectsPage(
+  filters?: ProjectPageFilters,
+): Promise<CursorPage<Project>> {
+  const limit = Math.min(24, Math.max(1, filters?.limit ?? 6));
+  const prisma = await getPrisma();
+  const project = getProjectDelegate(prisma);
+  const cursorSlug = decodeCursor(filters?.cursor);
 
-    return true;
-  });
+  if (project) {
+    try {
+      const rows = await project.findMany({
+        where: {
+          ...(filters?.category ? { category: filters.category } : {}),
+          ...(typeof filters?.featured === "boolean"
+            ? { featured: filters.featured }
+            : {}),
+        },
+        include: projectInclude(),
+        orderBy: [{ slug: "asc" }],
+        take: limit + 1,
+        ...(cursorSlug
+          ? {
+              cursor: { slug: cursorSlug },
+              skip: 1,
+            }
+          : {}),
+      });
+
+      if (Array.isArray(rows)) {
+        const mapped = rows.map(mapProject);
+        const hasMore = mapped.length > limit;
+        const items = hasMore ? mapped.slice(0, limit) : mapped;
+
+        return {
+          items,
+          hasMore,
+          nextCursor: hasMore ? encodeCursor(items.at(-1)?.slug ?? "") : null,
+        };
+      }
+    } catch {
+      // Static fallback keeps public routes available before DB setup.
+    }
+  }
+
+  const source = filterStaticProjects(filters);
+  const startIndex = cursorSlug
+    ? binarySearchByKey(source, cursorSlug, (item) => item.slug) + 1
+    : 0;
+  const slice = source.slice(startIndex, startIndex + limit + 1);
+  const hasMore = slice.length > limit;
+  const items = hasMore ? slice.slice(0, limit) : slice;
+
+  return {
+    items,
+    hasMore,
+    nextCursor: hasMore ? encodeCursor(items.at(-1)?.slug ?? "") : null,
+  };
 }
 
 export async function findProject(slug: string) {

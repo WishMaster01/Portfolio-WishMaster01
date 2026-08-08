@@ -14,13 +14,16 @@ import {
   type ReactNode,
 } from "react";
 import {
-  getThemeOption,
   isTheme,
   isThemeName,
   themeNames,
   type Theme,
   type ThemeName,
 } from "./themes";
+import {
+  parseThemePreferences,
+  resolveThemeOption,
+} from "@/lib/theme/theme-cache";
 
 type ThemeContextValue = {
   theme: Theme;
@@ -73,7 +76,7 @@ function ThemeStateProvider({ children }: { children: ReactNode }) {
       : isThemeName(theme)
         ? theme
         : "light";
-  const themeOption = getThemeOption(resolvedTheme);
+  const themeOption = resolveThemeOption(resolvedTheme);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", themeOption.dark);
@@ -143,37 +146,17 @@ function readStoredPreferences() {
   }
 
   const storedPreferences = window.localStorage.getItem(preferenceStorageKey);
+  const parsed = parseThemePreferences(storedPreferences, clampFontScale);
 
-  if (!storedPreferences) {
-    return {
-      reducedMotion: false,
-      fontScale: 1,
-    };
+  if (storedPreferences && parsed.fontScale === 1 && !parsed.reducedMotion) {
+    try {
+      JSON.parse(storedPreferences);
+    } catch {
+      window.localStorage.removeItem(preferenceStorageKey);
+    }
   }
 
-  try {
-    const parsed = JSON.parse(storedPreferences) as {
-      reducedMotion?: unknown;
-      fontScale?: unknown;
-    };
-
-    return {
-      reducedMotion:
-        typeof parsed.reducedMotion === "boolean"
-          ? parsed.reducedMotion
-          : false,
-      fontScale:
-        typeof parsed.fontScale === "number"
-          ? clampFontScale(parsed.fontScale)
-          : 1,
-    };
-  } catch {
-    window.localStorage.removeItem(preferenceStorageKey);
-    return {
-      reducedMotion: false,
-      fontScale: 1,
-    };
-  }
+  return parsed;
 }
 
 export function useTheme() {

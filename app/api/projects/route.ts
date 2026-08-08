@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listProjects } from "@/lib/server/repositories/projects";
+import { listProjectsPage } from "@/lib/server/repositories/projects";
 import { projectQuerySchema } from "@/lib/validation/query";
 
 export const runtime = "nodejs";
@@ -9,6 +9,8 @@ export async function GET(request: Request) {
   const parsed = projectQuerySchema.safeParse({
     category: searchParams.get("category") ?? undefined,
     featured: searchParams.get("featured") ?? undefined,
+    cursor: searchParams.get("cursor") ?? undefined,
+    limit: searchParams.get("limit") ?? undefined,
   });
 
   if (!parsed.success) {
@@ -18,7 +20,13 @@ export async function GET(request: Request) {
     );
   }
 
-  const projects = await listProjects(parsed.data);
+  const page = await listProjectsPage(parsed.data);
 
-  return NextResponse.json({ projects });
+  return NextResponse.json({
+    projects: page.items,
+    pageInfo: {
+      nextCursor: page.nextCursor,
+      hasMore: page.hasMore,
+    },
+  });
 }

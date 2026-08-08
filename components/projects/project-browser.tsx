@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { buildSearchIndex, searchIndex } from "@/lib/algorithms/text-search";
 import type { Project } from "@/types/project";
 import { cn } from "@/lib/utils";
 
@@ -60,31 +61,59 @@ function projectMatchesFilter(project: Project, filter: string) {
 export function ProjectBrowser({ projects }: ProjectBrowserProps) {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const shouldReduceMotion = useReducedMotion();
 
+  const projectSearchIndex = useMemo(
+    () =>
+      buildSearchIndex(
+        projects.map((project) => ({
+          id: project.slug,
+          title: project.title,
+          body: [
+            project.category,
+            project.role,
+            project.summary,
+            project.description,
+            project.problem,
+            project.solution,
+            project.impact,
+            project.highlights.join(" "),
+            project.stack.join(" "),
+            project.technologies.join(" "),
+          ].join(" "),
+          keywords: [...project.stack, ...project.technologies, ...project.highlights],
+          payload: project,
+        })),
+      ),
+    [projects],
+  );
+
   const filteredProjects = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const baseProjects = projects.filter((project) =>
+      projectMatchesFilter(project, filter),
+    );
 
-    return projects.filter((project) => {
-      const matchesFilter = projectMatchesFilter(project, filter);
-      const haystack = [
-        project.title,
-        project.category,
-        project.summary,
-        project.description,
-        project.stack.join(" "),
-        project.technologies.join(" "),
-        project.highlights.join(" "),
-      ]
-        .join(" ")
-        .toLowerCase();
+    if (!deferredQuery.trim()) {
+      return baseProjects;
+    }
 
-      return (
-        matchesFilter &&
-        (!normalizedQuery || haystack.includes(normalizedQuery))
-      );
-    });
-  }, [filter, projects, query]);
+    const rankedProjects = searchIndex(
+      projectSearchIndex,
+      deferredQuery,
+      projects.length,
+    ).map((result) => result.item);
+    const allowedSlugs = new Set(baseProjects.map((project) => project.slug));
+    const visibleProjects = rankedProjects.filter((project) =>
+      allowedSlugs.has(project.slug),
+    );
+    const visibleSlugs = new Set(visibleProjects.map((project) => project.slug));
+
+    return [
+      ...visibleProjects,
+      ...baseProjects.filter((project) => !visibleSlugs.has(project.slug)),
+    ];
+  }, [deferredQuery, filter, projectSearchIndex, projects]);
 
   return (
     <div className="space-y-8">
@@ -98,13 +127,16 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
               <h2 className="mt-2 text-2xl font-black tracking-[-0.03em] text-foreground">
                 Filter case studies by product area
               </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Ranked with an inverted index, prefix matching, and TF-IDF-style scoring.
+              </p>
             </div>
             <label className="min-w-0 lg:w-80">
               <span className="sr-only">Search projects</span>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search projects, stack, features..."
+                placeholder="Search projects, stack, architecture, features..."
                 className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition placeholder:text-muted-foreground focus:border-accent"
               />
             </label>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/motion/reveal";
+import { ProjectComparison } from "@/components/projects/project-comparison";
 import { ProjectBrowser } from "@/components/projects/project-browser";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -29,7 +30,11 @@ export default function ProjectsPage() {
               production-ready UI systems.
             </p>
           </Reveal>
-          <ProjectBrowser projects={projects} />
+
+          <div className="space-y-8">
+            <ProjectBrowser projects={projects} />
+            <ProjectComparison projects={projects} />
+          </div>
         </Container>
       </Section>
     </div>

@@ -1,3 +1,8 @@
+import { FenwickTree } from "@/lib/algorithms/fenwick-tree";
+import { MedianHeap } from "@/lib/algorithms/median-heap";
+import { movingAverage } from "@/lib/algorithms/rolling-window";
+import { SegmentTree } from "@/lib/algorithms/segment-tree";
+
 type AnalyticsItem = {
   label: string;
   value: number;
@@ -16,6 +21,19 @@ export function AnalyticsChart({
   items,
 }: AnalyticsChartProps) {
   const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+  const values = items.map((item) => item.value);
+  const fenwick = new FenwickTree(values.length);
+  const medianHeap = new MedianHeap();
+
+  values.forEach((value, index) => {
+    fenwick.update(index, value);
+    medianHeap.add(value);
+  });
+
+  const segmentTree = new SegmentTree(values);
+  const averages = movingAverage(values, Math.min(3, values.length));
+  const cumulativeTotals = values.map((_, index) => fenwick.query(index));
+  const peakRange = segmentTree.maxQuery(0, Math.max(values.length - 1, 0));
 
   return (
     <section
@@ -89,24 +107,83 @@ export function AnalyticsChart({
       </div>
 
       <div className="border-t border-border p-5 sm:p-6">
-        <h3 className="font-black">Protected mutation flow</h3>
-        <div className="mt-4 grid gap-3 md:grid-cols-4">
-          {[
-            "Admin enters key",
-            "API validates key",
-            "Zod validates payload",
-            "Prisma writes data",
-          ].map((step, index) => (
-            <div
-              key={step}
-              className="relative rounded-2xl border border-border bg-background/60 p-4 text-sm font-bold"
-            >
-              <span className="mb-3 grid h-8 w-8 place-items-center rounded-xl bg-accent/10 text-xs font-black text-accent">
-                {index + 1}
-              </span>
-              {step}
+        <h3 className="font-black">Algorithm-backed analytics flow</h3>
+        <div className="mt-4 grid gap-3 xl:grid-cols-2">
+          <div className="grid gap-3 md:grid-cols-2">
+            {[
+              {
+                label: "Prefix sum",
+                value: `${cumulativeTotals.at(-1) ?? total}`,
+                detail:
+                  "Fenwick tree resolves cumulative counts without recomputing the full sum.",
+              },
+              {
+                label: "Peak bucket",
+                value: `${peakRange}`,
+                detail:
+                  "Segment tree keeps max-range inspection fast as content distribution changes.",
+              },
+              {
+                label: "Running median",
+                value: `${medianHeap.median().toFixed(1)}`,
+                detail:
+                  "Two heaps keep the middle value stable even when outliers appear.",
+              },
+              {
+                label: "Rolling average",
+                value: `${(averages.at(-1) ?? 0).toFixed(1)}`,
+                detail:
+                  "Sliding window smooths short-term spikes before they reach dashboards.",
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="rounded-2xl border border-border bg-background/60 p-4"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-accent">
+                  {item.label}
+                </p>
+                <p className="mt-3 text-2xl font-black text-foreground">
+                  {item.value}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {item.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl border border-border bg-background/60 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-accent">
+              Cumulative buckets
+            </p>
+            <div className="mt-4 grid gap-3">
+              {items.map((item, index) => (
+                <div key={item.label}>
+                  <div className="flex items-center justify-between gap-4 text-sm">
+                    <span className="font-black text-foreground">
+                      {item.label}
+                    </span>
+                    <span className="text-muted-foreground">
+                      prefix {cumulativeTotals[index]}
+                    </span>
+                  </div>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-elevated">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${Math.max(
+                          8,
+                          (cumulativeTotals[index] / total) * 100,
+                        )}%`,
+                        background: item.tone,
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>

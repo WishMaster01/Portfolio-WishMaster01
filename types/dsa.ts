@@ -5,6 +5,11 @@ export type AlgorithmExample = {
   explanation: string;
 };
 
+export type AlgorithmCodeExample = {
+  language: "Java" | "Python" | "JavaScript" | "TypeScript";
+  code: string;
+};
+
 export type AlgorithmTopic = {
   title: string;
   slug: string;
@@ -22,6 +27,12 @@ export type AlgorithmTopic = {
   approach: string[];
   example: AlgorithmExample;
   pitfalls: string[];
+  advantages: string[];
+  disadvantages: string[];
+  interviewQuestions: string[];
+  faangCompanies: string[];
+  productionUsage: string[];
+  codeExamples: AlgorithmCodeExample[];
 };
 
 export type PracticeProblem = {

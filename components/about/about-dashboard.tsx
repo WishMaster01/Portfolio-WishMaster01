@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { NavigationGraph } from "@/components/navigation/navigation-graph";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  navigationGraphEdges,
+  navigationGraphNodes,
+} from "@/data/navigation-graph";
 import {
   aboutCapabilities,
   aboutDrivers,
@@ -214,6 +219,13 @@ export function AboutDashboard() {
           ))}
         </div>
       </section>
+
+      <NavigationGraph
+        nodes={navigationGraphNodes.map((node) => ({ ...node }))}
+        edges={navigationGraphEdges.map((edge) => ({ ...edge }))}
+        start="/"
+        target="/contact"
+      />
 
       <section>
         <div className="mb-6 text-center">

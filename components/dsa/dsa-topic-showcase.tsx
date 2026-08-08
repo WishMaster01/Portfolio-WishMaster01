@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { dsaLearningPath, dsaTopics } from "@/data/dsa";
+import { allAlgorithmTopics, dsaLearningPath } from "@/data/dsa";
 import { cn } from "@/lib/utils";
 
 const algorithmGroups = [
@@ -31,14 +31,14 @@ function topicSlug(title: string) {
 
 export function DsaTopicShowcase() {
   const [selectedTitle, setSelectedTitle] = useState<string>(
-    dsaTopics[0].title,
+    allAlgorithmTopics[0].title,
   );
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const syncFromHash = () => {
       const hash = decodeURIComponent(window.location.hash.replace("#", ""));
-      const matchedTopic = dsaTopics.find(
+      const matchedTopic = allAlgorithmTopics.find(
         (topic) => topicSlug(topic.title) === hash,
       );
 
@@ -55,7 +55,8 @@ export function DsaTopicShowcase() {
 
   const selectedTopic = useMemo(
     () =>
-      dsaTopics.find((topic) => topic.title === selectedTitle) ?? dsaTopics[0],
+      allAlgorithmTopics.find((topic) => topic.title === selectedTitle) ??
+      allAlgorithmTopics[0],
     [selectedTitle],
   );
 
@@ -129,7 +130,7 @@ export function DsaTopicShowcase() {
                 onChange={(event) => selectTopic(event.target.value)}
                 className="mt-3 w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm font-black text-foreground shadow-sm transition focus:border-accent"
               >
-                {dsaTopics.map((topic) => (
+                {allAlgorithmTopics.map((topic) => (
                   <option key={topic.title} value={topic.title}>
                     {topic.title}
                   </option>

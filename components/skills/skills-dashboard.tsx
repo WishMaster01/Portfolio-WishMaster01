@@ -4,12 +4,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   learningRoadmap,
+  skillDependencyEdges,
+  skillDependencyNodes,
   skillGroups,
   skillHighlights,
   skillMetrics,
   skillOverview,
   skillStrengths,
 } from "@/data/skills";
+import { SkillsDependencyGraph } from "@/components/skills/skills-dependency-graph";
 
 export function SkillsDashboard() {
   const shouldReduceMotion = useReducedMotion();
@@ -206,6 +209,12 @@ export function SkillsDashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <SkillsDependencyGraph
+        nodes={[...skillDependencyNodes]}
+        edges={[...skillDependencyEdges]}
+        startNodeId="frontend"
+      />
     </div>
   );
 }

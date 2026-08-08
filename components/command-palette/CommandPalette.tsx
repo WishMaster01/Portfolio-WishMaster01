@@ -1,10 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  buildSearchIndex,
+  searchIndex,
+} from "@/lib/algorithms/text-search";
 import { cn } from "@/lib/utils";
 import { CommandGroup } from "./CommandGroup";
 import { CommandItem } from "./CommandItem";
@@ -38,19 +48,45 @@ function getServerHydrationSnapshot() {
 export function CommandPalette({ compact = false }: CommandPaletteProps) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const isMounted = useSyncExternalStore(
     subscribeToHydration,
     getClientHydrationSnapshot,
     getServerHydrationSnapshot,
   );
 
+  const commandIndex = useMemo(
+    () =>
+      buildSearchIndex(
+        commands.map((command) => ({
+          id: command.id,
+          title: command.title,
+          body: [command.group, command.href, command.keywords.join(" ")].join(" "),
+          keywords: command.keywords,
+          payload: command,
+        })),
+      ),
+    [],
+  );
+
+  const rankedCommands = useMemo(() => {
+    if (!deferredQuery.trim()) {
+      return commands;
+    }
+
+    return searchIndex(commandIndex, deferredQuery, commands.length).map(
+      (result) => result.item,
+    );
+  }, [commandIndex, deferredQuery]);
+
   const groupedCommands = useMemo(
     () =>
       groupOrder.map((group) => ({
         group,
-        items: commands.filter((command) => command.group === group),
+        items: rankedCommands.filter((command) => command.group === group),
       })),
-    [],
+    [rankedCommands],
   );
 
   useEffect(() => {
@@ -73,6 +109,7 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
 
   function selectCommand(command: CommandRecord) {
     setIsOpen(false);
+    setQuery("");
     router.push(command.href);
   }
 
@@ -99,10 +136,14 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
           >
             <Command
               loop
-              shouldFilter
+              shouldFilter={false}
               className="bg-background text-foreground"
             >
-              <CommandSearch onClose={() => setIsOpen(false)} />
+              <CommandSearch
+                onClose={() => setIsOpen(false)}
+                value={query}
+                onValueChange={setQuery}
+              />
               <Command.List className="max-h-[min(58dvh,32rem)] overflow-y-auto p-2">
                 <Command.Empty className="px-4 py-10 text-center text-sm text-muted-foreground">
                   No matching command found.
@@ -121,7 +162,7 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
                 ))}
               </Command.List>
               <div className="flex items-center justify-between gap-4 border-t border-border px-4 py-3 text-xs text-muted-foreground">
-                <span>Type to search, Enter to open, Esc to close</span>
+                <span>Trie prefix ranking, fuzzy matching, Enter to open</span>
                 <span>Ctrl K / Cmd K</span>
               </div>
             </Command>

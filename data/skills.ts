@@ -108,3 +108,22 @@ export const learningRoadmap = [
   "Cloud deployment pipelines and observability",
   "System design for SaaS dashboards and AI products",
 ] as const;
+
+export const skillDependencyNodes = [
+  { id: "frontend", label: "Frontend Engineering", weight: 90 },
+  { id: "backend", label: "Backend & API Design", weight: 84 },
+  { id: "database", label: "Database & Data Modeling", weight: 82 },
+  { id: "ai", label: "AI Product Engineering", weight: 80 },
+  { id: "product", label: "Product & UX Execution", weight: 86 },
+  { id: "quality", label: "Engineering Quality", weight: 88 },
+] as const;
+
+export const skillDependencyEdges = [
+  { from: "frontend", to: "product", weight: 3 },
+  { from: "frontend", to: "quality", weight: 2 },
+  { from: "backend", to: "database", weight: 3 },
+  { from: "database", to: "ai", weight: 2 },
+  { from: "backend", to: "ai", weight: 3 },
+  { from: "product", to: "ai", weight: 2 },
+  { from: "quality", to: "ai", weight: 1 },
+] as const;

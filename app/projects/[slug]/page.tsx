@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetails } from "@/components/projects/details/ProjectDetails";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { getRelatedProjects } from "@/lib/projects/related-projects";
 import { siteConfig } from "@/data/site";
 
 type ProjectPageProps = {
@@ -68,6 +69,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const relatedProjects = getRelatedProjects(project, projects, 3);
+
   return (
     <>
       <script
@@ -89,7 +92,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           }),
         }}
       />
-      <ProjectDetails project={project} />
+      <ProjectDetails project={project} relatedProjects={relatedProjects} />
     </>
   );
 }

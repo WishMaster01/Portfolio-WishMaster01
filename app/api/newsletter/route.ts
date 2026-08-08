@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { BloomFilter } from "@/lib/algorithms/bloom-filter";
 import { readJson, validationError } from "@/lib/server/api";
 import { checkRateLimit } from "@/lib/server/rate-limit";
 import { getPrisma } from "@/lib/server/prisma";
@@ -30,6 +31,9 @@ type NewsletterSubscriptionRecord = {
 };
 
 export const runtime = "nodejs";
+
+const newsletterBloomFilter = new BloomFilter(4096, 4);
+const newsletterSeenEmails = new Set<string>();
 
 function getClientIp(request: Request) {
   const forwardedFor = request.headers.get("x-forwarded-for");
@@ -158,6 +162,7 @@ async function saveNewsletterSubscriber(input: {
 export async function POST(request: Request) {
   const clientIp = getClientIp(request);
   const rateLimit = checkRateLimit(`newsletter:${clientIp}`, {
+    algorithm: "sliding-window",
     limit: 8,
     windowMs: 15 * 60 * 1000,
   });
@@ -190,9 +195,28 @@ export async function POST(request: Request) {
     ...parsed.data,
     email: parsed.data.email.toLowerCase(),
   };
+  const maybeSeen = newsletterBloomFilter.mightContain(input.email);
+
+  if (maybeSeen && newsletterSeenEmails.has(input.email)) {
+    return NextResponse.json(
+      {
+        ok: true,
+        mode: "in-memory-bloom-filter",
+        duplicate: true,
+        message: "You are already subscribed.",
+      },
+      { status: 200 },
+    );
+  }
 
   try {
     const result = await saveNewsletterSubscriber(input);
+    newsletterBloomFilter.add(input.email);
+
+    if (!result.duplicate) {
+      newsletterSeenEmails.add(input.email);
+    }
+
     const confirmation = result.duplicate
       ? { skipped: true, reason: "Duplicate active subscriber." }
       : await sendNewsletterConfirmation({

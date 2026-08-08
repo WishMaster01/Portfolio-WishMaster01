@@ -2,6 +2,7 @@ import { education, experienceItems } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { resume } from "@/data/resume";
 import { skillHighlights } from "@/data/skills";
+import { rankRecruiterProjects } from "@/lib/recruiter/project-ranking";
 import type {
   RecruiterProfileData,
   RecruiterProject,
@@ -60,8 +61,12 @@ export const recruiterProfile: RecruiterProfileData = {
   email: resume.email,
 };
 
-export const recruiterProjects: RecruiterProject[] = projects
-  .slice(0, 3)
+export const recruiterProjects: RecruiterProject[] = rankRecruiterProjects(
+  projects.map((project) => ({
+    ...project,
+    shortSummary: project.summary,
+  })),
+)
   .map((project) => ({
     title: project.title,
     slug: project.slug,

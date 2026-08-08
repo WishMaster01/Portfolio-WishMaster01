@@ -91,3 +91,14 @@ export const workingPrinciples = [
       "Use lint, type checking, and builds to catch issues before they become runtime problems.",
   },
 ] as const;
+
+export const experienceDependencyEdges = [
+  {
+    from: "Frontend Systems Builder",
+    to: "Product Interface Engineer",
+  },
+  {
+    from: "Product Interface Engineer",
+    to: "Full-Stack AI & SaaS Developer",
+  },
+] as const;

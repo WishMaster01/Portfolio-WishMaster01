@@ -1,4 +1,5 @@
 import type { ChatMessage, ChatResponse } from "@/types/chat";
+import { LruCache } from "@/lib/algorithms/lru-cache";
 import { callGemini, callOpenRouter } from "@/lib/ai/providers";
 import {
   buildFallbackAnswer,
@@ -6,6 +7,8 @@ import {
   compactMessages,
 } from "@/lib/ai/portfolio-prompt";
 import { buildChatContext } from "@/server/chat/context-builder";
+
+const chatResponseCache = new LruCache<string, ChatResponse>(50);
 
 type CreateChatResponseInput = {
   message: string;
@@ -46,23 +49,40 @@ export async function createPortfolioChatResponse({
   message,
   history = [],
 }: CreateChatResponseInput): Promise<ChatResponse> {
+  const cacheKey = JSON.stringify({
+    message: message.trim().toLowerCase(),
+    history: history.slice(-6),
+  });
+  const cached = chatResponseCache.get(cacheKey);
+
+  if (cached) {
+    return {
+      ...cached,
+      cached: true,
+    };
+  }
+
   const context = buildChatContext(message);
   const messages = toProviderMessages({ message, history });
 
   if (process.env.OPENROUTER_API_KEY) {
     try {
-      return await callOpenRouter({ messages, context });
+      const response = await callOpenRouter({ messages, context });
+      chatResponseCache.set(cacheKey, response);
+      return response;
     } catch (openRouterError) {
       console.error("OpenRouter chat request failed.", openRouterError);
 
       if (process.env.GEMINI_API_KEY) {
         try {
           const geminiResult = await callGemini({ messages, context });
-
-          return {
+          const fallbackResponse = {
             ...geminiResult,
-            fallbackFrom: "openrouter",
+            fallbackFrom: "openrouter" as const,
           };
+          chatResponseCache.set(cacheKey, fallbackResponse);
+
+          return fallbackResponse;
         } catch (geminiError) {
           console.error("Gemini fallback chat request failed.", geminiError);
         }
@@ -72,19 +92,24 @@ export async function createPortfolioChatResponse({
 
   if (process.env.GEMINI_API_KEY) {
     try {
-      return await callGemini({ messages, context });
+      const response = await callGemini({ messages, context });
+      chatResponseCache.set(cacheKey, response);
+      return response;
     } catch (geminiError) {
       console.error("Gemini chat request failed.", geminiError);
     }
   }
 
-  return {
+  const fallbackResponse = {
     answer: buildFallbackAnswer(message),
     provider: "fallback",
     model: "local-rule-based",
     setup:
       "Set OPENROUTER_API_KEY and GEMINI_API_KEY to enable provider-backed answers with automatic fallback.",
   };
+  chatResponseCache.set(cacheKey, fallbackResponse);
+
+  return fallbackResponse;
 }
 
 export function buildDebugPrompt(message: string) {

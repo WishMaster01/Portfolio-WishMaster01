@@ -1,3 +1,4 @@
+import { PriorityQueue } from "@/lib/algorithms/priority-queue";
 import type { Judge0SubmissionResult } from "@/types/judge0";
 
 type Judge0Response = {
@@ -13,6 +14,36 @@ type Judge0Response = {
   time?: string | null;
   memory?: number | null;
 };
+
+type Judge0SubmissionInput = {
+  sourceCode: string;
+  stdin: string;
+  languageId: number;
+};
+
+type Judge0SubmissionOutcome =
+  | {
+      error: string;
+      message: string;
+      status: number;
+    }
+  | {
+      result: Judge0SubmissionResult;
+    };
+
+type PendingJob = {
+  input: Judge0SubmissionInput;
+  priority: number;
+  sequence: number;
+  resolve: (value: Judge0SubmissionOutcome) => void;
+  reject: (reason?: unknown) => void;
+};
+
+const submissionQueue = new PriorityQueue<PendingJob>(
+  (left, right) => left.priority - right.priority || left.sequence - right.sequence,
+);
+let activeExecution = false;
+let sequenceCounter = 0;
 
 function getJudge0Config() {
   const baseUrl = process.env.JUDGE0_API_URL;
@@ -59,11 +90,14 @@ function mapJudge0Response(payload: Judge0Response): Judge0SubmissionResult {
   };
 }
 
-export async function submitToJudge0(input: {
-  sourceCode: string;
-  stdin: string;
-  languageId: number;
-}) {
+function computeSubmissionPriority(input: Judge0SubmissionInput) {
+  const languagePenalty = input.languageId === 71 ? 0 : 5;
+  return input.sourceCode.length + input.stdin.length + languagePenalty;
+}
+
+async function executeJudge0Submission(
+  input: Judge0SubmissionInput,
+): Promise<Judge0SubmissionOutcome> {
   const config = getJudge0Config();
 
   if (!config) {
@@ -72,7 +106,7 @@ export async function submitToJudge0(input: {
       message:
         "Set JUDGE0_API_URL and optionally JUDGE0_API_KEY/JUDGE0_API_HOST in .env.",
       status: 503,
-    } as const;
+    };
   }
 
   const url = new URL(`${config.baseUrl}/submissions`);
@@ -110,10 +144,48 @@ export async function submitToJudge0(input: {
         (payload && "error" in payload && payload.error) ||
         `Judge0 returned HTTP ${response.status}.`,
       status: response.status,
-    } as const;
+    };
   }
 
   return {
     result: mapJudge0Response((payload ?? {}) as Judge0Response),
-  } as const;
+  };
+}
+
+async function drainSubmissionQueue() {
+  if (activeExecution || submissionQueue.size === 0) {
+    return;
+  }
+
+  const job = submissionQueue.pop();
+
+  if (!job) {
+    return;
+  }
+
+  activeExecution = true;
+
+  try {
+    const result = await executeJudge0Submission(job.input);
+    job.resolve(result);
+  } catch (error) {
+    job.reject(error);
+  } finally {
+    activeExecution = false;
+    void drainSubmissionQueue();
+  }
+}
+
+export async function submitToJudge0(input: Judge0SubmissionInput) {
+  return new Promise<Judge0SubmissionOutcome>((resolve, reject) => {
+    submissionQueue.push({
+      input,
+      priority: computeSubmissionPriority(input),
+      sequence: sequenceCounter,
+      resolve,
+      reject,
+    });
+    sequenceCounter += 1;
+    void drainSubmissionQueue();
+  });
 }

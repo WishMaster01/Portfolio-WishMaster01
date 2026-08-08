@@ -89,8 +89,10 @@ async function saveContactMessage(input: ContactRecord) {
 export async function POST(request: Request) {
   const clientIp = getClientIp(request);
   const rateLimit = checkRateLimit(`contact:${clientIp}`, {
-    limit: 5,
-    windowMs: 15 * 60 * 1000,
+    algorithm: "token-bucket",
+    capacity: 5,
+    refillTokens: 1,
+    refillIntervalMs: 3 * 60 * 1000,
   });
 
   if (!rateLimit.allowed) {

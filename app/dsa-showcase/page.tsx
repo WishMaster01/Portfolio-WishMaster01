@@ -4,7 +4,30 @@ import { DsaTopicShowcase } from "@/components/dsa/dsa-topic-showcase";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { algorithmTopics, dsaStats } from "@/data/dsa";
+import { allAlgorithmTopics, dsaStats } from "@/data/dsa";
+
+const productionIntegrations = [
+  {
+    title: "Command palette",
+    detail:
+      "Trie-backed prefix search plus fuzzy recovery ranks commands beyond simple string iteration.",
+  },
+  {
+    title: "Project explorer",
+    detail:
+      "Inverted-index retrieval and TF-IDF-style scoring rank project case studies by relevance.",
+  },
+  {
+    title: "Blog search",
+    detail:
+      "BM25-style ranking, prefix matching, and fuzzy title recovery improve technical article discovery.",
+  },
+  {
+    title: "Recruiter mode",
+    detail:
+      "A binary-heap priority queue surfaces the strongest projects by engineering signal instead of fixed ordering.",
+  },
+] as const;
 
 export default function DsaShowcasePage() {
   return (
@@ -38,6 +61,38 @@ export default function DsaShowcasePage() {
             ))}
           </div>
 
+          <Reveal className="mt-8" delay={0.06}>
+            <Card className="rounded-[2rem] border-accent/20 bg-surface/95">
+              <CardContent className="p-5 sm:p-7">
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-accent">
+                  Production Algorithm Usage
+                </p>
+                <h2 className="mt-2 text-2xl font-black tracking-[-0.03em]">
+                  Real DSA already wired into this portfolio
+                </h2>
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+                  This section is not isolated from the product. Search, ranking,
+                  and recruiter-facing content now use real algorithmic
+                  primitives inside the portfolio itself.
+                </p>
+
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                  {productionIntegrations.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-2xl border border-border bg-background/70 p-4"
+                    >
+                      <p className="font-black text-foreground">{item.title}</p>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                        {item.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </Reveal>
+
           <Reveal className="mt-8" delay={0.08}>
             <DsaTopicShowcase />
           </Reveal>
@@ -68,7 +123,7 @@ export default function DsaShowcasePage() {
                 </div>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {algorithmTopics.map((topic, index) => (
+                  {allAlgorithmTopics.map((topic, index) => (
                     <Reveal key={topic.slug} delay={(index % 8) * 0.03}>
                       <Link
                         href={`/dsa-showcase/${topic.slug}`}

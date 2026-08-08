@@ -5,6 +5,7 @@ import { FutureScope } from "@/components/projects/details/FutureScope";
 import { ProblemSolution } from "@/components/projects/details/ProblemSolution";
 import { ProjectNavigation } from "@/components/projects/details/ProjectNavigation";
 import { ProjectOverview } from "@/components/projects/details/ProjectOverview";
+import { RelatedProjects } from "@/components/projects/details/RelatedProjects";
 import { ProjectTimeline } from "@/components/projects/details/ProjectTimeline";
 import { ScreenshotGallery } from "@/components/projects/details/ScreenshotGallery";
 import { TechStackList } from "@/components/projects/details/TechStackList";
@@ -14,6 +15,7 @@ import type { Project } from "@/types/project";
 
 type ProjectDetailsProps = {
   project: Project;
+  relatedProjects: Project[];
 };
 
 const tabs = [
@@ -132,7 +134,7 @@ function DeepDiveSections({ project }: { project: Project }) {
   );
 }
 
-export function ProjectDetails({ project }: ProjectDetailsProps) {
+export function ProjectDetails({ project, relatedProjects }: ProjectDetailsProps) {
   return (
     <div className="mt-6 grid gap-6 xl:mt-8 xl:grid-cols-[minmax(0,1fr)_410px] xl:gap-8">
       <main className="min-w-0 space-y-6">
@@ -173,6 +175,10 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
         </section>
 
         <section id="future-scope" className="scroll-mt-32">
+          <RelatedProjects projects={relatedProjects} />
+        </section>
+
+        <section className="scroll-mt-32">
           <ProjectNavigation currentSlug={project.slug} />
         </section>
       </main>

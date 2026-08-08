@@ -5,21 +5,62 @@ import { projects } from "@/data/projects";
 import { resume } from "@/data/resume";
 import { services, siteConfig } from "@/data/site";
 import { skillGroups, skillHighlights } from "@/data/skills";
-
-function containsAny(source: string, terms: string[]) {
-  const normalizedSource = source.toLowerCase();
-  return terms.some((term) => normalizedSource.includes(term.toLowerCase()));
-}
+import { rankByTextSimilarity } from "@/lib/algorithms/vector-similarity";
 
 export function buildChatContext(question: string) {
-  const relevantProjects = projects.filter((project) =>
-    containsAny(question, [
-      project.slug,
-      project.title,
-      project.category,
-      project.role,
-      ...project.stack,
-    ]),
+  const relevantProjects = rankByTextSimilarity(
+    question,
+    projects,
+    (project) =>
+      [
+        project.slug,
+        project.title,
+        project.category,
+        project.role,
+        project.summary,
+        project.problem,
+        project.solution,
+        project.impact,
+        project.stack.join(" "),
+        project.highlights.join(" "),
+      ].join(" "),
+    3,
+  );
+  const relevantArticles = rankByTextSimilarity(
+    question,
+    articles,
+    (article) =>
+      [
+        article.title,
+        article.excerpt,
+        article.summary,
+        article.category,
+        article.tags.join(" "),
+      ].join(" "),
+    4,
+  );
+  const relevantServices = rankByTextSimilarity(
+    question,
+    services,
+    (service) =>
+      [service.title, service.description, service.deliverables.join(" ")].join(
+        " ",
+      ),
+    3,
+  );
+  const relevantExperience = rankByTextSimilarity(
+    question,
+    experienceItems,
+    (item) =>
+      [
+        item.title,
+        item.company,
+        item.summary,
+        item.impact ?? "",
+        item.stack?.join(" ") ?? "",
+        item.achievements.join(" "),
+      ].join(" "),
+    3,
   );
 
   return {
@@ -41,8 +82,9 @@ export function buildChatContext(question: string) {
       groups: skillGroups,
     },
     resume,
-    experience: experienceItems,
-    services,
+    experience:
+      relevantExperience.length > 0 ? relevantExperience : experienceItems,
+    services: relevantServices.length > 0 ? relevantServices : services,
     projects: (relevantProjects.length ? relevantProjects : projects).map(
       (project) => ({
         title: project.title,
@@ -60,7 +102,7 @@ export function buildChatContext(question: string) {
         metrics: project.metrics,
       }),
     ),
-    blog: articles,
+    blog: relevantArticles.length > 0 ? relevantArticles : articles,
   };
 }
 

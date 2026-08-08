@@ -6,6 +6,7 @@ import type {
   GitHubProfile,
   GitHubRepository,
 } from "@/types/github";
+import { PriorityQueue } from "@/lib/algorithms/priority-queue";
 
 const githubApiBase = "https://api.github.com";
 const githubGraphqlUrl = "https://api.github.com/graphql";
@@ -189,6 +190,22 @@ function mapRepository(repo: GitHubRepoApi): GitHubRepository {
   };
 }
 
+function selectTopRepositories(repositories: GitHubRepository[], limit: number) {
+  const queue = new PriorityQueue<GitHubRepository>(
+    (left, right) => left.rankScore - right.rankScore,
+  );
+
+  for (const repository of repositories) {
+    queue.push(repository);
+
+    if (queue.size > limit) {
+      queue.pop();
+    }
+  }
+
+  return queue.toArray().sort((left, right) => right.rankScore - left.rankScore);
+}
+
 function mapActivity(event: GitHubEventApi): GitHubActivity {
   const labels: Record<string, string> = {
     PushEvent: "Pushed commits",
@@ -235,7 +252,7 @@ function fallbackContributionDays(): GitHubContributionDay[] {
 async function getGitHubGraphqlData(username: string, repositories: GitHubRepository[]) {
   if (!process.env.GITHUB_TOKEN) {
     return {
-      pinnedRepositories: repositories.slice(0, 6),
+      pinnedRepositories: selectTopRepositories(repositories, 6),
       contributionDays: fallbackContributionDays(),
       totalContributions: 0,
       warning:
@@ -299,7 +316,7 @@ async function getGitHubGraphqlData(username: string, repositories: GitHubReposi
 
   if (response.errors?.length || !response.data?.user) {
     return {
-      pinnedRepositories: repositories.slice(0, 6),
+      pinnedRepositories: selectTopRepositories(repositories, 6),
       contributionDays: fallbackContributionDays(),
       totalContributions: 0,
       warning: response.errors?.[0]?.message ?? "GitHub GraphQL profile data was unavailable.",
@@ -338,7 +355,7 @@ async function getGitHubGraphqlData(username: string, repositories: GitHubReposi
     pinnedRepositories:
       pinnedRepositories.length > 0
         ? pinnedRepositories
-        : repositories.slice(0, 6),
+        : selectTopRepositories(repositories, 6),
     contributionDays:
       contributionDays.length > 0 ? contributionDays : fallbackContributionDays(),
     totalContributions:

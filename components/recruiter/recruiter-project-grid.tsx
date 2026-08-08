@@ -22,6 +22,10 @@ export function RecruiterProjectGrid({ projects }: RecruiterProjectGridProps) {
         >
           Best evidence of current engineering direction
         </h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+          Ranked with a priority-queue scorer that favors AI depth, architecture
+          signal, and production complexity instead of a plain static slice.
+        </p>
       </Reveal>
 
       <div className="mt-8 grid gap-5 lg:grid-cols-3">

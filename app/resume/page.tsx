@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
+import { Reveal } from "@/components/motion/reveal";
 import { AchievementsSection } from "@/components/resume/AchievementsSection";
 import { CertificationSection } from "@/components/resume/CertificationSection";
 import { ContactDetailsSection } from "@/components/resume/ContactDetailsSection";
 import { EducationSection } from "@/components/resume/EducationSection";
 import { ExperienceSection } from "@/components/resume/ExperienceSection";
-import { ProjectSection } from "@/components/resume/ProjectSection";
 import { PrintResumeDocument } from "@/components/resume/PrintResumeDocument";
+import { ProjectSection } from "@/components/resume/ProjectSection";
+import { ResumeAnalyzer } from "@/components/resume/resume-analyzer";
 import { ResumeHeader } from "@/components/resume/ResumeHeader";
 import { SkillsSection } from "@/components/resume/SkillsSection";
-import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { projects } from "@/data/projects";
 import { resume } from "@/data/resume";
 
 export const metadata: Metadata = {
@@ -40,6 +42,10 @@ export default function ResumePage() {
                 </section>
               </Reveal>
 
+              <Reveal delay={0.06}>
+                <ResumeAnalyzer projects={projects} />
+              </Reveal>
+
               <Reveal delay={0.08}>
                 <ExperienceSection />
               </Reveal>
@@ -54,19 +60,19 @@ export default function ResumePage() {
             </main>
 
             <aside className="space-y-6 xl:self-start">
-              <Reveal delay={0.06}>
+              <Reveal delay={0.1}>
                 <ProjectSection />
               </Reveal>
 
-              <Reveal delay={0.1}>
+              <Reveal delay={0.14}>
                 <EducationSection />
               </Reveal>
 
-              <Reveal delay={0.14}>
+              <Reveal delay={0.18}>
                 <CertificationSection />
               </Reveal>
 
-              <Reveal delay={0.18}>
+              <Reveal delay={0.22}>
                 <ContactDetailsSection />
               </Reveal>
             </aside>

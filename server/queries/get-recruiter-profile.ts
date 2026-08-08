@@ -1,5 +1,6 @@
 import { recruiterProfile, recruiterProjects } from "@/data/recruiter";
 import { getPrisma } from "@/lib/server/prisma";
+import { rankRecruiterProjects } from "@/lib/recruiter/project-ranking";
 import type {
   RecruiterProfileData,
   RecruiterProfileResult,
@@ -21,6 +22,11 @@ type RecruiterProfileRow = Partial<RecruiterProfileData> & {
 type RecruiterProjectRow = Partial<RecruiterProject> & {
   summary?: string;
   shortSummary?: string;
+  impact?: string;
+  stack?: string[];
+  technologies?: string[];
+  highlights?: string[];
+  metrics?: Array<{ label?: string; value?: string }> | unknown;
   screenshots?: Array<{ image?: string }> | unknown;
 };
 
@@ -131,11 +137,20 @@ export async function getRecruiterProfile(): Promise<RecruiterProfileResult> {
             slug: true,
             summary: true,
             category: true,
+            impact: true,
+            stack: true,
+            technologies: true,
+            highlights: true,
             screenshots: true,
             liveUrl: true,
             githubUrl: true,
+            metrics: {
+              select: {
+                label: true,
+                value: true,
+              },
+            },
           },
-          take: 3,
           orderBy: {
             updatedAt: "desc",
           },
@@ -143,10 +158,16 @@ export async function getRecruiterProfile(): Promise<RecruiterProfileResult> {
       ]);
 
       if (profile) {
+        const rankedProjects = Array.isArray(projects)
+          ? rankRecruiterProjects(
+              projects.map((project) => project as RecruiterProjectRow),
+            )
+          : recruiterProjects;
+
         return {
           profile: normalizeProfile(profile as RecruiterProfileRow),
-          projects: Array.isArray(projects)
-            ? projects.map((project) =>
+          projects: Array.isArray(rankedProjects)
+            ? rankedProjects.map((project) =>
                 normalizeProject(project as RecruiterProjectRow),
               )
             : recruiterProjects,

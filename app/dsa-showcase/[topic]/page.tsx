@@ -4,7 +4,7 @@ import { DsaTopicPage } from "@/components/dsa/DsaTopicPage";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import {
-  algorithmTopics,
+  allAlgorithmTopics,
   dsaPracticeProblems,
   getAlgorithmTopicBySlug,
 } from "@/data/dsa";
@@ -16,7 +16,7 @@ type DsaTopicRouteProps = {
 };
 
 export function generateStaticParams() {
-  return algorithmTopics.map((topic) => ({ topic: topic.slug }));
+  return allAlgorithmTopics.map((topic) => ({ topic: topic.slug }));
 }
 
 export async function generateMetadata({
@@ -60,7 +60,7 @@ export default async function DsaTopicRoute({ params }: DsaTopicRouteProps) {
         <Container className="max-w-[1380px]">
           <DsaTopicPage
             topic={topic}
-            topics={algorithmTopics}
+            topics={allAlgorithmTopics}
             problems={problems}
           />
         </Container>

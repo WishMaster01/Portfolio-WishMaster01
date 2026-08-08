@@ -52,7 +52,7 @@ export function ThemeSettingsPanel({ onClose }: ThemeSettingsPanelProps) {
             className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-border bg-background text-lg leading-none text-muted-foreground transition hover:border-accent/50 hover:bg-accent/10 hover:text-accent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/30"
             aria-label="Close theme settings"
           >
-            ×
+            x
           </button>
         </div>
 
@@ -99,6 +99,10 @@ export function ThemeSettingsPanel({ onClose }: ThemeSettingsPanelProps) {
       </div>
 
       <div className="border-t border-border bg-surface-elevated/35 p-3">
+        <p className="mb-3 text-xs leading-5 text-muted-foreground">
+          Theme resolution is memoized through an LFU cache so repeated palette
+          and preference reads stay cheap across interactions.
+        </p>
         <div className="grid gap-3 sm:grid-cols-2">
           <button
             type="button"
@@ -133,7 +137,7 @@ export function ThemeSettingsPanel({ onClose }: ThemeSettingsPanelProps) {
                   onClick={() => setFontScale(fontScale - 0.05)}
                   aria-label="Decrease font scale"
                 >
-                  −
+                  -
                 </button>
                 <button
                   type="button"

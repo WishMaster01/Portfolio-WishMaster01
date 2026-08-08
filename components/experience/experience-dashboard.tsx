@@ -4,11 +4,13 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   education,
+  experienceDependencyEdges,
   experienceHighlights,
   experienceItems,
   experienceMetrics,
   workingPrinciples,
 } from "@/data/experience";
+import { ExperienceDag } from "@/components/experience/experience-dag";
 
 export function ExperienceDashboard() {
   const shouldReduceMotion = useReducedMotion();
@@ -170,6 +172,11 @@ export function ExperienceDashboard() {
           </Card>
         </aside>
       </div>
+
+      <ExperienceDag
+        items={experienceItems}
+        edges={[...experienceDependencyEdges]}
+      />
     </div>
   );
 }

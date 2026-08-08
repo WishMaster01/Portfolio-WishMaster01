@@ -688,6 +688,207 @@ export const dsaTopicAliases: Record<string, string> = {
   greedy: "greedy-algorithms",
 };
 
+const supplementalTopicCatalog = [
+  {
+    title: "Hash Tables",
+    category: "Lookup Structure",
+    description:
+      "Hash tables provide expected constant-time lookup, insertion, and duplicate detection for large key spaces.",
+    patterns: ["Hashing", "Frequency Counting", "Deduplication", "Key Lookup"],
+    useCase:
+      "Used in caches, session stores, duplicate detection, indexing, routing maps, and constant-time membership checks.",
+  },
+  {
+    title: "Binary Search Trees",
+    category: "Ordered Tree Structure",
+    description:
+      "Binary search trees maintain ordered keys so range queries, predecessor lookup, and sorted traversal become natural operations.",
+    patterns: ["Ordered Insert", "Inorder Traversal", "Range Query", "Balanced Search"],
+    useCase:
+      "Used in ordered dictionaries, ranking systems, interval search, and tree-backed indexes.",
+  },
+  {
+    title: "AVL Trees",
+    category: "Self-Balancing Tree",
+    description:
+      "AVL trees rebalance after inserts and deletes to preserve logarithmic search performance.",
+    patterns: ["Rotations", "Height Balance", "Ordered Search", "Rebalancing"],
+    useCase:
+      "Used in systems that need deterministic balanced search trees with frequent updates.",
+  },
+  {
+    title: "Heaps",
+    category: "Priority Structure",
+    description:
+      "Heaps keep the smallest or largest item at the root, making repeated top-k and scheduling operations efficient.",
+    patterns: ["Heapify", "Top K", "Streaming", "Priority Scheduling"],
+    useCase:
+      "Used in schedulers, top-k analytics, recommendation ranking, and streaming order statistics.",
+  },
+  {
+    title: "Priority Queues",
+    category: "Scheduling Structure",
+    description:
+      "Priority queues return the highest-priority item first and are the standard abstraction for schedulers and best-first search.",
+    patterns: ["Top K", "Best First", "Task Scheduling", "Greedy Extraction"],
+    useCase:
+      "Used in job schedulers, recruiter ranking, Dijkstra, A*, and queue prioritization.",
+  },
+  {
+    title: "Tries",
+    category: "String Index",
+    description:
+      "Tries index strings by character prefix, supporting autocomplete, prefix search, and constrained dictionary traversal.",
+    patterns: ["Prefix Search", "Autocomplete", "Dictionary Walk", "Lexicographic Search"],
+    useCase:
+      "Used in command palettes, search suggestions, dictionaries, and route completion systems.",
+  },
+  {
+    title: "Divide & Conquer",
+    category: "Problem Decomposition",
+    description:
+      "Divide and conquer splits a problem into smaller independent subproblems, solves them recursively, and combines the answers.",
+    patterns: ["Recursive Split", "Merge", "Partition", "Subproblem Composition"],
+    useCase:
+      "Used in merge sort, quicksort, binary search, FFT-style decomposition, and recursive geometry problems.",
+  },
+  {
+    title: "Sliding Window",
+    category: "Range Optimization",
+    description:
+      "Sliding window maintains a moving subarray or substring so repeated range queries avoid full recomputation.",
+    patterns: ["Fixed Window", "Variable Window", "Rolling Aggregate", "Window Validity"],
+    useCase:
+      "Used in rate limiting, analytics, substring search, rolling averages, and throughput calculations.",
+  },
+  {
+    title: "Two Pointers",
+    category: "Pointer Technique",
+    description:
+      "Two pointers exploit ordering or bidirectional scans to reduce nested loops into linear passes.",
+    patterns: ["Converging Pointers", "Fast/Slow", "Partitioning", "Pair Search"],
+    useCase:
+      "Used in sorted pair search, cycle detection, partitioning, and in-place array transforms.",
+  },
+  {
+    title: "Recursion",
+    category: "Control Flow Technique",
+    description:
+      "Recursion expresses repeated self-similar work through smaller calls with explicit base cases.",
+    patterns: ["Base Case", "Recursive Decomposition", "Backtracking", "Tree Traversal"],
+    useCase:
+      "Used in tree traversal, divide and conquer, parsing, backtracking, and hierarchical rendering.",
+  },
+  {
+    title: "Segment Trees",
+    category: "Range Query Structure",
+    description:
+      "Segment trees answer range queries and point updates efficiently by storing aggregated values over intervals.",
+    patterns: ["Range Query", "Point Update", "Lazy Propagation", "Tree Aggregation"],
+    useCase:
+      "Used in analytics dashboards, interval updates, leaderboards, and heavy query workloads.",
+  },
+  {
+    title: "Fenwick Trees",
+    category: "Prefix Sum Structure",
+    description:
+      "Fenwick trees compress prefix-sum updates and queries into a lightweight logarithmic data structure.",
+    patterns: ["Prefix Sum", "Point Update", "Low Bit", "Cumulative Query"],
+    useCase:
+      "Used in real-time analytics, frequency tables, inversion counts, and cumulative event tracking.",
+  },
+  {
+    title: "Union Find",
+    category: "Connectivity Structure",
+    description:
+      "Union Find tracks disjoint sets and quickly answers whether elements belong to the same connected component.",
+    patterns: ["Disjoint Set", "Path Compression", "Union by Rank", "Connectivity Check"],
+    useCase:
+      "Used in graph connectivity, Kruskal MST, clustering, and dynamic grouping problems.",
+  },
+  {
+    title: "Topological Sort",
+    category: "Dependency Ordering",
+    description:
+      "Topological sort orders a DAG so every dependency appears before the node that depends on it.",
+    patterns: ["Indegree Queue", "DAG Ordering", "Dependency Resolution", "Build Graph"],
+    useCase:
+      "Used in task scheduling, build systems, curriculum planning, and dependency resolution.",
+  },
+  {
+    title: "Shortest Path",
+    category: "Pathfinding",
+    description:
+      "Shortest-path algorithms compute the cheapest route between nodes under weighted or unweighted constraints.",
+    patterns: ["BFS Shortest Path", "Dijkstra", "Relaxation", "Path Reconstruction"],
+    useCase:
+      "Used in routing, navigation graphs, dependency graphs, and network optimization.",
+  },
+  {
+    title: "Network Flow",
+    category: "Flow Optimization",
+    description:
+      "Network flow algorithms maximize throughput through a constrained graph using residual capacities and augmenting paths.",
+    patterns: ["Residual Graph", "Augmenting Path", "Capacity", "Min Cut"],
+    useCase:
+      "Used in allocation, matching, bandwidth planning, and constrained scheduling systems.",
+  },
+  {
+    title: "String Algorithms",
+    category: "Text Processing",
+    description:
+      "String algorithms optimize substring matching, prefix analysis, pattern detection, and text indexing.",
+    patterns: ["Prefix Function", "Pattern Match", "Rolling Hash", "Suffix Reasoning"],
+    useCase:
+      "Used in search engines, autocomplete, plagiarism checks, and syntax tooling.",
+  },
+  {
+    title: "Sorting Algorithms",
+    category: "Ordering Technique",
+    description:
+      "Sorting algorithms organize collections by one or more keys so later logic can scan, search, or merge efficiently.",
+    patterns: ["Comparison Sort", "Partition", "Merge", "Stable Ordering"],
+    useCase:
+      "Used in ranking, feed ordering, scheduling, and analytics pre-processing.",
+  },
+  {
+    title: "Searching Algorithms",
+    category: "Retrieval Technique",
+    description:
+      "Searching algorithms locate exact, approximate, or feasible answers within ordered or indexed spaces.",
+    patterns: ["Linear Scan", "Binary Search", "Search on Answer", "Index Lookup"],
+    useCase:
+      "Used in indexes, route lookup, configuration search, and API result retrieval.",
+  },
+  {
+    title: "Caching Algorithms",
+    category: "State Optimization",
+    description:
+      "Caching algorithms decide which data to retain or evict so repeated access becomes fast without exhausting memory.",
+    patterns: ["LRU", "LFU", "Memoization", "Eviction Policy"],
+    useCase:
+      "Used in API response caching, chatbot reuse, database acceleration, and browser/runtime storage.",
+  },
+  {
+    title: "Scheduling Algorithms",
+    category: "Execution Planning",
+    description:
+      "Scheduling algorithms choose execution order under time, priority, and dependency constraints.",
+    patterns: ["Priority Queue", "EDF", "Greedy Selection", "Dependency Scheduling"],
+    useCase:
+      "Used in job queues, background workers, animation priorities, and operating systems.",
+  },
+  {
+    title: "Compression Algorithms",
+    category: "Storage Optimization",
+    description:
+      "Compression algorithms reduce storage and transfer cost by encoding repeated or predictable data patterns efficiently.",
+    patterns: ["Frequency Coding", "Dictionary Encoding", "Run Length", "Entropy Reduction"],
+    useCase:
+      "Used in media delivery, payload minimization, archival systems, and network transfer optimization.",
+  },
+] as const;
+
 function splitComplexity(complexity: string) {
   const lower = complexity.toLowerCase();
   const space =
@@ -701,8 +902,97 @@ function splitComplexity(complexity: string) {
   };
 }
 
+function buildGenericCodeExamples(topic: (typeof dsaTopics)[number]) {
+  const functionName = dsaTopicSlug(topic.title).replace(/-([a-z])/g, (_, char: string) =>
+    char.toUpperCase(),
+  );
+  const summaryComment = topic.example.problem.replace(/"/g, '\\"');
+
+  return [
+    {
+      language: "Java" as const,
+      code: topic.code,
+    },
+    {
+      language: "Python" as const,
+      code: `def ${functionName}(data):
+    """
+    ${summaryComment}
+    Pattern focus: ${topic.patterns.join(", ")}
+    """
+    # Translate the core steps from the Java reference implementation.
+    # Start from the recognition cues, then apply the numbered approach.
+    raise NotImplementedError("Use the Java reference above to complete the Python port.")`,
+    },
+    {
+      language: "JavaScript" as const,
+      code: `function ${functionName}(data) {
+  // ${summaryComment}
+  // Pattern focus: ${topic.patterns.join(", ")}
+  // Translate the core steps from the Java reference implementation.
+  throw new Error("Complete the JavaScript port from the Java reference.");
+}`,
+    },
+    {
+      language: "TypeScript" as const,
+      code: `function ${functionName}<T>(data: T): T {
+  // ${summaryComment}
+  // Pattern focus: ${topic.patterns.join(", ")}
+  // Translate the core steps from the Java reference implementation.
+  throw new Error("Complete the TypeScript port from the Java reference.");
+}`,
+    },
+  ];
+}
+
+function buildAdvantages(topic: (typeof dsaTopics)[number]) {
+  return [
+    `Strong fit for ${topic.patterns.slice(0, 2).join(" and ")} style problems.`,
+    `Useful when interview constraints demand ${topic.complexity.toLowerCase()}.`,
+    `Maps well to ${topic.useCase.replace(/^Used in /i, "").replace(/\.$/, "")}.`,
+  ];
+}
+
+function buildDisadvantages(topic: (typeof dsaTopics)[number]) {
+  return [
+    ...topic.pitfalls.slice(0, 2),
+    `Can be the wrong abstraction when the input does not match ${topic.title.toLowerCase()}-style constraints.`,
+  ];
+}
+
+function buildInterviewQuestions(topic: (typeof dsaTopics)[number]) {
+  return [
+    `How would you recognize that ${topic.title} is the right tool for a problem like "${topic.example.problem}"?`,
+    `What tradeoffs would make you reject a ${topic.title} solution in production?`,
+    `How would you optimize or generalize the ${topic.patterns[0]} approach for larger inputs?`,
+  ];
+}
+
+function buildFaangCompanies(topic: (typeof dsaTopics)[number]) {
+  const normalized = `${topic.title} ${topic.useCase}`.toLowerCase();
+
+  if (/(graph|path|network|dependency|route)/.test(normalized)) {
+    return ["Google", "Meta", "Amazon", "Apple", "Netflix"];
+  }
+
+  if (/(cache|memory|linked list|queue|stack)/.test(normalized)) {
+    return ["Amazon", "Meta", "Google", "Netflix", "Apple"];
+  }
+
+  if (/(tree|search|ranking|sort|heap)/.test(normalized)) {
+    return ["Google", "Apple", "Amazon", "Meta", "Netflix"];
+  }
+
+  return ["Amazon", "Google", "Meta", "Apple", "Netflix"];
+}
+
 export const algorithmTopics: AlgorithmTopic[] = dsaTopics.map((topic) => {
   const { timeComplexity, spaceComplexity } = splitComplexity(topic.complexity);
+  const productionUsage = topic.useCase
+    .replace(/^Used in /i, "")
+    .split(",")
+    .map((item) => item.replace(/\.$/, "").trim())
+    .filter(Boolean);
 
   return {
     title: topic.title,
@@ -718,21 +1008,120 @@ export const algorithmTopics: AlgorithmTopic[] = dsaTopics.map((topic) => {
     javaCode: topic.code,
     timeComplexity,
     spaceComplexity,
-    useCases: topic.useCase
-      .replace(/^Used in /i, "")
-      .split(",")
-      .map((item) => item.replace(/\.$/, "").trim())
-      .filter(Boolean),
+    useCases: productionUsage,
     relatedProblems: [...topic.practice],
     patterns: [...topic.patterns],
     recognition: [...topic.recognition],
     approach: [...topic.approach],
     example: topic.example,
     pitfalls: [...topic.pitfalls],
+    advantages: buildAdvantages(topic),
+    disadvantages: buildDisadvantages(topic),
+    interviewQuestions: buildInterviewQuestions(topic),
+    faangCompanies: buildFaangCompanies(topic),
+    productionUsage,
+    codeExamples: buildGenericCodeExamples(topic),
   };
 });
 
-export const dsaPracticeProblems: PracticeProblem[] = algorithmTopics.flatMap(
+const supplementalTopics: AlgorithmTopic[] = supplementalTopicCatalog.map((topic) => {
+  const example = {
+    problem: `Explain where ${topic.title} becomes a better choice than a naive scan.`,
+    input: "Production constraints: large dataset, repeated queries, low latency",
+    output: `${topic.title} selected for stronger asymptotic behavior`,
+    explanation:
+      `${topic.title} matters when repeated operations or structural constraints make naive iteration too slow or too costly to maintain.`,
+  };
+
+  const pseudoTopic = {
+    title: topic.title,
+    category: topic.category,
+    difficulty:
+      /(network flow|segment trees|fenwick trees|avl trees)/i.test(topic.title)
+        ? "Advanced"
+        : /(tries|priority queues|shortest path|union find|divide & conquer)/i.test(
+              topic.title,
+            )
+          ? "Intermediate"
+          : "Foundation",
+    description: topic.description,
+    patterns: topic.patterns,
+    recognition: [
+      `The problem naturally matches ${topic.patterns[0].toLowerCase()} style reasoning.`,
+      "You need stronger lookup, ordering, range-query, or dependency performance than a brute-force loop provides.",
+      "The same data will be queried, updated, or traversed repeatedly under time constraints.",
+    ],
+    approach: [
+      `Model the problem around ${topic.title.toLowerCase()} rather than forcing a generic array scan.`,
+      `Choose the right ${topic.patterns[0].toLowerCase()} invariant before implementing details.`,
+      "Validate complexity, edge cases, and update/query behavior before finalizing the implementation.",
+    ],
+    complexity:
+      /(hash tables|tries|caching algorithms)/i.test(topic.title)
+        ? "Typical operations are O(1) to O(m) depending on key length and collision behavior."
+        : /(priority queues|heaps|binary search trees|avl trees|union find|shortest path)/i.test(
+              topic.title,
+            )
+          ? "Typical operations are O(log n) or near-constant amortized depending on balancing and path compression."
+          : "Complexity depends on query/update shape, but the main goal is to beat repeated O(n) recomputation.",
+    useCase: topic.useCase,
+    example,
+    pitfalls: [
+      `Using ${topic.title.toLowerCase()} when a simpler structure would be clearer or cheaper.`,
+      "Ignoring update/query tradeoffs and only optimizing one side of the workload.",
+      "Forgetting edge cases around empty input, duplicate keys, or disconnected states.",
+    ],
+    practice: [
+      `${topic.title} basics`,
+      `${topic.title} production use case`,
+      `${topic.title} optimization question`,
+    ],
+    code: `// Primary Java sketch for ${topic.title}
+// Replace this with a full implementation for the exact interview or production problem.
+class Main {
+  public static void main(String[] args) {
+    System.out.println("${topic.title} starter reference");
+  }
+}`,
+  };
+  const { timeComplexity, spaceComplexity } = splitComplexity(pseudoTopic.complexity);
+  const productionUsage = topic.useCase
+    .replace(/^Used in /i, "")
+    .split(",")
+    .map((item) => item.replace(/\.$/, "").trim())
+    .filter(Boolean);
+
+  return {
+    title: pseudoTopic.title,
+    slug: dsaTopicSlug(pseudoTopic.title),
+    category: pseudoTopic.category,
+    difficulty: pseudoTopic.difficulty,
+    explanation: pseudoTopic.description,
+    visualExplanation: `${pseudoTopic.title} is usually justified when ${pseudoTopic.patterns
+      .slice(0, 3)
+      .join(", ")} becomes more important than linear iteration.`,
+    javaCode: pseudoTopic.code,
+    timeComplexity,
+    spaceComplexity,
+    useCases: productionUsage,
+    relatedProblems: [...pseudoTopic.practice],
+    patterns: [...pseudoTopic.patterns],
+    recognition: [...pseudoTopic.recognition],
+    approach: [...pseudoTopic.approach],
+    example: pseudoTopic.example,
+    pitfalls: [...pseudoTopic.pitfalls],
+    advantages: buildAdvantages(pseudoTopic),
+    disadvantages: buildDisadvantages(pseudoTopic),
+    interviewQuestions: buildInterviewQuestions(pseudoTopic),
+    faangCompanies: buildFaangCompanies(pseudoTopic),
+    productionUsage,
+    codeExamples: buildGenericCodeExamples(pseudoTopic),
+  };
+});
+
+export const allAlgorithmTopics = [...algorithmTopics, ...supplementalTopics];
+
+export const dsaPracticeProblems: PracticeProblem[] = allAlgorithmTopics.flatMap(
   (topic) =>
     topic.relatedProblems.map((problem, index) => ({
       title: problem,
@@ -746,8 +1135,8 @@ export function getAlgorithmTopicBySlug(slug: string) {
   const normalizedSlug = dsaTopicAliases[slug] ?? slug;
 
   return (
-    algorithmTopics.find((topic) => topic.slug === normalizedSlug) ??
-    algorithmTopics.find(
+    allAlgorithmTopics.find((topic) => topic.slug === normalizedSlug) ??
+    allAlgorithmTopics.find(
       (topic) =>
         topic.title.toLowerCase() === normalizedSlug.replaceAll("-", " "),
     ) ??

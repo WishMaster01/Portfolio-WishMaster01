@@ -1,0 +1,32 @@
+export const navigationGraphNodes = [
+  { id: "/", label: "Home" },
+  { id: "/about", label: "About" },
+  { id: "/projects", label: "Projects" },
+  { id: "/skills", label: "Skills" },
+  { id: "/experience", label: "Experience" },
+  { id: "/dsa-showcase", label: "DSA Showcase" },
+  { id: "/github", label: "GitHub" },
+  { id: "/blog", label: "Blog" },
+  { id: "/contact", label: "Contact" },
+  { id: "/resume", label: "Resume" },
+  { id: "/recruiter", label: "Recruiter Mode" },
+] as const;
+
+export const navigationGraphEdges = [
+  { from: "/", to: "/about", weight: 1 },
+  { from: "/", to: "/projects", weight: 1 },
+  { from: "/", to: "/skills", weight: 2 },
+  { from: "/", to: "/contact", weight: 2 },
+  { from: "/about", to: "/experience", weight: 1 },
+  { from: "/about", to: "/resume", weight: 2 },
+  { from: "/projects", to: "/github", weight: 2 },
+  { from: "/projects", to: "/contact", weight: 2 },
+  { from: "/skills", to: "/experience", weight: 1 },
+  { from: "/experience", to: "/resume", weight: 1 },
+  { from: "/experience", to: "/recruiter", weight: 2 },
+  { from: "/dsa-showcase", to: "/projects", weight: 2 },
+  { from: "/blog", to: "/contact", weight: 2 },
+  { from: "/github", to: "/recruiter", weight: 2 },
+  { from: "/resume", to: "/contact", weight: 1 },
+  { from: "/recruiter", to: "/contact", weight: 1 },
+] as const;

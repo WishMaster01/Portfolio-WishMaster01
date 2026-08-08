@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import type { Article } from "@/types/article";
+import { buildSearchIndex, searchIndex } from "@/lib/algorithms/text-search";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogFilters } from "@/components/blog/BlogFilters";
 import { BlogSearch } from "@/components/blog/BlogSearch";
@@ -19,33 +20,71 @@ export function BlogExplorer({
   tags,
 }: BlogExplorerProps) {
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeTag, setActiveTag] = useState("All");
 
-  const filteredArticles = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+  const articleSearchIndex = useMemo(
+    () =>
+      buildSearchIndex(
+        articles.map((article) => ({
+          id: article.slug,
+          title: article.title,
+          body: [
+            article.excerpt,
+            article.summary,
+            article.category,
+            article.tags.join(" "),
+            article.content
+              .flatMap((section) => [
+                section.heading,
+                section.body.join(" "),
+                section.bullets?.join(" ") ?? "",
+              ])
+              .join(" "),
+          ].join(" "),
+          keywords: [...article.tags, article.category],
+          payload: article,
+        })),
+      ),
+    [articles],
+  );
 
-    return articles.filter((article) => {
+  const filteredArticles = useMemo(() => {
+    const baseArticles = articles.filter((article) => {
       const matchesCategory =
         activeCategory === "All" || article.category === activeCategory;
       const matchesTag = activeTag === "All" || article.tags.includes(activeTag);
-      const searchable = [
-        article.title,
-        article.excerpt,
-        article.summary,
-        article.category,
-        article.tags.join(" "),
-      ]
-        .join(" ")
-        .toLowerCase();
 
-      return (
-        matchesCategory &&
-        matchesTag &&
-        (!normalizedQuery || searchable.includes(normalizedQuery))
-      );
+      return matchesCategory && matchesTag;
     });
-  }, [activeCategory, activeTag, articles, query]);
+
+    if (!deferredQuery.trim()) {
+      return baseArticles;
+    }
+
+    const rankedArticles = searchIndex(
+      articleSearchIndex,
+      deferredQuery,
+      articles.length,
+    ).map((result) => result.item);
+    const allowedSlugs = new Set(baseArticles.map((article) => article.slug));
+    const visibleArticles = rankedArticles.filter((article) =>
+      allowedSlugs.has(article.slug),
+    );
+    const visibleSlugs = new Set(visibleArticles.map((article) => article.slug));
+
+    return [
+      ...visibleArticles,
+      ...baseArticles.filter((article) => !visibleSlugs.has(article.slug)),
+    ];
+  }, [
+    activeCategory,
+    activeTag,
+    articleSearchIndex,
+    articles,
+    deferredQuery,
+  ]);
 
   return (
     <div className="space-y-8">
@@ -56,6 +95,9 @@ export function BlogExplorer({
             <p className="text-2xl font-black">{filteredArticles.length}</p>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               matching articles
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              BM25-style ranking, prefix search, and fuzzy title recovery.
             </p>
           </div>
         </div>

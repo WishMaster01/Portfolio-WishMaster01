@@ -1,5 +1,5 @@
 import { articles } from "@/data/blog";
-import { algorithmTopics } from "@/data/dsa";
+import { allAlgorithmTopics } from "@/data/dsa";
 import { navigation } from "@/data/navigation";
 import { projects } from "@/data/projects";
 import { skillGroups, skillHighlights } from "@/data/skills";
@@ -70,7 +70,7 @@ export const commands: CommandRecord[] = [
     ],
     href: `/blog/${article.slug}`,
   })),
-  ...algorithmTopics.map((topic) => ({
+  ...allAlgorithmTopics.map((topic) => ({
     id: `dsa-${topic.slug}`,
     title: topic.title,
     group: "DSA" as const,

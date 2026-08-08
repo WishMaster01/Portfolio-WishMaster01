@@ -77,7 +77,33 @@ export function DsaTopicPage({ topic, topics, problems }: DsaTopicPageProps) {
               </Reveal>
 
               <Reveal delay={0.12}>
-                <CodeViewer code={topic.javaCode} />
+                <Card className="rounded-3xl bg-surface">
+                  <CardContent className="p-5 sm:p-6">
+                    <h2 className="text-xl font-black">Code Examples</h2>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      Java remains the primary reference implementation. Python,
+                      JavaScript, and TypeScript slots are now part of the topic
+                      model so the showcase can scale toward the full multi-language
+                      spec.
+                    </p>
+                    <div className="mt-5 space-y-5">
+                      {topic.codeExamples.map((example) => (
+                        <CodeViewer
+                          key={example.language}
+                          code={example.code}
+                          language={example.language}
+                        />
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Reveal>
+
+              <Reveal delay={0.14}>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <Checklist title="Advantages" items={topic.advantages} />
+                  <Checklist title="Disadvantages" items={topic.disadvantages} />
+                </div>
               </Reveal>
             </div>
 
@@ -91,20 +117,49 @@ export function DsaTopicPage({ topic, topics, problems }: DsaTopicPageProps) {
               <Reveal delay={0.14}>
                 <Checklist title="Common mistakes" items={topic.pitfalls} />
               </Reveal>
+              <Reveal delay={0.16}>
+                <Checklist
+                  title="Interview questions"
+                  items={topic.interviewQuestions}
+                />
+              </Reveal>
             </aside>
           </div>
 
-          <Reveal delay={0.16}>
+          <Reveal delay={0.18}>
             <UseCaseSection useCases={topic.useCases} />
           </Reveal>
 
-          <Reveal delay={0.18}>
-            <ProblemList problems={problems} />
+          <Reveal delay={0.2}>
+            <Card className="rounded-3xl bg-surface">
+              <CardContent className="p-5 sm:p-6">
+                <h2 className="text-xl font-black">FAANG usage signal</h2>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  These companies routinely evaluate or apply similar data
+                  structure and algorithm patterns in search, ranking, caching,
+                  scheduling, and distributed systems work.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {topic.faangCompanies.map((company) => (
+                    <span
+                      key={company}
+                      className="rounded-full border border-border bg-background/70 px-3 py-1.5 text-sm font-bold text-muted-foreground"
+                    >
+                      {company}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </Reveal>
+
+          <Reveal delay={0.22}>
+          <ProblemList problems={problems} />
           </Reveal>
         </div>
       </div>
 
-      <Reveal delay={0.2}>
+      <Reveal delay={0.24}>
         <InteractiveSubmission topic={topic} />
       </Reveal>
     </div>

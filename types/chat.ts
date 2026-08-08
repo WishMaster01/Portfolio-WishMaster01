@@ -11,5 +11,6 @@ export type ChatResponse = {
   model?: string;
   fallbackFrom?: "openrouter" | "gemini";
   setup?: string;
+  cached?: boolean;
   error?: string;
 };
