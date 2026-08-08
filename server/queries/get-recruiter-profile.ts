@@ -20,13 +20,16 @@ type RecruiterProfileRow = Partial<RecruiterProfileData> & {
 };
 
 type RecruiterProjectRow = Partial<RecruiterProject> & {
+  title: string;
+  slug: string;
+  category: string;
   summary?: string;
   shortSummary?: string;
   impact?: string;
   stack?: string[];
   technologies?: string[];
   highlights?: string[];
-  metrics?: Array<{ label?: string; value?: string }> | unknown;
+  metrics?: Array<{ label: string; value: string }>;
   screenshots?: Array<{ image?: string }> | unknown;
 };
 

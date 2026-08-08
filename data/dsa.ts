@@ -902,7 +902,24 @@ function splitComplexity(complexity: string) {
   };
 }
 
-function buildGenericCodeExamples(topic: (typeof dsaTopics)[number]) {
+type TopicSourceLike = {
+  title: string;
+  patterns: readonly string[];
+  complexity: string;
+  useCase: string;
+  pitfalls: readonly string[];
+  example: {
+    problem: string;
+    input: string;
+    output: string;
+    explanation: string;
+  };
+  practice: readonly string[];
+  code: string;
+  description: string;
+};
+
+function buildGenericCodeExamples(topic: TopicSourceLike) {
   const functionName = dsaTopicSlug(topic.title).replace(/-([a-z])/g, (_, char: string) =>
     char.toUpperCase(),
   );
@@ -945,7 +962,7 @@ function buildGenericCodeExamples(topic: (typeof dsaTopics)[number]) {
   ];
 }
 
-function buildAdvantages(topic: (typeof dsaTopics)[number]) {
+function buildAdvantages(topic: TopicSourceLike) {
   return [
     `Strong fit for ${topic.patterns.slice(0, 2).join(" and ")} style problems.`,
     `Useful when interview constraints demand ${topic.complexity.toLowerCase()}.`,
@@ -953,14 +970,14 @@ function buildAdvantages(topic: (typeof dsaTopics)[number]) {
   ];
 }
 
-function buildDisadvantages(topic: (typeof dsaTopics)[number]) {
+function buildDisadvantages(topic: TopicSourceLike) {
   return [
     ...topic.pitfalls.slice(0, 2),
     `Can be the wrong abstraction when the input does not match ${topic.title.toLowerCase()}-style constraints.`,
   ];
 }
 
-function buildInterviewQuestions(topic: (typeof dsaTopics)[number]) {
+function buildInterviewQuestions(topic: TopicSourceLike) {
   return [
     `How would you recognize that ${topic.title} is the right tool for a problem like "${topic.example.problem}"?`,
     `What tradeoffs would make you reject a ${topic.title} solution in production?`,
@@ -968,7 +985,7 @@ function buildInterviewQuestions(topic: (typeof dsaTopics)[number]) {
   ];
 }
 
-function buildFaangCompanies(topic: (typeof dsaTopics)[number]) {
+function buildFaangCompanies(topic: TopicSourceLike) {
   const normalized = `${topic.title} ${topic.useCase}`.toLowerCase();
 
   if (/(graph|path|network|dependency|route)/.test(normalized)) {

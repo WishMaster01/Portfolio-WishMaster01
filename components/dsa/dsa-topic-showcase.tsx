@@ -219,7 +219,11 @@ export function DsaTopicShowcase() {
               </div>
 
               <p className="mt-4 text-sm leading-7 text-muted-foreground sm:mt-5 sm:text-base sm:leading-8">
-                {selectedTopic.description}
+                {selectedTopic.explanation}
+              </p>
+
+              <p className="mt-4 rounded-2xl border border-border bg-background/70 p-4 text-sm leading-7 text-muted-foreground sm:mt-5">
+                {selectedTopic.visualExplanation}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -276,7 +280,7 @@ export function DsaTopicShowcase() {
                 Java Reference Implementation
               </p>
               <pre className="mt-4 max-h-[520px] overflow-x-auto rounded-2xl border border-border bg-background p-4 text-[11px] leading-6 text-muted-foreground shadow-inner sm:p-5 sm:text-xs">
-                <code>{selectedTopic.code}</code>
+                <code>{selectedTopic.javaCode}</code>
               </pre>
             </CardContent>
           </Card>
@@ -287,7 +291,12 @@ export function DsaTopicShowcase() {
             <CardContent className="p-5">
               <h3 className="font-black text-foreground">Complexity</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                {selectedTopic.complexity}
+                <span className="block">
+                  Time: {selectedTopic.timeComplexity}
+                </span>
+                <span className="mt-2 block">
+                  Space: {selectedTopic.spaceComplexity}
+                </span>
               </p>
             </CardContent>
           </Card>
@@ -296,7 +305,7 @@ export function DsaTopicShowcase() {
             <CardContent className="p-5">
               <h3 className="font-black text-foreground">Where it is used</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                {selectedTopic.useCase}
+                {selectedTopic.useCases.join(" • ")}
               </p>
             </CardContent>
           </Card>
@@ -307,7 +316,7 @@ export function DsaTopicShowcase() {
             <CardContent className="p-5">
               <h3 className="font-black">Practice focus</h3>
               <div className="mt-4 grid gap-2">
-                {selectedTopic.practice.map((problem) => (
+                {selectedTopic.relatedProblems.map((problem) => (
                   <div
                     key={problem}
                     className="rounded-2xl bg-background/15 px-4 py-3 text-sm font-bold"

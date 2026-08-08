@@ -39,7 +39,7 @@ export function cosineSimilarityFromText(left: string, right: string) {
 
 export function rankByTextSimilarity<T>(
   query: string,
-  items: T[],
+  items: readonly T[],
   toText: (item: T) => string,
   limit: number,
 ) {

@@ -100,7 +100,7 @@ export async function createPortfolioChatResponse({
     }
   }
 
-  const fallbackResponse = {
+  const fallbackResponse: ChatResponse = {
     answer: buildFallbackAnswer(message),
     provider: "fallback",
     model: "local-rule-based",
