@@ -17,7 +17,7 @@ export function GitHubOverview({ data }: GitHubOverviewProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,color-mix(in_oklab,var(--accent)_18%,transparent),transparent_30%),radial-gradient(circle_at_84%_20%,color-mix(in_oklab,var(--ambient-two)_16%,transparent),transparent_34%)]" />
           <div className="github-signal-grid absolute inset-0 opacity-50" />
           <div className="github-scanline absolute inset-x-0 top-0 h-20" />
-          <div className="relative grid gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_minmax(220px,34vw)] sm:gap-8 sm:p-8 lg:grid-cols-[1fr_360px] lg:p-10">
+          <div className="relative grid grid-cols-1 gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_minmax(220px,34vw)] sm:gap-8 sm:p-8 lg:grid-cols-[1fr_360px] lg:p-10">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.3em] text-accent">
                 Live GitHub Intelligence

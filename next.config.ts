@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
     cpus: 1,
     workerThreads: true,
   },
-  webpack(config) {
-    return config;
-  },
+
   images: {
     remotePatterns: [
       {

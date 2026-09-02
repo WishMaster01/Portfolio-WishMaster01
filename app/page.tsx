@@ -87,7 +87,7 @@ const projectVisuals: Record<string, string> = {
 };
 
 function DownloadIcon() {
-  return (  
+  return (
     <svg className="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path
         d="M10 3.75v8.1m0 0 3.15-3.15M10 11.85 6.85 8.7M4.5 14.2v1.15c0 .5.4.9.9.9h9.2c.5 0 .9-.4.9-.9V14.2"
@@ -139,7 +139,7 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_74%_22%,color-mix(in_oklab,var(--accent)_14%,transparent),transparent_24rem),linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--background-alt)_65%,var(--background))_45%,var(--background)_100%)] text-foreground">
       <section className="mx-auto w-full max-w-[1680px] px-4 pb-8 pt-10 sm:px-8 sm:pt-14 lg:px-24 lg:pb-14 lg:pt-20">
-        <div className="grid min-h-[360px] gap-6 sm:min-h-[450px] sm:grid-cols-[minmax(0,1fr)_minmax(220px,42vw)] sm:items-center sm:gap-8 lg:min-h-[510px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
+        <div className="grid min-h-[360px] grid-cols-1 gap-6 sm:min-h-[450px] sm:grid-cols-[minmax(0,1fr)_minmax(220px,42vw)] sm:items-center sm:gap-8 lg:min-h-[510px] lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           <Reveal className="relative z-10 min-w-0 max-w-[660px]">
             <div className="mb-4 inline-flex items-center gap-1.5 rounded-xl bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent shadow-sm shadow-accent/10 sm:mb-8 sm:gap-2 sm:px-4 sm:py-2 sm:text-base">
               <span aria-hidden="true">Hi,</span>
@@ -218,7 +218,7 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="relative min-w-0">
+          <Reveal delay={0.08} className="relative hidden min-w-0 sm:block">
             <div className="hero-art-shell relative mx-auto aspect-[804/507] w-full max-w-[220px] overflow-hidden rounded-2xl border border-border/70 bg-surface/70 shadow-2xl backdrop-blur-sm after:mix-blend-overlay sm:ml-auto sm:mr-0 sm:max-w-[430px] sm:rounded-[2rem] lg:mx-auto lg:max-w-[804px]">
               <Image
                 src="/home-page-character.png"

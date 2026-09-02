@@ -15,7 +15,15 @@ export const experienceItems: ExperienceItem[] = [
     location: "Remote",
     summary:
       "Designing and implementing an enterprise-style multi-page engineering portfolio with AI chatbot support, project case studies, API routes, Prisma schema, theme systems, and production build validation.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Prisma", "Zod", "Gemini/OpenRouter"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Prisma",
+      "Zod",
+      "Gemini/OpenRouter",
+    ],
     impact:
       "Built a portfolio foundation that presents projects, resume, blogs, DSA depth, contact workflows, and AI-assisted recruiter Q&A.",
     achievements: [
@@ -31,7 +39,15 @@ export const experienceItems: ExperienceItem[] = [
     location: "Remote",
     summary:
       "Built product concepts across AI, travel discovery, grocery delivery, chat/social apps, commerce platforms, and hiring tools with a focus on clean UX and scalable implementation.",
-    stack: ["React", "Next.js", "Node.js", "PostgreSQL", "Socket.io", "Stripe", "Cloudinary"],
+    stack: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "PostgreSQL",
+      "Socket.io",
+      "Stripe",
+      "Cloudinary",
+    ],
     impact:
       "Converted multiple project ideas into structured portfolio case studies with clear problem, solution, architecture, challenges, and future scope.",
     achievements: [
@@ -47,7 +63,15 @@ export const experienceItems: ExperienceItem[] = [
     location: "Remote",
     summary:
       "Developed strong foundations in TypeScript, React, Next.js, Tailwind CSS, DSA, data modeling, component architecture, and engineering quality workflows.",
-    stack: ["JavaScript", "TypeScript", "React", "Java", "SQL", "Git", "ESLint"],
+    stack: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Java",
+      "SQL",
+      "Git",
+      "ESLint",
+    ],
     impact:
       "Built the technical base needed to create production-minded applications instead of isolated UI experiments.",
     achievements: [
@@ -68,8 +92,8 @@ export const experienceHighlights = [
 
 export const education = {
   degree: "B.Tech in Computer Science & Engineering",
-  period: "2022 - 2026",
-  institution: "Lovely Professional University, Punjab",
+  period: "2023 - 2027",
+  institution: "Jagannath University, Jaipur",
   coursework:
     "Data Structures & Algorithms, DBMS, OOPs, Operating Systems, Computer Networks, Software Engineering, Web Engineering",
 } as const;
