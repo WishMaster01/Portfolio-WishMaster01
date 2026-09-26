@@ -47,7 +47,7 @@ export const projects: Project[] = [
     title: "InfinityAI",
     category: "AI Product Platform",
     year: "2026",
-    status: "Case study",
+    status: "Active Development",
     role: "Full-stack product engineer",
     timeline: "Discovery to launch foundation",
     summary:
@@ -173,7 +173,7 @@ export const projects: Project[] = [
     title: "ExploreX",
     category: "Travel Discovery",
     year: "2026",
-    status: "Case study",
+    status: "Prototype",
     role: "Frontend architect",
     timeline: "Experience design foundation",
     summary:
@@ -296,7 +296,7 @@ export const projects: Project[] = [
     title: "DailyEssentials",
     category: "Commerce Experience",
     year: "2026",
-    status: "Case study",
+    status: "Prototype",
     role: "Product UI engineer",
     timeline: "Commerce foundation",
     summary:
@@ -420,7 +420,7 @@ export const projects: Project[] = [
     title: "Vyvo",
     category: "Wellness Dashboard",
     year: "2026",
-    status: "Case study",
+    status: "Active Development",
     role: "Interface systems engineer",
     timeline: "Dashboard concept",
     summary:
@@ -547,7 +547,7 @@ export const projects: Project[] = [
     title: "WishCart",
     category: "Marketplace Platform",
     year: "2026",
-    status: "Case study",
+    status: "Active Development",
     role: "Full-stack architect",
     timeline: "Marketplace architecture",
     summary:

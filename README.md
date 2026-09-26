@@ -2,9 +2,9 @@
 
 Enterprise-grade developer portfolio for AI products, SaaS interfaces, full-stack engineering, data structures and algorithms, technical writing, and recruiter-facing presentation.
 
-Live Portfolio: [https://wishmaster01.vercel.app](https://wishmaster01.vercel.app)
+Live Portfolio: [https://wishmaster01.com](https://wishmaster01.com)
 
-This repository uses `NEXT_PUBLIC_SITE_URL` for metadata, canonical URLs, sitemap generation, robots rules, resume links, and route references. Set it to your deployed domain before shipping.
+This repository uses `NEXT_PUBLIC_SITE_URL` for metadata, canonical URLs, sitemap generation, robots rules, resume links, and route references (canonical domain: `https://wishmaster01.com`).
 
 ## Overview
 
@@ -24,7 +24,7 @@ The portfolio is built with Next.js App Router and presents WishMaster01 as a pr
 - Contact page with validated form and newsletter signup
 - AI portfolio chatbot grounded in portfolio context
 - Admin dashboard for content and analytics workflows
-- Theme system with multiple visual presets
+- Professional theme system: Light, Dark, and System modes with accessible contrast and persistent LFU cache
 
 ## Algorithm-Driven Features
 

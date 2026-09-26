@@ -1,9 +1,23 @@
+export type ProjectMaturity =
+  | "Production"
+  | "Active Development"
+  | "Prototype"
+  | "Concept";
+
+export type ProjectTechnicalDecision = {
+  decision: string;
+  context: string;
+  chosenApproach: string;
+  reason: string;
+  tradeoff: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
   category: string;
   year: string;
-  status: string;
+  status: ProjectMaturity | string;
   role: string;
   timeline: string;
   summary: string;
@@ -51,4 +65,10 @@ export type Project = {
     title: string;
     body: string;
   }>;
+  technicalDecisions?: ProjectTechnicalDecision[];
+  tradeoffs?: string[];
+  securityConsiderations?: string[];
+  performanceConsiderations?: string[];
+  algorithmsUsed?: string[];
+  aiArchitecture?: string;
 };

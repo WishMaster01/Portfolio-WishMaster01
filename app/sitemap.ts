@@ -3,40 +3,66 @@ import { articles } from "@/data/blog";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/data/site";
 
-const staticRoutes = [
+// Canonical public routes only (no admin, private APIs, or internal draft tools)
+const publicStaticRoutes = [
   "",
+  "/projects",
+  "/engineering",
+  "/experience",
   "/about",
   "/skills",
-  "/experience",
-  "/resume",
   "/blog",
-  "/blog/create",
+  "/github",
+  "/resume",
   "/contact",
-  "/projects",
-  "/services",
+  "/recruiter",
+  "/dsa-showcase",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
 
-  return [
-    ...staticRoutes.map((route) => ({
-      url: `${siteConfig.url}${route}`,
+  const staticEntries: MetadataRoute.Sitemap = publicStaticRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: now,
+    changeFrequency: route === "" ? ("weekly" as const) : ("monthly" as const),
+    priority: route === "" ? 1.0 : route === "/recruiter" || route === "/projects" ? 0.9 : 0.7,
+  }));
+
+  const projectEntries: MetadataRoute.Sitemap = projects.flatMap((project) => [
+    {
+      url: `${baseUrl}/projects/${project.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: route === "" ? 1 : 0.7,
-    })),
-    ...projects.map((project) => ({
-      url: `${siteConfig.url}/projects/${project.slug}`,
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/projects/${project.slug}/case-study`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
-    })),
-    ...articles.map((article) => ({
-      url: `${siteConfig.url}/blog/${article.slug}`,
-      lastModified: new Date(article.date),
-      changeFrequency: "yearly" as const,
-      priority: 0.5,
-    })),
-  ];
+    },
+    {
+      url: `${baseUrl}/projects/${project.slug}/architecture`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/projects/${project.slug}/engineering`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    },
+  ]);
+
+  const blogEntries: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${baseUrl}/blog/${article.slug}`,
+    lastModified: new Date(article.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...projectEntries, ...blogEntries];
 }

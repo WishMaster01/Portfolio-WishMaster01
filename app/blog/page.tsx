@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { BlogExplorer } from "@/components/blog/BlogExplorer";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
@@ -16,27 +15,19 @@ export default function BlogPage() {
   return (
     <div className="bg-background text-foreground">
       <Section className="py-12 sm:py-16">
-        <Container className="max-w-[1180px]">
-          <Reveal className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
-                Technical writing
-              </p>
-              <h1 className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
-                Blog
-              </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-                Technical notes, architecture breakdowns, AI ideas, backend
-                systems, deployment guides, and CS concepts written for
-                practical builders.
-              </p>
-            </div>
-            <Link
-              href="/blog/create"
-              className="inline-flex w-fit rounded-xl bg-accent px-5 py-3 text-sm font-black text-accent-foreground shadow-lg shadow-accent/20 transition hover:-translate-y-0.5"
-            >
-              Create Blog
-            </Link>
+        <Container className="max-w-295">
+          <Reveal className="mb-8 max-w-2xl">
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
+              Technical writing
+            </p>
+            <h1 className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">
+              Blog
+            </h1>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+              Technical notes, architecture breakdowns, AI ideas, backend
+              systems, deployment guides, and CS concepts written for practical
+              builders.
+            </p>
           </Reveal>
 
           <Reveal className="mb-8 grid gap-4 rounded-3xl border border-border bg-surface/70 p-5 sm:grid-cols-3">

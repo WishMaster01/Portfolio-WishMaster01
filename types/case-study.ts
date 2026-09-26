@@ -19,6 +19,17 @@ export type ProjectCaseStudyData = {
   outcomes: CaseStudyMetric[];
   lessons: string[];
   futureScope?: string[];
+  // Phase 1.6 Engineering Case Study additions
+  whyArchitecture?: string;
+  whyPostgres?: string;
+  whyRedis?: string;
+  whyAIApproach?: string;
+  whatFailed?: string;
+  whatChanged?: string;
+  tradeoffs?: string[];
+  performance?: string;
+  security?: string;
+  futureArchitecture?: string;
 };
 
 export type ProjectCaseStudy = {

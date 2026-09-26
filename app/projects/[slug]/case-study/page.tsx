@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DecisionMatrix } from "@/components/case-study/decision-matrix";
+import { EngineeringCaseStudySection } from "@/components/case-study/engineering-case-study-section";
 import { LessonSection } from "@/components/case-study/lesson-section";
 import { OutcomeGrid } from "@/components/case-study/outcome-grid";
 import { ProblemSection } from "@/components/case-study/problem-section";
@@ -99,6 +100,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
           constraints={caseStudy.constraints}
           goals={caseStudy.goals}
         />
+
+        <EngineeringCaseStudySection caseStudy={caseStudy} />
 
         <ProcessTimeline phases={caseStudy.process} />
 
