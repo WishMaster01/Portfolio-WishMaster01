@@ -6,7 +6,7 @@ export const navigation = {
     { href: "/experience", label: "Experience" },
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
-    { href: "/github", label: "GitHub" },
+    { href: "/activity", label: "Activity" },
     { href: "/resume", label: "Resume" },
     { href: "/contact", label: "Contact" },
   ],

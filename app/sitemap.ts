@@ -12,7 +12,7 @@ const publicStaticRoutes = [
   "/about",
   "/skills",
   "/blog",
-  "/github",
+  "/activity",
   "/resume",
   "/contact",
   "/recruiter",

@@ -69,4 +69,5 @@ export type GitHubDashboardData = {
     reset: string | null;
   };
   warning?: string;
+  dataSource?: "live" | "cached";
 };

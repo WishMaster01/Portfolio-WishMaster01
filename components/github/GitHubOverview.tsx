@@ -60,7 +60,8 @@ export function GitHubOverview({ data }: GitHubOverviewProps) {
                       alt={`${profile.username} GitHub avatar`}
                       width={88}
                       height={88}
-                      className="h-16 w-16 rounded-2xl border border-border sm:h-[88px] sm:w-[88px] sm:rounded-3xl"
+                      unoptimized
+                      className="h-16 w-16 rounded-2xl border border-border sm:h-[88px] sm:w-[88px] sm:rounded-3xl object-cover"
                     />
                   ) : (
                     <div className="grid h-16 w-16 place-items-center rounded-2xl bg-accent text-2xl font-black text-accent-foreground sm:h-[88px] sm:w-[88px] sm:rounded-3xl sm:text-3xl">

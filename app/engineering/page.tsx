@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { AlgorithmsShowcase } from "@/components/engineering/algorithms-section";
+import { CombinedPlatformBanner } from "@/components/developer-activity/CombinedPlatformBanner";
 import { siteConfig } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -186,6 +187,11 @@ export default function EngineeringPage() {
             </Reveal>
 
             <AlgorithmsShowcase />
+          </section>
+
+          {/* Dual Platform Telemetry Banner */}
+          <section className="mt-16 sm:mt-24">
+            <CombinedPlatformBanner />
           </section>
 
           {/* Engineering Highlights */}

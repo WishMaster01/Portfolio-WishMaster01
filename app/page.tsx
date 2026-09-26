@@ -7,9 +7,11 @@ import { projects } from "@/data/projects";
 import { skillGroups } from "@/data/skills";
 import { experienceItems } from "@/data/experience";
 import { engineeringAlgorithms } from "@/data/engineering-algorithms";
+import { CombinedPlatformBanner } from "@/components/developer-activity/CombinedPlatformBanner";
 
 const socials = [
   { label: "GitHub", value: "GH", href: "https://github.com/WishMaster01" },
+  { label: "LeetCode", value: "LC", href: "https://leetcode.com/u/WishMaster01/" },
   {
     label: "LinkedIn",
     value: "in",
@@ -396,6 +398,13 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </section>
+
+        {/* ============================================================ */}
+        {/* DUAL PLATFORM TELEMETRY (GITHUB & LEETCODE)                 */}
+        {/* ============================================================ */}
+        <section className="mt-16 sm:mt-24">
+          <CombinedPlatformBanner />
         </section>
 
         {/* ============================================================ */}

@@ -3,11 +3,12 @@ export const siteConfig = {
   creator: "WishMaster01",
   description:
     "Enterprise-level software portfolio for product engineering, polished interfaces, and production-ready web systems.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://wishmaster01.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://wishmaster01.vercel.app",
   email: "hello@wishmaster01.com",
   social: {
     twitter: "@wishmaster01",
     github: "https://github.com/WishMaster01",
+    leetcode: "https://leetcode.com/u/WishMaster01/",
     linkedin: "https://www.linkedin.com/in/wishmaster01",
   },
 } as const;
