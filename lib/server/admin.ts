@@ -1,5 +1,8 @@
 import { createHash, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
+import { validateSession } from "./auth";
+import { UserRole } from "@prisma/client";
+import { forbidden, unauthorized } from "./api";
 
 function getProvidedAdminKey(request: Request) {
   const headerKey = request.headers.get("x-admin-key");
@@ -22,34 +25,34 @@ function hash(value: string) {
 }
 
 function keysMatch(providedKey: string, configuredKey: string) {
-  return timingSafeEqual(hash(providedKey), hash(configuredKey));
+  try {
+    return timingSafeEqual(hash(providedKey), hash(configuredKey));
+  } catch {
+    return false;
+  }
 }
 
-export function requireAdmin(request: Request) {
-  const configuredKey = process.env.ADMIN_API_KEY;
-
-  if (!configuredKey) {
-    return NextResponse.json(
-      {
-        error: "Admin API is not configured.",
-        message: "Set ADMIN_API_KEY before enabling admin mutations.",
-      },
-      { status: 503 },
-    );
+export async function requireAdmin(request: Request): Promise<NextResponse | null> {
+  // 1. Session-based authentication with ADMIN role check
+  try {
+    const authContext = await validateSession(request);
+    if (authContext) {
+      if (authContext.user.role === UserRole.ADMIN) {
+        return null; // Authorized
+      }
+      return forbidden("Administrator role required to access this resource.");
+    }
+  } catch {
+    // If DB check fails, continue to key verification
   }
 
+  // 2. Token / API Key fallback for automation scripts and tooling
+  const configuredKey = process.env.ADMIN_API_KEY;
   const providedKey = getProvidedAdminKey(request);
 
-  if (!providedKey || !keysMatch(providedKey, configuredKey)) {
-    return NextResponse.json(
-      {
-        error: "Unauthorized.",
-        message:
-          "Provide a valid admin key through x-admin-key or Authorization: Bearer.",
-      },
-      { status: 401 },
-    );
+  if (configuredKey && providedKey && keysMatch(providedKey, configuredKey)) {
+    return null; // Authorized via key
   }
 
-  return null;
+  return unauthorized("Valid administrator session or admin key required.");
 }

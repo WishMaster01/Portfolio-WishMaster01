@@ -1,27 +1,47 @@
 import { NextResponse } from "next/server";
-import { readJson, validationError } from "@/lib/server/api";
+import { apiError, apiSuccess, readJson, validationError } from "@/lib/server/api";
 import { getPrisma } from "@/lib/server/prisma";
+import { validateSession } from "@/lib/server/auth";
 import { userPreferencesSchema } from "@/lib/validation/user-preferences";
-
-type UserPreferenceDelegate = {
-  upsert: (args: unknown) => Promise<unknown>;
-};
 
 export const runtime = "nodejs";
 
-export async function PATCH(request: Request) {
-  const userId = request.headers.get("x-user-id")?.trim();
+export async function GET(request: Request) {
+  const auth = await validateSession(request);
 
-  if (!userId) {
-    return NextResponse.json(
-      {
-        error: "Authentication required.",
-        message:
-          "Attach authenticated user identity before saving theme preferences.",
+  if (!auth) {
+    return apiSuccess({
+      mode: "defaults",
+      preferences: {
+        preferredTheme: "system",
+        reducedMotion: false,
+        fontScale: 1,
       },
-      { status: 401 },
-    );
+    });
   }
+
+  const prisma = await getPrisma();
+  if (!prisma) {
+    return apiError("DATABASE_UNAVAILABLE", "Database connection unavailable.", 503);
+  }
+
+  const preferences = await prisma.userPreference.findUnique({
+    where: { userId: auth.user.id },
+  });
+
+  return apiSuccess({
+    mode: "database",
+    preferences: preferences ?? {
+      preferredTheme: "system",
+      reducedMotion: false,
+      fontScale: 1,
+    },
+  });
+}
+
+export async function PATCH(request: Request) {
+  // Eliminate client-controlled identity: derive user strictly from validated session
+  const auth = await validateSession(request);
 
   const body = await readJson(request);
   const parsed = userPreferencesSchema.safeParse(body);
@@ -30,36 +50,52 @@ export async function PATCH(request: Request) {
     return validationError(parsed.error);
   }
 
-  const prisma = await getPrisma();
-  const userPreference = prisma?.userPreference as
-    | UserPreferenceDelegate
-    | undefined;
-
-  if (!userPreference) {
+  // If visitor is not authenticated, validate preferences and instruct client-side persistence
+  if (!auth) {
     return NextResponse.json(
       {
+        success: true,
+        data: {
+          mode: "client-stored",
+          message: "Preferences verified. Sign in to synchronize preferences across devices.",
+          preferences: parsed.data,
+        },
+        // Legacy compatibility
         ok: true,
-        mode: "validated-only",
-        message:
-          "Preferences validated. Run Prisma migration to enable database persistence.",
         preferences: parsed.data,
       },
-      { status: 202 },
+      { status: 200 },
     );
   }
 
-  const preferences = await userPreference.upsert({
-    where: { userId },
-    update: parsed.data,
-    create: {
-      userId,
-      ...parsed.data,
-    },
-  });
+  const prisma = await getPrisma();
+  if (!prisma) {
+    return apiError("DATABASE_UNAVAILABLE", "Database unavailable for syncing preferences.", 503);
+  }
 
-  return NextResponse.json({
-    ok: true,
-    mode: "database",
-    preferences,
-  });
+  try {
+    const preferences = await prisma.userPreference.upsert({
+      where: { userId: auth.user.id },
+      update: parsed.data,
+      create: {
+        userId: auth.user.id,
+        ...parsed.data,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        mode: "database",
+        preferences,
+      },
+      // Legacy compatibility
+      ok: true,
+      mode: "database",
+      preferences,
+    });
+  } catch (error) {
+    console.error("[Preferences] Failed to persist user preferences:", error);
+    return apiError("DATABASE_ERROR", "Failed to update preferences.", 500);
+  }
 }

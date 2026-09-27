@@ -1,43 +1,19 @@
 import { NextResponse } from "next/server";
+import { NewsletterSubscriptionStatus } from "@prisma/client";
 import { BloomFilter } from "@/lib/algorithms/bloom-filter";
-import { readJson, validationError } from "@/lib/server/api";
+import { apiError, readJson, validationError } from "@/lib/server/api";
 import { checkRateLimit } from "@/lib/server/rate-limit";
 import { getPrisma } from "@/lib/server/prisma";
 import { newsletterSubscriptionSchema } from "@/lib/validation/forms";
 import { sendNewsletterConfirmation } from "@/server/newsletter/newsletter-email";
-
-type NewsletterSubscriberDelegate = {
-  findUnique: (args: unknown) => Promise<unknown>;
-  create: (args: unknown) => Promise<unknown>;
-  update: (args: unknown) => Promise<unknown>;
-};
-
-type NewsletterSubscriptionDelegate = {
-  findUnique: (args: unknown) => Promise<unknown>;
-  create: (args: unknown) => Promise<unknown>;
-  update: (args: unknown) => Promise<unknown>;
-};
-
-type NewsletterSubscriberRecord = {
-  id?: string;
-  email?: string;
-  subscribed?: boolean;
-};
-
-type NewsletterSubscriptionRecord = {
-  id?: string;
-  email?: string;
-  status?: string;
-};
 
 export const runtime = "nodejs";
 
 const newsletterBloomFilter = new BloomFilter(4096, 4);
 const newsletterSeenEmails = new Set<string>();
 
-function getClientIp(request: Request) {
+function getClientIp(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
-
   if (forwardedFor) {
     return forwardedFor.split(",")[0]?.trim() ?? "unknown";
   }
@@ -49,95 +25,49 @@ function getClientIp(request: Request) {
   );
 }
 
-async function saveNewsletterSubscriber(input: {
+async function saveNewsletterSubscription(input: {
   email: string;
   name?: string;
   source: string;
   consent: boolean;
 }) {
   const prisma = await getPrisma();
-  const newsletterSubscriber = prisma?.newsletterSubscriber as
-    | NewsletterSubscriberDelegate
-    | undefined;
-  const newsletterSubscription = prisma?.newsletterSubscription as
-    | NewsletterSubscriptionDelegate
-    | undefined;
 
-  if (newsletterSubscriber) {
-    const existing = (await newsletterSubscriber.findUnique({
-      where: { email: input.email },
-    })) as NewsletterSubscriberRecord | null;
-
-    if (existing?.subscribed) {
-      return {
-        mode: "database",
-        duplicate: true,
-        subscription: existing,
-      };
+  if (!prisma) {
+    if (process.env.DATABASE_URL) {
+      throw new Error("Database connection unavailable despite DATABASE_URL being set.");
     }
-
-    if (existing) {
-      const subscription = await newsletterSubscriber.update({
-        where: { email: input.email },
-        data: { subscribed: true },
-      });
-
-      return {
-        mode: "database",
-        duplicate: false,
-        subscription,
-      };
-    }
-
-    const subscription = await newsletterSubscriber.create({
-      data: {
+    return {
+      mode: "validated-only",
+      duplicate: false,
+      subscription: {
+        id: crypto.randomUUID(),
         email: input.email,
         subscribed: true,
       },
-    });
-
-    return {
-      mode: "database",
-      duplicate: false,
-      subscription,
     };
   }
 
-  if (newsletterSubscription) {
-    const existing = (await newsletterSubscription.findUnique({
+  const existing = await prisma.newsletterSubscription.findUnique({
+    where: { email: input.email },
+  });
+
+  if (existing?.status === NewsletterSubscriptionStatus.ACTIVE) {
+    return {
+      mode: "database",
+      duplicate: true,
+      subscription: existing,
+    };
+  }
+
+  if (existing) {
+    const subscription = await prisma.newsletterSubscription.update({
       where: { email: input.email },
-    })) as NewsletterSubscriptionRecord | null;
-
-    if (existing?.status === "ACTIVE") {
-      return {
-        mode: "database",
-        duplicate: true,
-        subscription: existing,
-      };
-    }
-
-    if (existing) {
-      const subscription = await newsletterSubscription.update({
-        where: { email: input.email },
-        data: {
-          name: input.name,
-          source: input.source,
-          consent: input.consent,
-          status: "ACTIVE",
-        },
-      });
-
-      return {
-        mode: "database",
-        duplicate: false,
-        subscription,
-      };
-    }
-
-    const subscription = await newsletterSubscription.create({
       data: {
-        ...input,
-        status: "ACTIVE",
+        name: input.name,
+        source: input.source,
+        consent: input.consent,
+        status: NewsletterSubscriptionStatus.ACTIVE,
       },
     });
 
@@ -148,14 +78,20 @@ async function saveNewsletterSubscriber(input: {
     };
   }
 
-  return {
-    mode: "validated-only",
-    duplicate: false,
-    subscription: {
-      id: crypto.randomUUID(),
+  const subscription = await prisma.newsletterSubscription.create({
+    data: {
       email: input.email,
-      subscribed: true,
+      name: input.name,
+      source: input.source,
+      consent: input.consent,
+      status: NewsletterSubscriptionStatus.ACTIVE,
     },
+  });
+
+  return {
+    mode: "database",
+    duplicate: false,
+    subscription,
   };
 }
 
@@ -168,19 +104,13 @@ export async function POST(request: Request) {
   });
 
   if (!rateLimit.allowed) {
-    return NextResponse.json(
-      {
-        error: "Too many newsletter attempts.",
-        message: "Please wait a few minutes before trying again.",
-      },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(
-            Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000)),
-          ),
-        },
-      },
+    const retrySeconds = Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000));
+    return apiError(
+      "RATE_LIMITED",
+      "Too many newsletter subscription attempts. Please wait a few minutes before trying again.",
+      429,
+      undefined,
+      { "Retry-After": String(retrySeconds) },
     );
   }
 
@@ -193,13 +123,20 @@ export async function POST(request: Request) {
 
   const input = {
     ...parsed.data,
-    email: parsed.data.email.toLowerCase(),
+    email: parsed.data.email.toLowerCase().trim(),
   };
   const maybeSeen = newsletterBloomFilter.mightContain(input.email);
 
   if (maybeSeen && newsletterSeenEmails.has(input.email)) {
     return NextResponse.json(
       {
+        success: true,
+        data: {
+          duplicate: true,
+          mode: "in-memory-bloom-filter",
+          message: "You are already subscribed to the engineering newsletter.",
+        },
+        // Legacy compatibility
         ok: true,
         mode: "in-memory-bloom-filter",
         duplicate: true,
@@ -210,7 +147,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await saveNewsletterSubscriber(input);
+    const result = await saveNewsletterSubscription(input);
     newsletterBloomFilter.add(input.email);
 
     if (!result.duplicate) {
@@ -226,6 +163,22 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
+        success: true,
+        data: {
+          mode: result.mode,
+          duplicate: result.duplicate,
+          subscription: result.subscription,
+          notification:
+            "error" in confirmation && confirmation.error
+              ? "email-failed"
+              : confirmation.skipped
+                ? "email-skipped"
+                : "email-sent",
+          message: result.duplicate
+            ? "You are already subscribed."
+            : "Subscription successful. Please check your inbox for confirmation.",
+        },
+        // Legacy compatibility
         ok: true,
         mode: result.mode,
         duplicate: result.duplicate,
@@ -242,13 +195,12 @@ export async function POST(request: Request) {
       },
       { status: result.duplicate ? 200 : result.mode === "database" ? 201 : 202 },
     );
-  } catch {
-    return NextResponse.json(
-      {
-        error: "Newsletter subscription could not be saved.",
-        message: "Please try again in a moment.",
-      },
-      { status: 500 },
+  } catch (error) {
+    console.error("[Newsletter API Error]:", error);
+    return apiError(
+      "NEWSLETTER_FAILED",
+      "Newsletter subscription could not be saved. Please try again in a moment.",
+      500,
     );
   }
 }

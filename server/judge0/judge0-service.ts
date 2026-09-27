@@ -1,6 +1,12 @@
 import { PriorityQueue } from "@/lib/algorithms/priority-queue";
 import type { Judge0SubmissionResult } from "@/types/judge0";
 
+export const MAX_QUEUE_CAPACITY = 25;
+export const MAX_SOURCE_SIZE = 64 * 1024; // 64 KB
+export const MAX_STDIN_SIZE = 10 * 1024; // 10 KB
+export const WALL_TIME_LIMIT_SECONDS = 6; // 6 seconds timeout
+export const CPU_TIME_LIMIT_SECONDS = 4; // 4 seconds CPU limit
+
 type Judge0Response = {
   token?: string;
   stdout?: string | null;
@@ -15,13 +21,13 @@ type Judge0Response = {
   memory?: number | null;
 };
 
-type Judge0SubmissionInput = {
+export type Judge0SubmissionInput = {
   sourceCode: string;
   stdin: string;
   languageId: number;
 };
 
-type Judge0SubmissionOutcome =
+export type Judge0SubmissionOutcome =
   | {
       error: string;
       message: string;
@@ -102,9 +108,9 @@ async function executeJudge0Submission(
 
   if (!config) {
     return {
-      error: "Judge0 is not configured.",
+      error: "JUDGE0_NOT_CONFIGURED",
       message:
-        "Set JUDGE0_API_URL and optionally JUDGE0_API_KEY/JUDGE0_API_HOST in .env.",
+        "Judge0 sandbox is not configured. Set JUDGE0_API_URL and optionally credentials in .env.",
       status: 503,
     };
   }
@@ -117,39 +123,56 @@ async function executeJudge0Submission(
     "token,stdout,stderr,compile_output,message,status,time,memory",
   );
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: judge0Headers(config),
-    body: JSON.stringify({
-      source_code: input.sourceCode,
-      stdin: input.stdin,
-      language_id: input.languageId,
-      cpu_time_limit: 4,
-      wall_time_limit: 8,
-      memory_limit: 128000,
-    }),
-    cache: "no-store",
-  });
+  const controller = new AbortController();
+  const fetchTimeout = setTimeout(() => controller.abort(), (WALL_TIME_LIMIT_SECONDS + 2) * 1000);
 
-  const payload = (await response.json().catch(() => null)) as
-    | Judge0Response
-    | { error?: string; message?: string }
-    | null;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: judge0Headers(config),
+      body: JSON.stringify({
+        source_code: input.sourceCode,
+        stdin: input.stdin,
+        language_id: input.languageId,
+        cpu_time_limit: CPU_TIME_LIMIT_SECONDS,
+        wall_time_limit: WALL_TIME_LIMIT_SECONDS,
+        memory_limit: 128000,
+      }),
+      signal: controller.signal,
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
+    const payload = (await response.json().catch(() => null)) as
+      | Judge0Response
+      | { error?: string; message?: string }
+      | null;
+
+    if (!response.ok) {
+      return {
+        error: "JUDGE0_EXECUTION_FAILED",
+        message:
+          (payload && "message" in payload && payload.message) ||
+          (payload && "error" in payload && payload.error) ||
+          `Judge0 returned HTTP ${response.status}.`,
+        status: response.status,
+      };
+    }
+
     return {
-      error: "Judge0 submission failed.",
-      message:
-        (payload && "message" in payload && payload.message) ||
-        (payload && "error" in payload && payload.error) ||
-        `Judge0 returned HTTP ${response.status}.`,
-      status: response.status,
+      result: mapJudge0Response((payload ?? {}) as Judge0Response),
     };
+  } catch (error) {
+    const isTimeout = error instanceof Error && error.name === "AbortError";
+    return {
+      error: isTimeout ? "EXECUTION_TIMEOUT" : "EXECUTION_NETWORK_ERROR",
+      message: isTimeout
+        ? `Execution exceeded maximum wall time limit of ${WALL_TIME_LIMIT_SECONDS}s.`
+        : "Failed to connect to Judge0 execution cluster.",
+      status: isTimeout ? 504 : 502,
+    };
+  } finally {
+    clearTimeout(fetchTimeout);
   }
-
-  return {
-    result: mapJudge0Response((payload ?? {}) as Judge0Response),
-  };
 }
 
 async function drainSubmissionQueue() {
@@ -176,7 +199,33 @@ async function drainSubmissionQueue() {
   }
 }
 
-export async function submitToJudge0(input: Judge0SubmissionInput) {
+export async function submitToJudge0(input: Judge0SubmissionInput): Promise<Judge0SubmissionOutcome> {
+  // 1. Payload size defense
+  if (input.sourceCode.length > MAX_SOURCE_SIZE) {
+    return {
+      error: "PAYLOAD_TOO_LARGE",
+      message: `Source code exceeds maximum size limit of ${MAX_SOURCE_SIZE / 1024} KB.`,
+      status: 413,
+    };
+  }
+
+  if (input.stdin.length > MAX_STDIN_SIZE) {
+    return {
+      error: "PAYLOAD_TOO_LARGE",
+      message: `Standard input exceeds maximum size limit of ${MAX_STDIN_SIZE / 1024} KB.`,
+      status: 413,
+    };
+  }
+
+  // 2. Queue capacity defense: prevent DOS on execution worker
+  if (submissionQueue.size >= MAX_QUEUE_CAPACITY) {
+    return {
+      error: "QUEUE_CAPACITY_EXCEEDED",
+      message: `Code execution queue is at capacity (${MAX_QUEUE_CAPACITY} jobs). Please retry once active jobs finish.`,
+      status: 429,
+    };
+  }
+
   return new Promise<Judge0SubmissionOutcome>((resolve, reject) => {
     submissionQueue.push({
       input,

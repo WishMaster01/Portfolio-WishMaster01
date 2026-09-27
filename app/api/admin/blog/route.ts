@@ -15,7 +15,7 @@ import { blogQuerySchema } from "@/lib/validation/query";
 export const runtime = "nodejs";
 
 export async function GET(request: Request) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;

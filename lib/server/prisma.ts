@@ -1,42 +1,11 @@
-type PrismaClientConstructor = new (
-  options?: Record<string, unknown>,
-) => Record<string, unknown>;
-
-type PrismaModule = {
-  PrismaClient: PrismaClientConstructor;
-};
-
-type PrismaPgConstructor = new (
-  config: Record<string, unknown>,
-) => Record<string, unknown>;
-
-type PrismaPgModule = {
-  PrismaPg: PrismaPgConstructor;
-};
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 declare global {
-  var __wishmasterPrisma: Record<string, unknown> | undefined;
+  var __wishmasterPrisma: PrismaClient | undefined;
 }
 
-async function importPrismaClient() {
-  const dynamicImport = new Function(
-    "specifier",
-    "return import(specifier)",
-  ) as (specifier: string) => Promise<PrismaModule>;
-
-  return dynamicImport("@prisma/client");
-}
-
-async function importPrismaPg() {
-  const dynamicImport = new Function(
-    "specifier",
-    "return import(specifier)",
-  ) as (specifier: string) => Promise<PrismaPgModule>;
-
-  return dynamicImport("@prisma/adapter-pg");
-}
-
-function normalizePostgresConnectionString(connectionString: string) {
+function normalizePostgresConnectionString(connectionString: string): string {
   try {
     const url = new URL(connectionString);
     const sslMode = url.searchParams.get("sslmode");
@@ -55,7 +24,7 @@ function normalizePostgresConnectionString(connectionString: string) {
   }
 }
 
-export async function getPrisma() {
+export function getPrismaClient(): PrismaClient | null {
   if (!process.env.DATABASE_URL) {
     return null;
   }
@@ -65,8 +34,6 @@ export async function getPrisma() {
   }
 
   try {
-    const { PrismaClient } = await importPrismaClient();
-    const { PrismaPg } = await importPrismaPg();
     const adapter = new PrismaPg({
       connectionString: normalizePostgresConnectionString(
         process.env.DATABASE_URL,
@@ -75,7 +42,12 @@ export async function getPrisma() {
 
     globalThis.__wishmasterPrisma = new PrismaClient({ adapter });
     return globalThis.__wishmasterPrisma;
-  } catch {
+  } catch (error) {
+    console.error("[Prisma] Failed to initialize PrismaClient:", error);
     return null;
   }
+}
+
+export async function getPrisma(): Promise<PrismaClient | null> {
+  return getPrismaClient();
 }

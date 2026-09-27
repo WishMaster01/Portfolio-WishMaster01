@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { AdminLoginForm } from "@/components/admin/admin-login-form";
 import { CreateBlogForm } from "@/components/blog/create-blog-form";
 import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { getAdminUserFromCookieStore } from "@/lib/server/auth";
 
 export const metadata: Metadata = {
   title: "Admin Blog Publishing",
@@ -16,7 +19,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminBlogPage() {
+export default async function AdminBlogPage() {
+  const cookieStore = await cookies();
+  const adminUser = await getAdminUserFromCookieStore(cookieStore);
+
+  if (!adminUser) {
+    return (
+      <div className="relative min-h-[85vh] flex items-center justify-center py-20 px-4 bg-background text-foreground">
+        <Container className="max-w-md">
+          <AdminLoginForm />
+        </Container>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background text-foreground">
       <Section className="py-12 sm:py-16">
@@ -32,8 +48,8 @@ export default function AdminBlogPage() {
               Publish New Technical Article
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-              Administrative content management surface. Requires verified
-              server-side credentials before committing articles to PostgreSQL.
+              Administrative content management surface. Authenticated as{" "}
+              <span className="font-semibold text-foreground">{adminUser.email}</span>.
             </p>
           </Reveal>
 

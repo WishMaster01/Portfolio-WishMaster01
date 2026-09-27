@@ -36,7 +36,7 @@ export async function GET(_request: Request, context: RouteContext) {
 }
 
 export async function PATCH(request: Request, context: RouteContext) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;

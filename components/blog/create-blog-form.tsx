@@ -66,12 +66,16 @@ export function CreateBlogForm() {
       .map((tag) => tag.trim())
       .filter(Boolean);
 
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (draft.adminKey.trim()) {
+      headers["x-admin-key"] = draft.adminKey.trim();
+    }
+
     const response = await fetch("/api/admin/blog", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-admin-key": draft.adminKey,
-      },
+      headers,
       body: JSON.stringify({
         slug: slug || "my-blog-post",
         title: draft.title,
@@ -252,18 +256,17 @@ export function CreateBlogForm() {
         </div>
         <div className="grid gap-2">
           <label className="text-sm font-black" htmlFor="adminKey">
-            Admin API Key
+            Admin API Key (Optional with active session)
           </label>
           <input
             id="adminKey"
             value={draft.adminKey}
             onChange={(event) => updateField("adminKey", event.target.value)}
-            placeholder="Matches ADMIN_API_KEY in .env"
+            placeholder="Auto-authenticated via session cookie"
             className="h-12 rounded-xl border border-border bg-background px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
           />
           <p className="text-xs leading-5 text-muted-foreground">
-            This key is sent only as the protected request header. Do not use
-            this page as a public admin dashboard without authentication.
+            Optional API key override. If you are signed in as administrator, this request is authenticated automatically.
           </p>
         </div>
         {status ? (

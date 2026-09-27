@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminLoginForm } from "@/components/admin/admin-login-form";
+import { AdminSessionBar } from "@/components/admin/admin-session-bar";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { AnalyticsChart } from "@/components/admin/analytics-chart";
 import { BlogEditor } from "@/components/admin/blog-editor";
@@ -14,6 +17,7 @@ import { Section } from "@/components/ui/section";
 import { dsaTopics } from "@/data/dsa";
 import { resume } from "@/data/resume";
 import { skillGroups } from "@/data/skills";
+import { getAdminUserFromCookieStore } from "@/lib/server/auth";
 import { getPrisma } from "@/lib/server/prisma";
 import { listBlogs } from "@/lib/server/repositories/blogs";
 import { listProjects } from "@/lib/server/repositories/projects";
@@ -26,70 +30,39 @@ export const metadata: Metadata = {
     "Admin dashboard for managing WishMaster01 portfolio content, messages, newsletter, resume, DSA content, settings, and analytics.",
 };
 
-type CountDelegate = {
-  count: () => Promise<number>;
-};
-
-type MessageDelegate = {
-  findMany: (args: unknown) => Promise<unknown[]>;
-};
-
-type ContactMessageRecord = {
-  id?: string;
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-  status?: string;
-  createdAt?: Date | string;
-};
-
 async function getAdminStats() {
   const prisma = await getPrisma();
-  const contactMessage = prisma?.contactMessage as
-    | (CountDelegate & MessageDelegate)
-    | undefined;
-  const newsletterSubscription = prisma?.newsletterSubscription as
-    | CountDelegate
-    | undefined;
-  const newsletterSubscriber = prisma?.newsletterSubscriber as
-    | CountDelegate
-    | undefined;
+  if (!prisma) {
+    return {
+      messages: [],
+      messageCount: 0,
+      newsletterCount: 0,
+    };
+  }
 
   const [messages, messageCount, newsletterCount] = await Promise.all([
-    contactMessage
-      ?.findMany({
+    prisma.contactSubmission
+      .findMany({
         orderBy: { createdAt: "desc" },
         take: 5,
       })
-      .catch(() => []) ?? [],
-    contactMessage?.count().catch(() => 0) ?? 0,
-    newsletterSubscriber?.count().catch(() => 0) ??
-      newsletterSubscription?.count().catch(() => 0) ??
-      0,
+      .catch(() => []),
+    prisma.contactSubmission.count().catch(() => 0),
+    prisma.newsletterSubscription.count().catch(() => 0),
   ]);
 
   return {
-    messages: messages.map(mapMessage),
+    messages: messages.map((record) => ({
+      id: record.id,
+      name: record.name,
+      email: record.email,
+      subject: record.subject ?? "Contact message",
+      message: record.message,
+      status: record.status,
+      createdAt: record.createdAt.toISOString(),
+    })),
     messageCount,
     newsletterCount,
-  };
-}
-
-function mapMessage(message: unknown) {
-  const record = message as ContactMessageRecord;
-
-  return {
-    id: record.id ?? `${record.email ?? "message"}-${record.createdAt ?? ""}`,
-    name: record.name ?? "Unknown",
-    email: record.email ?? "unknown@example.com",
-    subject: record.subject ?? "Contact message",
-    message: record.message ?? "No message body available.",
-    status: record.status ?? "NEW",
-    createdAt:
-      record.createdAt instanceof Date
-        ? record.createdAt.toISOString()
-        : record.createdAt ?? new Date().toISOString(),
   };
 }
 
@@ -169,6 +142,20 @@ const blogColumns: DataTableColumn<Article>[] = [
 ];
 
 export default async function AdminPage() {
+  const cookieStore = await cookies();
+  const adminUser = await getAdminUserFromCookieStore(cookieStore);
+
+  if (!adminUser) {
+    return (
+      <div className="relative min-h-[85vh] flex items-center justify-center py-20 px-4 bg-background text-foreground">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-(--theme-texture) bg-size-(--theme-texture-size) opacity-60" />
+        <Container className="max-w-md">
+          <AdminLoginForm />
+        </Container>
+      </div>
+    );
+  }
+
   const [projects, blogs, adminStats] = await Promise.all([
     listProjects(),
     listBlogs(),
@@ -197,6 +184,10 @@ export default async function AdminPage() {
 
             <div className="min-w-0 space-y-6">
               <Reveal>
+                <AdminSessionBar adminEmail={adminUser.email} adminName={adminUser.name} />
+              </Reveal>
+
+              <Reveal delay={0.02}>
                 <AdminHeader projects={projects.length} blogs={blogs.length} />
               </Reveal>
 

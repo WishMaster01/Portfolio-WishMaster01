@@ -51,22 +51,21 @@ export function ProjectForm() {
   async function createProject() {
     setStatus(null);
 
-    if (!adminKey.trim()) {
-      setStatus("Enter your admin key before sending a protected request.");
-      return;
-    }
-
     if (!isPayloadValid) {
       setStatus("Project JSON is invalid.");
       return;
     }
 
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (adminKey.trim()) {
+      headers["x-admin-key"] = adminKey.trim();
+    }
+
     const response = await fetch("/api/admin/projects", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-admin-key": adminKey,
-      },
+      headers,
       body: payload,
     });
     const data = (await response.json().catch(() => null)) as
@@ -93,19 +92,18 @@ export function ProjectForm() {
           Admin-ready project creation
         </h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Sends JSON to protected <code>POST /api/admin/projects</code>. The
-          admin key is entered manually and is never stored by this component.
+          Sends JSON to protected <code>POST /api/admin/projects</code>. Session cookie authenticates requests automatically.
         </p>
       </div>
 
       <div className="grid gap-4 p-5 sm:p-6">
         <label className="grid gap-2">
-          <span className="text-sm font-black">Admin key</span>
+          <span className="text-sm font-black">Admin key (Optional with active session)</span>
           <input
             type="password"
             value={adminKey}
             onChange={(event) => setAdminKey(event.target.value)}
-            placeholder="ADMIN_API_KEY"
+            placeholder="Auto-authenticated via session cookie"
             className="h-12 rounded-2xl border border-border bg-background/70 px-4 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
           />
         </label>

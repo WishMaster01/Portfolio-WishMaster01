@@ -24,7 +24,7 @@ export async function PATCH(
   request: Request,
   { params }: BlogAdminRouteContext,
 ) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;
@@ -56,7 +56,7 @@ export async function DELETE(
   request: Request,
   { params }: BlogAdminRouteContext,
 ) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;

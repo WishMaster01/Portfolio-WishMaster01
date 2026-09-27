@@ -1,40 +1,31 @@
 import type { ProjectCaseStudyInput } from "@/lib/validation/project-case-study";
 import { getPrisma } from "@/lib/server/prisma";
-
-type ProjectDelegate = {
-  findUnique: (args: unknown) => Promise<unknown>;
-  update: (args: unknown) => Promise<unknown>;
-};
-
-function getProjectDelegate(prisma: Record<string, unknown> | null) {
-  return prisma?.project as ProjectDelegate | undefined;
-}
+import type { Prisma } from "@prisma/client";
 
 export async function updateProjectCaseStudy(
   slug: string,
   caseStudy: ProjectCaseStudyInput,
 ) {
   const prisma = await getPrisma();
-  const project = getProjectDelegate(prisma);
 
-  if (!project) {
+  if (!prisma) {
     return null;
   }
 
   try {
-    const existing = (await project.findUnique({
+    const existing = await prisma.project.findUnique({
       where: { slug },
       select: { id: true },
-    })) as { id: string } | null;
+    });
 
     if (!existing) {
       return undefined;
     }
 
-    const updated = await project.update({
+    const updated = await prisma.project.update({
       where: { slug },
       data: {
-        caseStudy,
+        caseStudy: caseStudy as unknown as Prisma.InputJsonValue,
       },
       select: {
         slug: true,
@@ -43,7 +34,8 @@ export async function updateProjectCaseStudy(
     });
 
     return updated;
-  } catch {
+  } catch (error) {
+    console.error(`[Project Case Study] Error updating ${slug}:`, error);
     return undefined;
   }
 }

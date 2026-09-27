@@ -25,7 +25,7 @@ export async function GET(
   request: Request,
   { params }: ProjectAdminRouteContext,
 ) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;
@@ -45,7 +45,7 @@ export async function PATCH(
   request: Request,
   { params }: ProjectAdminRouteContext,
 ) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;
@@ -77,7 +77,7 @@ export async function DELETE(
   request: Request,
   { params }: ProjectAdminRouteContext,
 ) {
-  const authResponse = requireAdmin(request);
+  const authResponse = await requireAdmin(request);
 
   if (authResponse) {
     return authResponse;
