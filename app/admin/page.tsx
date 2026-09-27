@@ -23,6 +23,7 @@ import { listBlogs } from "@/lib/server/repositories/blogs";
 import { listProjects } from "@/lib/server/repositories/projects";
 import type { Article } from "@/types/article";
 import type { Project } from "@/types/project";
+import type { ContactSubmission } from "@prisma/client";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -40,26 +41,38 @@ async function getAdminStats() {
     };
   }
 
-  const [messages, messageCount, newsletterCount] = await Promise.all([
-    prisma.contactSubmission
-      .findMany({
+  let messages: ContactSubmission[] = [];
+  let messageCount = 0;
+  let newsletterCount = 0;
+
+  try {
+    const results = await Promise.all([
+      prisma.contactSubmission.findMany({
         orderBy: { createdAt: "desc" },
         take: 5,
-      })
-      .catch(() => []),
-    prisma.contactSubmission.count().catch(() => 0),
-    prisma.newsletterSubscription.count().catch(() => 0),
-  ]);
+      }),
+      prisma.contactSubmission.count(),
+      prisma.newsletterSubscription.count(),
+    ]);
+    messages = results[0];
+    messageCount = results[1];
+    newsletterCount = results[2];
+  } catch (error) {
+    console.error("[Admin Stats Error]:", error);
+  }
 
   return {
-    messages: messages.map((record) => ({
+    messages: messages.map((record: ContactSubmission) => ({
       id: record.id,
       name: record.name,
       email: record.email,
       subject: record.subject ?? "Contact message",
       message: record.message,
       status: record.status,
-      createdAt: record.createdAt.toISOString(),
+      createdAt:
+        record.createdAt instanceof Date
+          ? record.createdAt.toISOString()
+          : String(record.createdAt),
     })),
     messageCount,
     newsletterCount,
@@ -184,7 +197,10 @@ export default async function AdminPage() {
 
             <div className="min-w-0 space-y-6">
               <Reveal>
-                <AdminSessionBar adminEmail={adminUser.email} adminName={adminUser.name} />
+                <AdminSessionBar
+                  adminEmail={adminUser.email}
+                  adminName={adminUser.name}
+                />
               </Reveal>
 
               <Reveal delay={0.02}>
