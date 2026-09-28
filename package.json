@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "eval:ai": "node scripts/evaluate-rag.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
