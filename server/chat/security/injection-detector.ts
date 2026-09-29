@@ -6,7 +6,7 @@ export type InjectionCheckResult = {
 
 const INJECTION_PATTERNS = [
   {
-    regex: /(ignore|disregard|forget|override|bypass|cancel)\s+(all\s+)?(previous|prior|above|system|the\s+above)?\s*(instructions|prompts|rules|commands)/i,
+    regex: /(ignore|disregard|forget|override|bypass|cancel)\s+(all\s+)?(previous|prior|above|system|the\s+above|your)?\s*(instructions?|prompts?|rules?|commands?)/i,
     category: "instruction_override" as const,
     reason: "Attempt to override system instructions.",
   },
@@ -55,6 +55,15 @@ export function sanitizeUserInput(input: string): string {
 }
 
 export function detectPromptInjection(query: string): InjectionCheckResult {
+  // Check raw query for delimiter tampering before sanitization strips it
+  if (/<\/?portfolio_context>/i.test(query)) {
+    return {
+      isSuspicious: true,
+      category: "delimiter_tampering",
+      reason: "Attempt to tamper with XML context boundary delimiters.",
+    };
+  }
+
   const sanitized = sanitizeUserInput(query);
 
   for (const pattern of INJECTION_PATTERNS) {

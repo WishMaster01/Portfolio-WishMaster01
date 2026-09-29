@@ -1,349 +1,271 @@
-# WishMaster01 Portfolio
+# WishMaster01 — Production Developer Portfolio & Engineering System
 
-Enterprise-grade developer portfolio for AI products, SaaS interfaces, full-stack engineering, data structures and algorithms, technical writing, and recruiter-facing presentation.
+An enterprise-grade, recruiter-focused developer portfolio and product showcase built with Next.js 16 (App Router), TypeScript in strict mode, PostgreSQL via Prisma ORM, and grounded AI retrieval.
 
-Live Portfolio: [https://wishmaster01.com](https://wishmaster01.com)
+- **Live URL**: [https://wishmaster01.vercel.app](https://wishmaster01.vercel.app)
+- **GitHub**: [https://github.com/WishMaster01](https://github.com/WishMaster01)
+- **Architecture Documentation**: [docs/architecture.md](docs/architecture.md)
+- **Architecture Decision Records (ADRs)**: [docs/adr/](docs/adr/)
 
-This repository uses `NEXT_PUBLIC_SITE_URL` for metadata, canonical URLs, sitemap generation, robots rules, resume links, and route references (canonical domain: `https://wishmaster01.com`).
+---
 
-## Overview
+## Table of Contents
 
-The portfolio is built with Next.js App Router and presents WishMaster01 as a production-minded full-stack developer with strong frontend systems, API design, portfolio engineering, and algorithmic implementation skills.
+1. [What This Portfolio Is](#1-what-this-portfolio-is)
+2. [Why It Exists](#2-why-it-exists)
+3. [Technology Stack](#3-technology-stack)
+4. [System Architecture](#4-system-architecture)
+5. [Database Architecture & Persistence](#5-database-architecture--persistence)
+6. [Authentication, Sessions & RBAC](#6-authentication-sessions--rbac)
+7. [AI, Grounded RAG & Search Intelligence](#7-ai-grounded-rag--search-intelligence)
+8. [Production Algorithms & Data Structures](#8-production-algorithms--data-structures)
+9. [Automated Testing & Quality Gates](#9-automated-testing--quality-gates)
+10. [Performance & Core Web Vitals](#10-performance--core-web-vitals)
+11. [Observability, Structured Logging & Health Probes](#11-observability-structured-logging--health-probes)
+12. [Deployment & CI/CD Pipeline](#12-deployment--cicd-pipeline)
+13. [Flagship Project Case Studies](#13-flagship-project-case-studies)
+14. [Engineering Decisions (ADRs)](#14-engineering-decisions-adrs)
+15. [Local Development](#15-local-development)
+16. [Environment Variables](#16-environment-variables)
 
-## What This Portfolio Includes
+---
 
-- Multi-page public portfolio built with the Next.js App Router
-- Project showcase with detailed product, architecture, and engineering pages
-- Skills and experience dashboards
-- Resume page with download and print support
-- About page with capability, principles, and journey sections
-- Technical blog with category, tag, and related-article exploration
-- Interactive DSA showcase with topic pages, explanations, examples, and practice problems
-- GitHub analytics dashboard
-- Recruiter mode page
-- Contact page with validated form and newsletter signup
-- AI portfolio chatbot grounded in portfolio context
-- Admin dashboard for content and analytics workflows
-- Professional theme system: Light, Dark, and System modes with accessible contrast and persistent LFU cache
+## 1. What This Portfolio Is
 
-## Algorithm-Driven Features
+This repository is a production multi-page engineering product that showcases WishMaster01 as a senior full-stack and AI software engineer. Rather than serving as a static landing page or toy demo, it functions as a fully typed, observable, and secure web application with 113 statically pre-rendered and dynamic routes, server-side validation, role-based access controls, and diagnostic telemetry.
 
-The repository now demonstrates production-style algorithm usage across the app instead of isolating algorithms into toy demos.
+---
 
-- Command palette: trie prefix search, fuzzy matching, binary search-assisted ranking, and Levenshtein distance
-- Project search: inverted index, TF-IDF-style scoring, trie prefix matching, and ranking
-- Related projects: cosine similarity, Jaccard similarity, and graph-based relevance scoring
-- Blog search: trie search, inverted index retrieval, BM25-style ranking, and prefix matching
-- AI chatbot: vector similarity, embeddings-style retrieval, LRU caching, hash-map backed state, and rate limiting
-- GitHub dashboard: priority queue ranking, heap-based top-k selection, sorting, and cache-aware fetch flows
-- Project filters: hash maps, sets, and sort-ready filtering logic
-- Timeline and experience sections: graph modeling and topological ordering
-- Skills section: weighted graph, dependency graph, DFS, and BFS
-- Contact form: sliding-window rate limiting and token bucket protection
-- Newsletter: Bloom filter, duplicate detection, and rate limiting
-- Cache layer: LRU and LFU cache implementations
-- Analytics dashboard: prefix sums, Fenwick tree, segment tree, and moving average
-- Routing: shortest path on a navigation graph
-- Recruiter mode: priority-queue ranking of featured projects by impact and relevance
-- Project comparison: weighted graph scoring, cosine similarity, and dynamic programming
-- Resume analyzer: trie-backed keyword matching, TF-IDF/BM25-style ranking, and cosine similarity
-- Code execution: Judge0-backed job scheduling with a priority queue
+## 2. Why It Exists
 
-## DSA Showcase
+Most developer portfolios contain hardcoded templates, non-functional forms, exaggerated metrics, and mock features. This portfolio was engineered to meet high standards of software craft:
+- **Demonstrable Engineering Depth**: Real architectural trade-offs, system component diagrams, and scaling strategies documented for every flagship project.
+- **Recruiter Utility**: Dedicated Recruiter Mode (`/recruiter`), automated resume parsing, interactive DSA showcase, and direct developer contact channels.
+- **Zero Hallucination AI**: A grounded hybrid RAG assistant that answers questions accurately from verified portfolio documents while repelling adversarial prompt-injection attacks.
 
-The `/dsa-showcase` route covers recruiter-relevant algorithm topics with production context, explanations, complexity notes, visualizations, and code examples.
+---
 
-Included topics:
+## 3. Technology Stack
 
-- Arrays
-- Linked Lists
-- Stacks
-- Queues
-- Hash Tables
-- Trees
-- Binary Search Trees
-- AVL Trees
-- Heaps
-- Priority Queues
-- Tries
-- Graphs
-- Dynamic Programming
-- Greedy Algorithms
-- Backtracking
-- Divide and Conquer
-- Sliding Window
-- Two Pointers
-- Binary Search
-- Recursion
-- Segment Trees
-- Fenwick Trees
-- Union Find
-- Topological Sort
-- Shortest Path
-- Network Flow
-- String Algorithms
-- Sorting Algorithms
-- Searching Algorithms
-- Caching Algorithms
-- Scheduling Algorithms
-- Compression Algorithms
+| Layer | Technologies |
+| :--- | :--- |
+| **Framework & Core** | Next.js 16 (App Router), React 19, TypeScript 5 (Strict Mode) |
+| **Styling & Motion** | Tailwind CSS v4, Framer Motion, next-themes (Light / Dark / System) |
+| **Database & ORM** | PostgreSQL, Prisma ORM 7.8 with `@prisma/adapter-pg` |
+| **Caching & Redis** | Unified `CacheClient` (Upstash REST Redis with automatic in-memory TTL/LRU fallback) |
+| **Search & AI RAG** | BM25 Lexical Engine, 256-dim Dense Vector Feature Hashing, OpenRouter, Google Gemini |
+| **Testing** | Node 24 Native Test Runner (`node:test`, `node:assert`), Playwright E2E |
+| **Observability** | Structured JSON Logger with automatic PII / Secret Sanitization, Health Probes |
+| **CI/CD & DevOps** | GitHub Actions Pipeline (Lint -> Typecheck -> Unit -> Integration -> Build -> E2E) |
 
-Each topic includes:
+---
 
-- Definition
-- Real-world use case
-- Interactive visualization
-- Time complexity
-- Space complexity
-- Advantages
-- Disadvantages
-- Interview questions
-- Practice problems
-- FAANG company references
-- Python, JavaScript, and TypeScript implementations
+## 4. System Architecture
 
-## Core Product Modules
+Detailed blueprint available in [docs/architecture.md](docs/architecture.md).
 
-### Projects
-
-The portfolio currently contains five primary case studies:
-
-- `InfinityAI` - AI product platform with prompt UX, output states, provider-safe API boundaries, and future usage and account flows
-- `ExploreX` - travel discovery system with itinerary-ready content structure, SEO-first routing, and maps-ready UI
-- `DailyEssentials` - commerce storefront focused on category navigation, conversion-oriented cards, and checkout-ready boundaries
-- `Vyvo` - wellness dashboard concept with calm information hierarchy, metric cards, and visualization-ready modules
-- `WishCart` - marketplace platform with seller-aware catalog modeling, transaction boundaries, and full-stack commerce direction
-
-Each project includes summary, problem, solution, impact, stack, technologies, features, metrics, architecture layers, milestones, challenges, future scope, and dedicated detail routes.
-
-### Blog
-
-The blog section includes technical writing across:
-
-- Next.js architecture
-- AI portfolio chatbots
-- PostgreSQL and Prisma schema design
-- DSA learning patterns
-- AI trip planners
-- Authentication
-- Payment integrations
-- Real-time chat
-- Deployment workflows
-- Product and AI case studies
-
-Blog capabilities include search, category filters, tag filters, reading time labels, table of contents, syntax-highlighted code blocks, related articles, adjacent article navigation, and Open Graph metadata.
-
-### GitHub and Recruiter Flows
-
-- GitHub profile overview
-- Repository statistics
-- Language chart
-- Contribution graph
-- Recent activity
-- Pinned repositories
-- Recruiter mode with summary, skills, projects, links, and contact path
-
-### Contact and Communication
-
-- Contact form with schema validation
-- Newsletter subscription flow
-- Server-side rate limiting
-- PostgreSQL-backed storage
-- Resend email integration
-- Spam-resistant request handling
-
-### AI Chatbot
-
-The chatbot is built around structured portfolio context and provider fallback.
-
-Current behavior includes:
-
-- Context-grounded replies about projects, skills, resume, and experience
-- Input validation with Zod
-- OpenRouter as the primary provider
-- Gemini as the fallback provider
-- Server-side provider key protection
-- Response caching
-
-### Admin Dashboard
-
-The admin route supports portfolio operations and includes:
-
-- Project inventory table
-- Project form
-- Case-study editor
-- Blog inventory table
-- Blog editor
-- Recent message viewer
-- Content distribution analytics
-- Skills, DSA, resume, newsletter, and settings summary modules
-
-## Design and UX System
-
-- Tailwind CSS v4 styling
-- Framer Motion transitions and reveal effects
-- Responsive layouts across mobile, tablet, and desktop
-- Reduced-motion support
-- Skip links and focus visibility
-- Light, dark, cyber, gradient, solarized, ocean, forest, sunset, monochrome, and futuristic themes
-- Command palette for route and content navigation
-
-## Tech Stack
-
-### Frontend
-
-- Next.js 16
-- React 19
-- TypeScript 5
-- Tailwind CSS 4
-- Framer Motion
-- `cmdk`
-
-### Backend and Data
-
-- Next.js Route Handlers
-- Prisma ORM
-- PostgreSQL
-- Zod validation
-
-### Integrations
-
-- OpenRouter
-- Google Gemini
-- GitHub API
-- Judge0
-- Resend
-
-## Local Setup
-
-```bash
-git clone https://github.com/WishMaster01/wishmaster01-portfolio.git
-cd wishmaster01-portfolio
-npm install
-cp .env.example .env
+```mermaid
+flowchart TD
+    Client["Browser / Visitor"] --> Edge["Next.js Edge & CSP Middleware"]
+    Edge --> AppRouter["App Router (113 SSG / ISR / Dynamic Routes)"]
+    
+    subgraph "Server Boundaries & Services"
+        AppRouter --> AuthGuard["Session & RBAC Guards (USER | RECRUITER | ADMIN)"]
+        AppRouter --> ApiHandlers["Route Handlers (Zod Validation)"]
+        ApiHandlers --> Logger["Structured Observability (PII Scrubbing)"]
+        ApiHandlers --> CacheLayer["Cache Client (Redis / In-Memory LRU)"]
+        ApiHandlers --> RepoLayer["Prisma Repositories (PostgreSQL)"]
+        ApiHandlers --> RAGEngine["Hybrid RAG (BM25 + Dense Vectors)"]
+    end
+    
+    subgraph "External Providers"
+        RAGEngine --> LLMs["AI Providers (OpenRouter -> Gemini -> Grounded Engine)"]
+        CacheLayer --> PlatformAPIs["GitHub & LeetCode APIs (1-hr ISR Cache)"]
+    end
 ```
 
-Then configure your environment variables and run:
+---
+
+## 5. Database Architecture & Persistence
+
+Authoritative persistence managed via PostgreSQL and Prisma schema (`prisma/schema.prisma`):
+- `model User`: Cryptographic scrypt password hash, unique email, role-based identity (`USER`, `RECRUITER`, `ADMIN`).
+- `model Session`: Database-backed sessions with 64-character random tokens and indexed expiration dates.
+- `model Project`: Flagship projects with structured JSON architecture, components, decisions, milestones, and metrics.
+- `model BlogPost`: Technical writing with categories, tags, view counters, and published dates.
+- `model ContactSubmission`: Inbound inquiries with spam detection and status tracking (`NEW`, `READ`, `ARCHIVED`).
+- `model NewsletterSubscription`: Opt-in email subscription with explicit consent verification.
+
+See [ADR-001: PostgreSQL as Primary Persistence Source of Truth](docs/adr/ADR-001-postgresql-source-of-truth.md).
+
+---
+
+## 6. Authentication, Sessions & RBAC
+
+- **Password Hashing**: Node `crypto.scryptSync` with unique 16-byte cryptographic salts and `timingSafeEqual` comparison.
+- **HTTP-Only Cookies**: Session tokens stored in `auth_session` cookies with `HttpOnly`, `SameSite=Lax`, and `Secure` attributes.
+- **Server-Side RBAC**: Mutation endpoints (`/api/admin/blog`, `/api/admin/projects`) verify user credentials strictly on the server; unauthenticated requests receive HTTP 401 Unauthorized.
+
+See [ADR-002: Server-Side Cryptographic Sessions and RBAC](docs/adr/ADR-002-rbac-and-session-auth.md).
+
+---
+
+## 7. AI, Grounded RAG & Search Intelligence
+
+Detailed documentation in [server/chat/README.md](server/chat/README.md).
+- **Hybrid Fusion**: Combines normalized BM25 lexical scores ($0.45$), dense semantic cosine similarity ($0.40$), and tag/domain metadata boosts ($0.15$).
+- **Perimeter Defense**: Intercepts instruction overrides (`"ignore instructions"`), DAN jailbreaks, system prompt exfiltration, and delimiter tampering before invoking remote LLMs.
+- **Strict Grounding**: System prompts isolate retrieved reference knowledge inside `<portfolio_context>` tags and enforce anti-hallucination refusals.
+- **Evaluation Benchmark**: Evaluated via `npm run eval:ai` (16/16 test cases passing, 100% recall@3, <1ms retrieval latency).
+
+See [ADR-003: Deterministic Hybrid RAG Retrieval Engine](docs/adr/ADR-003-hybrid-rag-retrieval.md).
+
+---
+
+## 8. Production Algorithms & Data Structures
+
+Algorithms are integrated directly into functional application workflows:
+- **LRU & LFU Caches**: In-memory caching for query results, rate-limiting states, and theme preferences (`lib/algorithms/lru-cache.ts`, `lib/algorithms/lfu-cache.ts`).
+- **Priority Queue**: Min and max binary heaps used for candidate ranking and event sorting (`lib/algorithms/priority-queue.ts`).
+- **Prefix Trie**: $O(L)$ prefix lookup powering the global Command Palette (`lib/algorithms/text-search.ts`).
+- **Levenshtein Distance**: Dynamic programming edit-distance calculation for fuzzy search (`lib/algorithms/text-search.ts`).
+- **Jaccard & Cosine Similarity**: Vector similarity and set-intersection metrics for related content recommendation (`lib/algorithms/jaccard-similarity.ts`, `lib/algorithms/vector-similarity.ts`).
+- **Binary Search & Bounds**: Logarithmic $O(\log n)$ search, lower-bound, and upper-bound implementations (`lib/algorithms/binary-search.ts`).
+
+---
+
+## 9. Automated Testing & Quality Gates
+
+The repository features comprehensive automated test coverage without third-party test bloat:
 
 ```bash
-npm run dev
+# Run unit & API integration test suite (75 tests)
+npm test
+
+# Run unit tests only
+npm run test:unit
+
+# Run API integration tests only
+npm run test:integration
+
+# Run AI RAG benchmark harness (16 benchmark tests)
+npm run eval:ai
+
+# Run Playwright E2E suite
+npm run test:e2e
 ```
 
-Local app URL: [http://localhost:3000](http://localhost:3000)
+---
 
-## Scripts
+## 10. Performance & Core Web Vitals
+
+- **Static Generation (SSG)**: 113 routes pre-rendered at build time with zero server delay.
+- **Dynamic Module Splitting**: Heavy interactive components (Mermaid renderer, code editors, chat drawer) loaded dynamically via `next/dynamic`.
+- **Accessibility & Reduced Motion**: WCAG 2.2 AA compliant focus rings (`:focus-visible`) and `@media (prefers-reduced-motion: reduce)` animation bypasses configured in `app/globals.css`.
+
+---
+
+## 11. Observability, Structured Logging & Health Probes
+
+- **Structured JSON Logging**: Standard JSON records emitted with `timestamp`, `level`, `route`, `method`, `status`, `latencyMs`, and error traces (`lib/server/logger.ts`).
+- **Automatic PII Redaction**: Sensitive attributes (`password`, `token`, `secret`, `authorization`, `cookie`, `apiKey`) are automatically scrubbed and masked.
+- **Health Probes**:
+  - `GET /api/health/live`: Liveness check reporting uptime and process health.
+  - `GET /api/health/ready`: Readiness check verifying PostgreSQL database connectivity and memory limits.
+
+See [ADR-005: Structured JSON Observability and Health Probes](docs/adr/ADR-005-observability-and-health.md).
+
+---
+
+## 12. Deployment & CI/CD Pipeline
+
+A production GitHub Actions workflow (`.github/workflows/ci.yml`) runs on all pushes and PRs to `main`:
+1. Dependency installation (`npm ci`)
+2. Prisma Client generation (`npx prisma generate`)
+3. Linting (`npm run lint` — 0 errors, 0 warnings)
+4. TypeScript validation (`npm run typecheck` — 0 errors)
+5. Automated test suite (`npm test` — 75/75 passing)
+6. AI benchmark harness (`npm run eval:ai` — 16/16 passing)
+7. Next.js production build (`npm run build` — 113/113 routes)
+8. Playwright E2E suite on Chromium
+
+---
+
+## 13. Flagship Project Case Studies
+
+Each project detail page contains problem analysis, solution architecture, component breakdowns, trade-offs, and metrics:
+- **InfinityAI** (`/projects/infinityai`): Modular multimodal AI workspace with credit controls, provider fallback, and streaming completions.
+- **ExploreX** (`/projects/explorex`): High-throughput travel discovery platform with geo-spatial filtering and interactive itinerary planning.
+- **DailyEssentials** (`/projects/dailyessentials`): E-commerce grocery platform with optimized cart state, inventory locking, and payment workflows.
+
+---
+
+## 14. Engineering Decisions (ADRs)
+
+Key architectural decisions are documented under `docs/adr/`:
+- [ADR-001: PostgreSQL via Prisma as Primary Persistence Source of Truth](docs/adr/ADR-001-postgresql-source-of-truth.md)
+- [ADR-002: Server-Side Cryptographic Sessions and Role-Based Access Control (RBAC)](docs/adr/ADR-002-rbac-and-session-auth.md)
+- [ADR-003: Deterministic Hybrid RAG Retrieval Engine with Strict Grounding](docs/adr/ADR-003-hybrid-rag-retrieval.md)
+- [ADR-004: Redis & Distributed Caching Layer with In-Memory Fallback](docs/adr/ADR-004-caching-and-redis-layer.md)
+- [ADR-005: Structured JSON Observability, PII Scrubbing, and Health Probes](docs/adr/ADR-005-observability-and-health.md)
+
+---
+
+## 15. Local Development
 
 ```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
+# 1. Clone repository
+git clone https://github.com/WishMaster01/Portfolio-WishMaster01.git
+cd Portfolio-WishMaster01
+
+# 2. Setup environment variables
+cp .env.example .env.local
+
+# 3. Generate Prisma client & seed database
 npm run db:generate
-npm run db:migrate
 npm run db:seed
-npm run db:studio
+
+# 4. Run development server
+npm run dev
+
+# 5. Run tests & typecheck
+npm test
+npm run typecheck
+npm run lint
 ```
 
-## Environment Variables
+---
+
+## 16. Environment Variables
+
+Create a `.env.local` file referencing the templates in `.env.example`:
 
 ```env
-DATABASE_URL=""
-ADMIN_API_KEY=""
+# Application Canonical URL
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 
-NEXT_PUBLIC_SITE_URL="https://wishmaster01.vercel.app"
+# PostgreSQL Database (Neon, Supabase, or local PostgreSQL)
+DATABASE_URL="postgresql://user:password@localhost:5432/portfolio_db"
 
+# Admin Authentication
+ADMIN_EMAIL="admin@wishmaster01.com"
+ADMIN_PASSWORD="ChooseAStrongAdminPassword123!"
+
+# Distributed Redis Caching (Optional - falls back to high-efficiency in-memory cache)
+UPSTASH_REDIS_REST_URL=""
+UPSTASH_REDIS_REST_TOKEN=""
+
+# AI Providers (Optional - falls back to grounded deterministic RAG engine)
 OPENROUTER_API_KEY=""
-OPENROUTER_MODEL="openai/gpt-4o-mini"
 GEMINI_API_KEY=""
-GEMINI_MODEL="gemini-3.5-flash"
 
+# External Platform Analytics (Optional)
 GITHUB_TOKEN=""
 GITHUB_USERNAME="WishMaster01"
-
-JUDGE0_API_URL=""
-JUDGE0_API_HOST=""
-JUDGE0_API_KEY=""
-
-RESEND_API_KEY=""
-CONTACT_NOTIFICATION_TO=""
-CONTACT_NOTIFICATION_FROM="WishMaster01 <hello@wishmaster01.com>"
-CONTACT_REPLY_TO="hello@wishmaster01.com"
-NEWSLETTER_FROM="WishMaster01 <hello@wishmaster01.com>"
-NEWSLETTER_REPLY_TO="hello@wishmaster01.com"
 ```
 
-Important notes:
-
-- Keep `NEXT_PUBLIC_SITE_URL` aligned with the deployed domain
-- Never commit `.env`
-- Keep all provider secrets server-side
-
-## API Surface
-
-The app includes route handlers for:
-
-- Blog data
-- Project data
-- Project architecture, case study, and engineering data
-- Resume data and PDF output
-- Contact submissions
-- Newsletter subscriptions
-- GitHub profile, repositories, and language data
-- DSA topic data and submissions
-- Recruiter profile data
-- User preferences
-- Health checks
-- Admin project and blog operations
-- AI chat requests
-
-## Quality Notes
-
-- Typed content models across projects, blog posts, skills, recruiter data, resume data, and DSA topics
-- Reusable UI primitives for cards, buttons, badges, sections, and containers
-- SEO metadata, sitemap, robots, and manifest support
-- Open Graph image support
-- Build-safe server/client separation
-- Production-minded content architecture
-- Mobile layout adjusted to avoid horizontal overflow
-- Algorithmic implementations exposed in real product flows
-
-## Roadmap
-
-Future improvements can include:
-
-- CMS integration
-- Full-text search
-- pgvector-based AI search
-- Analytics dashboard expansion
-- Error monitoring
-- Internationalization
-- Advanced DSA progress tracking
-- AI resume generator
-
-## Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to your fork
-5. Open a pull request
-
-## Author
-
-### Sumit Kumar (WishMaster01)
-
-Full-Stack AI and SaaS Developer
-
-Portfolio: [https://wishmaster01.vercel.app](https://wishmaster01.vercel.app)
-
-GitHub: [https://github.com/WishMaster01](https://github.com/WishMaster01)
-
-LinkedIn: [https://www.linkedin.com/in/wishmaster01](https://www.linkedin.com/in/wishmaster01)
-
-Email: `hello@wishmaster01.com`
+---
 
 ## License
 
-This project is licensed under the MIT License.
+This project is open-source under the [MIT License](LICENSE).
