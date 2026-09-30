@@ -1,36 +1,33 @@
 import type { Metadata } from "next";
 import { ExperienceDashboard } from "@/components/experience/experience-dashboard";
 import { Reveal } from "@/components/motion/reveal";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
+import { AuroraBackground } from "@/components/aurora/aurora-background";
 
 export const metadata: Metadata = {
-  title: "Experience",
+  title: "Experience | Sumit Kumar",
   description:
-    "Professional journey, project impact, working principles, and education for WishMaster01.",
+    "Professional journey, production engineering achievements, architectural decisions, and working principles for Sumit Kumar.",
 };
 
 export default function ExperiencePage() {
   return (
-    <div className="bg-background text-foreground">
-      <Section className="py-12 sm:py-16">
-        <Container className="max-w-[1380px]">
-          <Reveal className="mb-8">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-accent">
-              Professional Journey
-            </p>
-            <h1 className="mt-3 text-4xl font-black tracking-[-0.04em] sm:text-5xl">
-              My Experience
-            </h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">
-              A stronger view of my hands-on project work, full-stack product
-              experience, AI/SaaS direction, engineering process, and education.
-            </p>
-          </Reveal>
+    <AuroraBackground intensity="medium" className="min-h-screen">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 text-foreground">
+        <Reveal className="mb-10 max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-accent shadow-xs">
+            <span>Engineering Career & Track Record</span>
+          </div>
+          <h1 className="text-4xl font-black tracking-[-0.04em] sm:text-6xl text-foreground">
+            Experience & Journey
+          </h1>
+          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-8">
+            Hands-on software development experience, AI/SaaS products delivered,
+            disciplined architectural standards, and core engineering principles.
+          </p>
+        </Reveal>
 
-          <ExperienceDashboard />
-        </Container>
-      </Section>
-    </div>
+        <ExperienceDashboard />
+      </div>
+    </AuroraBackground>
   );
 }

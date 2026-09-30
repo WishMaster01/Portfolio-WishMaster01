@@ -15,6 +15,8 @@ import {
   buildSearchIndex,
   searchIndex,
 } from "@/lib/algorithms/text-search";
+import { useTheme } from "@/components/theme/theme-provider";
+import { isThemeName } from "@/components/theme/themes";
 import { cn } from "@/lib/utils";
 import { CommandGroup } from "./CommandGroup";
 import { CommandItem } from "./CommandItem";
@@ -26,10 +28,11 @@ type CommandPaletteProps = {
 };
 
 const groupOrder: CommandRecord["group"][] = [
+  "Theme",
   "Pages",
   "Projects",
-  "Blog",
   "DSA",
+  "Blog",
   "Skills",
 ];
 
@@ -47,6 +50,7 @@ function getServerHydrationSnapshot() {
 
 export function CommandPalette({ compact = false }: CommandPaletteProps) {
   const router = useRouter();
+  const { setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -110,6 +114,13 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
   function selectCommand(command: CommandRecord) {
     setIsOpen(false);
     setQuery("");
+    if (command.href.startsWith("theme:")) {
+      const targetTheme = command.href.replace("theme:", "");
+      if (isThemeName(targetTheme)) {
+        setTheme(targetTheme);
+      }
+      return;
+    }
     router.push(command.href);
   }
 
@@ -117,7 +128,7 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="fixed inset-0 z-[9999] flex items-start justify-center overflow-y-auto bg-slate-950/60 px-3 pb-8 pt-24 backdrop-blur-sm sm:px-4 sm:pt-28"
+          className="fixed inset-0 z-[9999] flex items-start justify-center overflow-y-auto bg-slate-950/70 px-3 pb-8 pt-24 backdrop-blur-md sm:px-4 sm:pt-28"
           role="dialog"
           aria-modal="true"
           aria-label="Command palette"
@@ -127,7 +138,7 @@ export function CommandPalette({ compact = false }: CommandPaletteProps) {
           onMouseDown={() => setIsOpen(false)}
         >
           <motion.div
-            className="w-full max-w-2xl overflow-hidden rounded-3xl border border-border bg-background text-foreground shadow-2xl shadow-slate-950/40"
+            className="w-full max-w-2xl overflow-hidden rounded-3xl border border-accent/30 bg-background/95 text-foreground shadow-2xl shadow-accent/15 backdrop-blur-2xl"
             initial={{ opacity: 0, y: -10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}

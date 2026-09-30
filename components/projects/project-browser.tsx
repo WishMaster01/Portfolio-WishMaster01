@@ -299,6 +299,56 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
             </div>
           </motion.article>
         ))}
+
+        {filteredProjects.length === 5 && (
+          <motion.article
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ delay: 0.24, duration: 0.32 }}
+            className="group relative overflow-hidden rounded-[2rem] border border-dashed border-accent/40 bg-surface/75 p-6 flex flex-col justify-between hover:border-accent hover:bg-accent/10 transition-all shadow-sm"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="rounded-full border border-accent/40 bg-accent/15 px-3 py-1 text-xs font-black text-accent uppercase tracking-wider">
+                  Open Source & Labs
+                </span>
+                <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+              </div>
+
+              <div>
+                <h3 className="text-xl font-black text-foreground group-hover:text-accent transition-colors">
+                  Engineering Labs & Repositories
+                </h3>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                  Explore experimental implementations, algorithm benchmarks, system design blueprints, and open-source contributions.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-border/70 bg-background/60 p-3.5 space-y-1.5 text-xs">
+                <p className="font-bold text-foreground">Featured Lab Work:</p>
+                <p className="text-muted-foreground">• Hybrid RAG Retrieval (BM25 + Cosine)</p>
+                <p className="text-muted-foreground">• In-Memory Dual Caches (LRU + LFU)</p>
+                <p className="text-muted-foreground">• Prefix Trie Search & Jaccard Sim</p>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-border/60 flex items-center justify-between">
+              <Link
+                href="/activity"
+                className="text-xs font-black text-accent hover:underline flex items-center gap-1.5"
+              >
+                <span>GitHub Telemetry</span>
+                <span>→</span>
+              </Link>
+              <Link
+                href="/engineering"
+                className="rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-black text-foreground hover:border-accent/50 hover:text-accent transition-colors"
+              >
+                Engineering Hub
+              </Link>
+            </div>
+          </motion.article>
+        )}
       </motion.div>
 
       {filteredProjects.length === 0 ? (

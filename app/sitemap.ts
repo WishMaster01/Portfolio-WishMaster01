@@ -17,6 +17,8 @@ const publicStaticRoutes = [
   "/contact",
   "/recruiter",
   "/dsa-showcase",
+  "/privacy",
+  "/terms",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

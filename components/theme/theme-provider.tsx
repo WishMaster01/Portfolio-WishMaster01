@@ -45,7 +45,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
       attribute="data-theme"
-      defaultTheme="system"
+      defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
       storageKey={themeStorageKey}
@@ -65,17 +65,17 @@ function ThemeStateProvider({ children }: { children: ReactNode }) {
     () => readStoredPreferences().fontScale,
   );
 
-  const theme = isTheme(nextTheme.theme) ? nextTheme.theme : "system";
+  const theme = isTheme(nextTheme.theme) ? nextTheme.theme : "dark";
   const systemTheme = isThemeName(nextTheme.systemTheme)
     ? nextTheme.systemTheme
-    : "light";
+    : "dark";
   const resolvedTheme = isThemeName(nextTheme.resolvedTheme)
     ? nextTheme.resolvedTheme
     : theme === "system"
       ? systemTheme
       : isThemeName(theme)
         ? theme
-        : "light";
+        : "dark";
   const themeOption = resolveThemeOption(resolvedTheme);
 
   useEffect(() => {

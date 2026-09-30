@@ -7,14 +7,30 @@ import { skillGroups, skillHighlights } from "@/data/skills";
 export type CommandRecord = {
   id: string;
   title: string;
-  group: "Pages" | "Projects" | "Blog" | "DSA" | "Skills";
+  group: "Pages" | "Projects" | "Blog" | "DSA" | "Skills" | "Theme";
   keywords: string[];
   href: string;
 };
 
 export const commands: CommandRecord[] = [
+  { id: "cmd-home", title: "Go Home", group: "Pages", keywords: ["home", "main", "start"], href: "/" },
+  { id: "cmd-projects", title: "View Projects", group: "Projects", keywords: ["projects", "work", "apps", "codebase"], href: "/projects" },
+  { id: "cmd-recruiter", title: "Recruiter Mode", group: "Pages", keywords: ["recruiter", "fast", "eval", "summary", "hire"], href: "/recruiter" },
+  { id: "cmd-resume", title: "Open Resume", group: "Pages", keywords: ["resume", "cv", "pdf", "download"], href: "/resume" },
+  { id: "cmd-engineering", title: "Engineering", group: "Pages", keywords: ["engineering", "systems", "architecture", "hub"], href: "/engineering" },
+  { id: "cmd-architecture", title: "Architecture", group: "Pages", keywords: ["architecture", "system design", "diagrams"], href: "/engineering/architecture" },
+  { id: "cmd-algorithms", title: "Algorithms", group: "DSA", keywords: ["algorithms", "dsa", "complexity", "lru", "cache"], href: "/engineering/algorithms" },
+  { id: "cmd-ai-engineering", title: "AI Engineering", group: "Pages", keywords: ["ai", "rag", "hybrid retrieval", "embeddings"], href: "/engineering/ai" },
+  { id: "cmd-blog", title: "Blog", group: "Blog", keywords: ["blog", "writing", "articles"], href: "/blog" },
+  { id: "cmd-activity", title: "GitHub", group: "Pages", keywords: ["github", "activity", "git", "commits", "repos"], href: "/activity" },
+  { id: "cmd-contact", title: "Contact", group: "Pages", keywords: ["contact", "email", "message", "hire"], href: "/contact" },
+  { id: "cmd-theme-light", title: "Aurora Light", group: "Theme", keywords: ["theme", "light", "aurora light", "mode", "color"], href: "theme:light" },
+  { id: "cmd-theme-dark", title: "Aurora Dark", group: "Theme", keywords: ["theme", "dark", "aurora dark", "mode", "color"], href: "theme:dark" },
+  { id: "cmd-theme-eclipse", title: "Aurora Eclipse", group: "Theme", keywords: ["theme", "eclipse", "aurora eclipse", "mode", "neon"], href: "theme:eclipse" },
+  { id: "cmd-theme-cyber", title: "Aurora Cyber", group: "Theme", keywords: ["theme", "cyber", "aurora cyber", "mode", "matrix", "emerald", "teal"], href: "theme:cyber" },
+  { id: "cmd-theme-sunset", title: "Aurora Sunset", group: "Theme", keywords: ["theme", "sunset", "aurora sunset", "mode", "cosmic", "magenta", "amber"], href: "theme:sunset" },
   ...navigation.main.map((item) => ({
-    id: item.href === "/" ? "home" : item.href.replace("/", ""),
+    id: item.href === "/" ? "nav-home" : `nav-${item.href.replace("/", "")}`,
     title: item.label,
     group: "Pages" as const,
     keywords: [
@@ -26,7 +42,6 @@ export const commands: CommandRecord[] = [
     ],
     href: item.href,
   })),
-  { id: "resume", title: "Resume", group: "Pages", keywords: ["cv", "download", "profile"], href: "/resume" },
   ...projects.map((project) => ({
     id: project.slug,
     title: project.title,

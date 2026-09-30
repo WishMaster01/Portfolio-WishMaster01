@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { ProjectSlugChrome } from "@/components/projects/details/project-slug-chrome";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
+import { AuroraBackground } from "@/components/aurora/aurora-background";
 import { getProjectBySlug } from "@/data/projects";
 
 type ProjectSlugLayoutProps = {
@@ -25,14 +24,12 @@ export default async function ProjectSlugLayout({
   }
 
   return (
-    <div className="bg-background text-foreground">
-      <Section className="py-8 sm:py-10">
-        <Container className="max-w-[1500px]">
-          <ProjectSlugChrome slug={slug} title={project.title} hero={hero}>
-            {children}
-          </ProjectSlugChrome>
-        </Container>
-      </Section>
-    </div>
+    <AuroraBackground intensity="medium" className="min-h-screen">
+      <div className="mx-auto w-full max-w-[1500px] px-4 py-8 sm:px-8 sm:py-10 text-foreground">
+        <ProjectSlugChrome slug={slug} title={project.title} hero={hero}>
+          {children}
+        </ProjectSlugChrome>
+      </div>
+    </AuroraBackground>
   );
 }

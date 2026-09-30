@@ -1,8 +1,10 @@
 export const siteConfig = {
-  name: "WishMaster01",
-  creator: "WishMaster01",
+  name: "Sumit Kumar",
+  handle: "WishMaster01",
+  creator: "Sumit Kumar",
+  headline: "Full Stack Developer | Software Developer Engineer | AI Engineer",
   description:
-    "Enterprise-level software portfolio for product engineering, polished interfaces, and production-ready web systems.",
+    "Aurora Engineering Portfolio of Sumit Kumar (WishMaster01) — Full Stack Developer, Software Developer Engineer, and AI Engineer building intelligent products with strong engineering foundations.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://wishmaster01.vercel.app",
   email: "hello@wishmaster01.com",
   social: {

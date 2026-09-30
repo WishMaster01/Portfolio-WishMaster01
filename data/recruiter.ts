@@ -10,16 +10,16 @@ import type {
 
 export const recruiterProfile: RecruiterProfileData = {
   name: resume.name,
-  headline: "Full-Stack AI & SaaS Developer",
+  headline: "Full Stack Developer | Software Developer Engineer | AI Engineer",
   summary:
-    "Product-minded developer focused on building polished Next.js applications, AI-powered portfolio systems, Prisma/PostgreSQL APIs, responsive dashboards, and production-ready web experiences. Strong fit for frontend, full-stack, AI product, and SaaS engineering roles.",
-  availability: "Available for internships, freelance projects, and entry-level full-stack roles",
+    "Product-minded engineer focused on building production Next.js applications, AI-powered portfolio systems, Prisma/PostgreSQL APIs, responsive dashboards, and robust web systems. Strong fit for Full Stack, SDE, and AI engineering roles.",
+  availability: "Available for Full-time, SDE, and AI Engineer roles",
   targetRoles: [
-    "Full-Stack Developer",
-    "Next.js Developer",
+    "Full Stack Developer",
+    "Software Developer Engineer (SDE)",
+    "AI Engineer",
     "Frontend Engineer",
-    "AI Product Engineer",
-    "SaaS Developer",
+    "Backend Engineer",
   ],
   preferredLocations: ["India", "Remote", "Hybrid"],
   workModes: ["Internship", "Full-time", "Freelance", "Contract"],

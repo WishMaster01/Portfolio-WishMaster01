@@ -1,8 +1,8 @@
 import { siteConfig } from "./site";
 
 export const resume = {
-  name: "WishMaster01",
-  title: "Full-Stack AI & SaaS Developer",
+  name: "Sumit Kumar",
+  title: "Full Stack Developer | Software Developer Engineer | AI Engineer",
   location: "India / Remote",
   email: "hello@wishmaster01.com",
   phone: "+91 12345 67890",

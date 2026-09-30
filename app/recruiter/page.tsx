@@ -11,6 +11,7 @@ import { RecruiterSnapshot } from "@/components/recruiter/recruiter-snapshot";
 import { ProjectComparisonMatrix } from "@/components/recruiter/project-comparison-matrix";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { AuroraBackground } from "@/components/aurora/aurora-background";
 import { siteConfig } from "@/data/site";
 import { getRecruiterProfile } from "@/server/queries/get-recruiter-profile";
 
@@ -39,71 +40,72 @@ export default async function RecruiterPage() {
   }
 
   return (
-    <div className="relative overflow-hidden bg-background text-foreground">
-      <RecruiterAnalyticsTracker />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[var(--theme-texture)] bg-[length:var(--theme-texture-size)] opacity-60" />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: profile.name,
-            jobTitle: profile.headline,
-            description: profile.summary,
-            email: profile.email,
-            url: `${siteConfig.url}/recruiter`,
-            sameAs: [profile.githubUrl, profile.linkedinUrl].filter(Boolean),
-            knowsAbout: profile.topSkills,
-          }),
-        }}
-      />
-      <Section className="py-8 sm:py-12">
-        <Container className="max-w-[1180px]">
-          <div className="space-y-12 sm:space-y-16">
-            {/* 15–30s Fast Recruiter Snapshot */}
-            <RecruiterSnapshot profile={profile} projects={projects} />
+    <AuroraBackground intensity="medium" className="min-h-screen">
+      <div className="relative overflow-hidden text-foreground">
+        <RecruiterAnalyticsTracker />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: profile.name,
+              jobTitle: profile.headline,
+              description: profile.summary,
+              email: profile.email,
+              url: `${siteConfig.url}/recruiter`,
+              sameAs: [profile.githubUrl, profile.linkedinUrl].filter(Boolean),
+              knowsAbout: profile.topSkills,
+            }),
+          }}
+        />
+        <Section className="py-8 sm:py-12">
+          <Container className="max-w-[1180px]">
+            <div className="space-y-12 sm:space-y-16">
+              {/* 15–30s Fast Recruiter Snapshot */}
+              <RecruiterSnapshot profile={profile} projects={projects} />
 
-            {/* Profile Hero & Availability */}
-            <RecruiterHero
-              name={profile.name}
-              headline={profile.headline}
-              summary={profile.summary}
-              availability={profile.availability}
-              targetRoles={profile.targetRoles}
-              preferredLocations={profile.preferredLocations}
-              workModes={profile.workModes}
-            />
+              {/* Profile Hero & Availability */}
+              <RecruiterHero
+                name={profile.name}
+                headline={profile.headline}
+                summary={profile.summary}
+                availability={profile.availability}
+                targetRoles={profile.targetRoles}
+                preferredLocations={profile.preferredLocations}
+                workModes={profile.workModes}
+              />
 
-            {/* Core Skills */}
-            <RecruiterSkills skills={profile.topSkills} />
+              {/* Core Skills */}
+              <RecruiterSkills skills={profile.topSkills} />
 
-            {/* Selected Projects */}
-            <RecruiterProjectGrid projects={projects} />
+              {/* Selected Projects */}
+              <RecruiterProjectGrid projects={projects} />
 
-            {/* Project Comparison & Evaluation UX */}
-            <ProjectComparisonMatrix />
+              {/* Project Comparison & Evaluation UX */}
+              <ProjectComparisonMatrix />
 
-            {/* Implemented Engineering Highlights */}
-            <RecruiterEngineeringHighlights />
+              {/* Implemented Engineering Highlights */}
+              <RecruiterEngineeringHighlights />
 
-            {/* Academic Foundation & Experience */}
-            <RecruiterProfileSummary
-              education={profile.education}
-              experienceSummary={profile.experienceSummary}
-              highlights={profile.highlights}
-            />
+              {/* Academic Foundation & Experience */}
+              <RecruiterProfileSummary
+                education={profile.education}
+                experienceSummary={profile.experienceSummary}
+                highlights={profile.highlights}
+              />
 
-            {/* Direct Recruiter Actions */}
-            <RecruiterActions
-              resumeUrl={profile.resumeUrl}
-              githubUrl={profile.githubUrl}
-              linkedinUrl={profile.linkedinUrl}
-              email={profile.email}
-            />
-          </div>
-        </Container>
-      </Section>
-    </div>
+              {/* Direct Recruiter Actions */}
+              <RecruiterActions
+                resumeUrl={profile.resumeUrl}
+                githubUrl={profile.githubUrl}
+                linkedinUrl={profile.linkedinUrl}
+                email={profile.email}
+              />
+            </div>
+          </Container>
+        </Section>
+      </div>
+    </AuroraBackground>
   );
 }
