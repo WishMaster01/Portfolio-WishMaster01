@@ -34,16 +34,58 @@ export function DecisionRecords({ decisions }: DecisionRecordsProps) {
               <h3 className="mt-4 text-xl font-black tracking-[-0.025em] text-foreground">
                 {decision.title}
               </h3>
-              <p className="mt-3 text-sm font-bold text-foreground">
+
+              {decision.context ? (
+                <>
+                  <p className="mt-3 text-xs font-black uppercase tracking-wider text-muted-foreground">
+                    Context
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {decision.context}
+                  </p>
+                </>
+              ) : null}
+
+              {decision.optionsConsidered && decision.optionsConsidered.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-black uppercase tracking-wider text-muted-foreground">
+                    Options Considered
+                  </p>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {decision.optionsConsidered.map((opt) => (
+                      <span
+                        key={opt}
+                        className="rounded bg-surface-elevated px-1.5 py-0.5 text-[10px] font-bold text-foreground"
+                      >
+                        {opt}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              ) : null}
+
+              {decision.chosenApproach ? (
+                <>
+                  <p className="mt-3 text-xs font-black uppercase tracking-wider text-accent">
+                    Chosen Approach
+                  </p>
+                  <p className="mt-1 text-xs font-bold leading-relaxed text-foreground">
+                    {decision.chosenApproach}
+                  </p>
+                </>
+              ) : null}
+
+              <p className="mt-3 text-xs font-black uppercase tracking-wider text-muted-foreground">
                 Reason
               </p>
-              <p className="mt-1 text-sm leading-7 text-muted-foreground">
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {decision.reason}
               </p>
-              <p className="mt-4 text-sm font-bold text-foreground">
+
+              <p className="mt-3 text-xs font-black uppercase tracking-wider text-muted-foreground">
                 Tradeoff
               </p>
-              <p className="mt-1 text-sm leading-7 text-muted-foreground">
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {decision.tradeoff}
               </p>
             </article>

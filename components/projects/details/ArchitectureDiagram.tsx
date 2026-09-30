@@ -12,9 +12,14 @@ export function ArchitectureDiagram({ architecture }: ArchitectureDiagramProps) 
       <Card className="rounded-[2rem] bg-surface/95">
         <CardContent className="space-y-6 p-6">
           <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
-              Architecture
-            </p>
+            <div className="flex items-center gap-2.5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+                Architecture
+              </p>
+              <span className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-black text-emerald-500">
+                Implemented Architecture
+              </span>
+            </div>
             <h2 className="mt-2 text-2xl font-black text-foreground">
               System structure
             </h2>

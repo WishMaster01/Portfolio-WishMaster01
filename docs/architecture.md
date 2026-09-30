@@ -62,6 +62,11 @@ flowchart TD
   - `/api/health/live`: Liveness probe verifying process runtime and uptime.
   - `/api/health/ready`: Readiness probe verifying PostgreSQL connectivity and process memory health.
 
+### 2.6 Remote Code Sandbox & Judge0 Execution Controls
+- **Resource Constraints**: Maximum 64 KB source payload, 10 KB stdin buffer, 6.0s wall time, 4.0s CPU compute limit.
+- **Priority Queue Scheduling**: Submissions throttled via bounded `PriorityQueue` (capacity 25). Excess bursts receive HTTP 503 rather than exhausting upstream resources.
+- **Deterministic Offline Fallback**: Automated test runner mock handles executions during local testing and when external sandbox credentials are omitted.
+
 ---
 
 ## 3. Data Flow & Request Lifecycle

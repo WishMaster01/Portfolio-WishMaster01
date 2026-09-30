@@ -14,9 +14,9 @@ export const siteConfig = {
 } as const;
 
 export const featuredStats = [
-  { value: "5", label: "Core routes" },
-  { value: "10+", label: "Reusable primitives" },
-  { value: "100%", label: "Typed baseline" },
+  { value: "113", label: "Pre-rendered routes" },
+  { value: "75+", label: "Automated tests" },
+  { value: "100%", label: "Strict type safety" },
 ] as const;
 
 export const services = [

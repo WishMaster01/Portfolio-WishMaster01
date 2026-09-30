@@ -207,7 +207,8 @@ Key architectural decisions are documented under `docs/adr/`:
 - [ADR-002: Server-Side Cryptographic Sessions and Role-Based Access Control (RBAC)](docs/adr/ADR-002-rbac-and-session-auth.md)
 - [ADR-003: Deterministic Hybrid RAG Retrieval Engine with Strict Grounding](docs/adr/ADR-003-hybrid-rag-retrieval.md)
 - [ADR-004: Redis & Distributed Caching Layer with In-Memory Fallback](docs/adr/ADR-004-caching-and-redis-layer.md)
-- [ADR-005: Structured JSON Observability, PII Scrubbing, and Health Probes](docs/adr/ADR-005-observability-and-health.md)
+- [ADR-005: Judge0 Execution Controls, Throttling & Priority Queue Scheduling](docs/adr/ADR-005-judge0-execution-controls.md)
+- [ADR-006: Structured JSON Observability, PII Scrubbing, and Health Probes](docs/adr/ADR-006-observability-and-health.md)
 
 ---
 

@@ -28,9 +28,14 @@ export function ArchitectureDiagram({ definition }: ArchitectureDiagramProps) {
       <section aria-labelledby="architecture-diagram-heading">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
-              Visual map
-            </p>
+            <div className="flex items-center gap-2.5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-accent">
+                Visual map
+              </p>
+              <span className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-black text-emerald-500">
+                Production Implemented
+              </span>
+            </div>
             <h2
               id="architecture-diagram-heading"
               className="mt-2 text-3xl font-black tracking-[-0.04em] text-foreground sm:text-4xl"

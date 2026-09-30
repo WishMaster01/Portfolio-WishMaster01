@@ -6,6 +6,9 @@ export type ArchitectureComponent = {
 
 export type ArchitectureDecision = {
   title: string;
+  context?: string;
+  optionsConsidered?: string[];
+  chosenApproach?: string;
   reason: string;
   tradeoff: string;
 };

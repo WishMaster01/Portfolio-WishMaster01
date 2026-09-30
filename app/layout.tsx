@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { RouteTransition } from "@/components/motion/route-transition";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { RootJsonLd } from "@/components/seo/json-ld";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
@@ -84,6 +85,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full overflow-x-hidden bg-background text-foreground">
+        <RootJsonLd />
         <ThemeProvider>
           <a href="#main-content" className="skip-link">
             Skip to content

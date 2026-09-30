@@ -1,4 +1,4 @@
-# ADR-005: Structured JSON Observability, PII Scrubbing, and Health Probes
+# ADR-006: Structured JSON Observability, PII Scrubbing, and Health Probes
 
 ## Status
 Accepted & Implemented

@@ -103,6 +103,7 @@ export function ContactForm() {
                 : "mb-5 rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-bold text-red-500"
             }
             role="status"
+            aria-live="polite"
           >
             {toast.message}
           </motion.div>

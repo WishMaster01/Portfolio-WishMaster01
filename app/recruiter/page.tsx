@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RecruiterActions } from "@/components/recruiter/recruiter-actions";
 import { RecruiterAnalyticsTracker } from "@/components/recruiter/recruiter-analytics";
+import { RecruiterEngineeringHighlights } from "@/components/recruiter/recruiter-engineering-highlights";
 import { RecruiterHero } from "@/components/recruiter/recruiter-hero";
 import { RecruiterProfileSummary } from "@/components/recruiter/recruiter-profile-summary";
 import { RecruiterProjectGrid } from "@/components/recruiter/recruiter-project-grid";
 import { RecruiterSkills } from "@/components/recruiter/recruiter-skills";
+import { RecruiterSnapshot } from "@/components/recruiter/recruiter-snapshot";
+import { ProjectComparisonMatrix } from "@/components/recruiter/project-comparison-matrix";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { siteConfig } from "@/data/site";
@@ -57,7 +60,11 @@ export default async function RecruiterPage() {
       />
       <Section className="py-8 sm:py-12">
         <Container className="max-w-[1180px]">
-          <div className="space-y-14 sm:space-y-16">
+          <div className="space-y-12 sm:space-y-16">
+            {/* 15–30s Fast Recruiter Snapshot */}
+            <RecruiterSnapshot profile={profile} projects={projects} />
+
+            {/* Profile Hero & Availability */}
             <RecruiterHero
               name={profile.name}
               headline={profile.headline}
@@ -68,16 +75,26 @@ export default async function RecruiterPage() {
               workModes={profile.workModes}
             />
 
+            {/* Core Skills */}
             <RecruiterSkills skills={profile.topSkills} />
 
+            {/* Selected Projects */}
             <RecruiterProjectGrid projects={projects} />
 
+            {/* Project Comparison & Evaluation UX */}
+            <ProjectComparisonMatrix />
+
+            {/* Implemented Engineering Highlights */}
+            <RecruiterEngineeringHighlights />
+
+            {/* Academic Foundation & Experience */}
             <RecruiterProfileSummary
               education={profile.education}
               experienceSummary={profile.experienceSummary}
               highlights={profile.highlights}
             />
 
+            {/* Direct Recruiter Actions */}
             <RecruiterActions
               resumeUrl={profile.resumeUrl}
               githubUrl={profile.githubUrl}

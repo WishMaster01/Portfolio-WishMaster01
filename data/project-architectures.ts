@@ -30,17 +30,17 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     summary:
       "InfinityAI uses a modular service-oriented architecture inside a Next.js application. The core idea is to keep AI providers, credits, persistence, media storage, and billing behind clean server-side boundaries so the UI can stay fast and provider-agnostic.",
     diagramDefinition: `flowchart LR
-    A[Browser] --> B[Next.js application]
-    B --> C[Authentication middleware]
-    C --> D[API and Server Action layer]
-    D --> E[AI provider abstraction]
-    E --> F[Gemini]
-    E --> G[OpenRouter]
-    D --> H[Credit and usage service]
+    A[Browser Client] --> B[Next.js Application]
+    B --> C[Authentication Middleware]
+    C --> D[API & Server Action Layer]
+    D --> E[AI Provider Abstraction]
+    E --> F[Gemini 2.0 Flash]
+    E --> G[OpenRouter Fallback]
+    D --> H[Credit & Usage Service]
     H --> I[(PostgreSQL via Prisma)]
-    D --> J[Cloudinary or object storage]
-    D --> K[Payment provider]
-    D --> L[Audit and analytics events]`,
+    D --> J[Cloud Storage / Cloudinary (Planned)]
+    D --> K[Payment Provider / Stripe (Planned)]
+    D --> L[Audit & Analytics Events]`,
     components: [
       {
         name: "Web client",
@@ -179,7 +179,11 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     deployment: sharedDeployment,
     decisions: [
       {
-        title: "Provider abstraction",
+        title: "Provider abstraction with multi-tier fallback",
+        context:
+          "AI applications relying on a single provider face rate limits, outages, model deprecation, and unexpected token price spikes.",
+        optionsConsidered: ["Direct client SDK", "Single hardcoded provider", "Pluggable provider abstraction"],
+        chosenApproach: "Server-side Provider Router with 8-second timeout & automatic fallback chain",
         reason:
           "The app should survive provider downtime, pricing changes, model deprecations, and quality differences.",
         tradeoff:
@@ -187,6 +191,10 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
       },
       {
         title: "PostgreSQL instead of document-only storage",
+        context:
+          "Prompt history, user credit balances, transaction logs, and account data require strong relational consistency.",
+        optionsConsidered: ["MongoDB / Document Store", "In-memory store only", "PostgreSQL via Prisma"],
+        chosenApproach: "Normalized relational PostgreSQL schema with Prisma ORM",
         reason:
           "Credits, subscriptions, usage history, generated content ownership, and admin reporting need consistency and queryability.",
         tradeoff:
@@ -194,6 +202,10 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
       },
       {
         title: "Server route handlers over client-side provider calls",
+        context:
+          "Client-side LLM calls risk leaking high-privilege provider secrets and bypassing rate limits.",
+        optionsConsidered: ["Client-side direct fetch", "Server route handlers with Zod validation"],
+        chosenApproach: "Next.js server-side route handlers with Zod input validation and Token Bucket rate limiting",
         reason:
           "AI keys, credit checks, rate limits, and prompt logging must run on the server.",
         tradeoff:
@@ -220,14 +232,14 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     summary:
       "ExploreX uses a content-first travel architecture where destinations, itinerary modules, recommendation blocks, and map-ready metadata are separated from presentation components.",
     diagramDefinition: `flowchart LR
-    A[Traveler] --> B[Next.js discovery UI]
-    B --> C[Destination routes]
-    C --> D[Search and filters]
-    D --> E[(Destination data)]
-    C --> F[Itinerary builder]
-    F --> G[Recommendation service]
-    G --> H[Maps or location API]
-    C --> I[SEO metadata]`,
+    A[Traveler Browser] --> B[Next.js Discovery UI]
+    B --> C[Destination Routes]
+    C --> D[Multi-Criteria Filter Pipeline]
+    D --> E[(Destination Content Store)]
+    C --> F[Itinerary Builder (Client State)]
+    F --> G[Recommendation Service (Planned)]
+    G --> H[Maps / Geocoding API (Planned)]
+    C --> I[SEO & Structured Metadata]`,
     components: [
       {
         name: "Discovery UI",
@@ -306,18 +318,26 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     deployment: sharedDeployment,
     decisions: [
       {
-        title: "Separate maps from core content",
+        title: "Decouple map rendering from core destination content",
+        context:
+          "Heavy interactive maps (Leaflet/Mapbox) can slow initial page load and fail in low-bandwidth network environments.",
+        optionsConsidered: ["Eager map rendering on every card", "Progressive client-side map hydration"],
+        chosenApproach: "Progressive client hydration with fallback static location previews",
         reason:
-          "Travel pages should stay fast even if maps or geocoding services are unavailable.",
+          "Travel discovery pages stay fast and accessible even if external mapping tiles or geocoding services experience latency.",
         tradeoff:
-          "Map interactions require a progressive enhancement layer.",
+          "Requires separate presentation states for map view vs list view, but ensures sub-200ms initial page paint.",
       },
       {
-        title: "Typed content records first",
+        title: "Multi-parameter filter pipeline with URL synchronization",
+        context:
+          "Users expect shareable links and instant search results when filtering by season, budget, duration, and activity.",
+        optionsConsidered: ["Client-only ephemeral state", "URL query param synchronization with debounced history"],
+        chosenApproach: "URLSearchParams synchronization combined with in-memory memoized filtering",
         reason:
-          "Static typed data is simpler while project content is still evolving.",
+          "Enables bookmarking, browser back/forward navigation, and shareable travel search queries without server roundtrips.",
         tradeoff:
-          "Admin editing comes later through a database or CMS migration.",
+          "Requires careful serialization of multi-value array filters in the query string.",
       },
     ],
     risks: [
@@ -334,14 +354,14 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     summary:
       "DailyEssentials uses a commerce-ready architecture organized around catalog browsing, cart boundaries, order persistence, and future inventory/admin management.",
     diagramDefinition: `flowchart LR
-    A[Shopper] --> B[Storefront]
-    B --> C[Catalog service]
-    C --> D[(Products and categories)]
-    B --> E[Cart service]
-    E --> F[Checkout adapter]
-    F --> G[Payment provider]
-    E --> H[(Orders)]
-    I[Admin] --> C`,
+    A[Shopper Browser] --> B[Storefront UI]
+    B --> C[Catalog Service]
+    C --> D[(Products & Categories Relational Store)]
+    B --> E[Cart Service (Client Boundary)]
+    E --> F[Checkout Adapter (Planned)]
+    F --> G[Payment Provider / Gateway (Planned)]
+    E --> H[(Orders Persistence (Planned))]
+    I[Admin Management (Planned Workflow)] --> C`,
     components: [
       {
         name: "Storefront",
@@ -421,14 +441,22 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     deployment: sharedDeployment,
     decisions: [
       {
-        title: "Server recalculation of cart totals",
+        title: "Server-side price recalculation & tax validation",
+        context:
+          "Client-side cart payloads can be intercepted or manipulated, risking malicious discounted purchases.",
+        optionsConsidered: ["Trust client total with signature", "Strict server-side price & tax re-computation"],
+        chosenApproach: "Authoritative server-side price re-computation from database before payment session creation",
         reason:
           "Client prices can be tampered with, so final pricing must be recomputed before payment.",
         tradeoff:
           "Requires extra server logic, but protects revenue and order integrity.",
       },
       {
-        title: "Catalog-first implementation",
+        title: "Modular catalog boundary preceding payment gateway binding",
+        context:
+          "Coupling product presentation directly to a specific checkout vendor risks vendor lock-in and unstable catalog refactors.",
+        optionsConsidered: ["Direct embedded Stripe elements on product cards", "Catalog domain isolation with adapter pattern"],
+        chosenApproach: "Isolated catalog domain with pluggable payment adapter pattern",
         reason:
           "Strong product discovery is valuable before payment and inventory complexity is added.",
         tradeoff:
@@ -449,14 +477,14 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     summary:
       "Vyvo uses a dashboard architecture focused on metric modules, chart-ready containers, recommendation panels, and user preference boundaries.",
     diagramDefinition: `flowchart LR
-    A[User] --> B[Dashboard shell]
-    B --> C[Metric modules]
-    C --> D[(Wellness metrics)]
-    B --> E[Chart containers]
-    B --> F[Recommendation engine]
-    F --> G[Insights]
-    B --> H[Preferences]
-    H --> I[(User settings)]`,
+    A[User Client] --> B[Dashboard Shell]
+    B --> C[Metric Modules Engine]
+    C --> D[(Wellness Metric Series Store)]
+    B --> E[Dynamic Chart Containers]
+    B --> F[Recommendation Engine (Planned)]
+    F --> G[Automated Insights (Planned)]
+    B --> H[Preference Cache & Store]
+    H --> I[(User Settings Relational Model)]`,
     components: [
       {
         name: "Dashboard shell",
@@ -535,14 +563,22 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     deployment: sharedDeployment,
     decisions: [
       {
-        title: "Summary before charts",
+        title: "Executive summary metrics preceding deep graphical visualizations",
+        context:
+          "Dashboards overloaded with simultaneous heavy charts suffer high memory usage and cognitive fatigue.",
+        optionsConsidered: ["Render all complex canvas charts upfront", "Progressive metric summaries with lazy chart hydration"],
+        chosenApproach: "Key metric KPI badges with intersection-observer lazy loaded chart containers",
         reason:
           "Users need quick meaning before detailed graphs.",
         tradeoff:
           "Requires an insight layer, but prevents metric overload.",
       },
       {
-        title: "Chart-library isolation",
+        title: "Chart library encapsulation behind unified render contract",
+        context:
+          "Coupling dashboard components directly to a single charting library makes migrations or bundle optimizations painful.",
+        optionsConsidered: ["Direct charting imports across all widgets", "Isolated chart adapter boundary"],
+        chosenApproach: "Abstracted ChartContainer primitive with typed data-series contract",
         reason:
           "Chart dependencies should not leak across every metric component.",
         tradeoff:
@@ -563,15 +599,15 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     summary:
       "WishCart uses marketplace architecture with seller-aware catalog data, transaction boundaries, payment-safe order creation, and admin-ready moderation surfaces.",
     diagramDefinition: `flowchart LR
-    A[Buyer] --> B[Marketplace UI]
-    C[Seller] --> D[Seller tools]
-    B --> E[Catalog domain]
+    A[Buyer Client] --> B[Marketplace Storefront]
+    C[Seller Client] --> D[Seller Dashboard (Planned)]
+    B --> E[Catalog Domain Engine]
     D --> E
-    E --> F[(Products, sellers, variants)]
-    B --> G[Cart and checkout]
-    G --> H[Payment provider]
-    H --> I[(Orders and audit logs)]
-    J[Admin] --> K[Moderation and analytics]
+    E --> F[(Products, Sellers, Variants DB)]
+    B --> G[Cart & Checkout Boundary]
+    G --> H[Payment Provider Gateway (Planned)]
+    H --> I[(Orders & Audit Logs)]
+    J[Platform Admin] --> K[Moderation & Analytics (Planned)]
     K --> I`,
     components: [
       {
@@ -653,14 +689,22 @@ export const projectArchitectures: Record<string, ProjectArchitectureData> = {
     deployment: sharedDeployment,
     decisions: [
       {
-        title: "Seller-aware catalog",
+        title: "Multi-tenant seller-aware catalog data modeling",
+        context:
+          "Marketplaces require strict isolation between distinct sellers while presenting unified search and checkout experiences.",
+        optionsConsidered: ["Flat single-vendor schema", "Multi-tenant relational schema with seller ownership foreign keys"],
+        chosenApproach: "Prisma relational model with seller ownership foreign keys and compound unique SKU indexes",
         reason:
-          "Marketplace products need seller identity, trust, inventory, and moderation metadata.",
+          "Marketplace products need seller identity, trust badges, inventory ownership, and moderation flags.",
         tradeoff:
           "Catalog modeling is more complex than a single-store commerce app.",
       },
       {
-        title: "Audit logs for transaction state",
+        title: "Immutable audit log event streaming for orders",
+        context:
+          "Order disputes, refunds, and shipping state transitions require an unalterable history of events for accountability.",
+        optionsConsidered: ["In-place status mutation without history", "Append-only order audit events table"],
+        chosenApproach: "Append-only OrderAuditEvent table written transactionally alongside order mutations",
         reason:
           "Marketplace disputes and fulfillment flows need a reliable history of state changes.",
         tradeoff:
